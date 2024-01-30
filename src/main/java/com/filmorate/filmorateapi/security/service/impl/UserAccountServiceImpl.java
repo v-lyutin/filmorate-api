@@ -6,6 +6,7 @@ import com.filmorate.filmorateapi.security.repository.UserAccountRepository;
 import com.filmorate.filmorateapi.security.service.UserAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,11 +16,14 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Override
     public void createUserAccount(UserAccount userAccount) {
         boolean isUsernameExists = userAccountRepository.existsByEmail(userAccount.getEmail());
-
         if (isUsernameExists) {
-            throw new UserAccountServiceException("Account with this username already exists");
+            throw new UserAccountServiceException("Аккаунт с указанным адресом электронной почты уже используется");
         }
-
         userAccountRepository.save(userAccount);
+    }
+
+    @Override
+    public Optional<UserAccount> findUserByEmail(String email) {
+        return userAccountRepository.findByEmail(email);
     }
 }

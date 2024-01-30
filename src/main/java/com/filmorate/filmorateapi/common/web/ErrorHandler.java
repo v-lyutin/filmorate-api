@@ -4,6 +4,7 @@ import com.filmorate.filmorateapi.security.exception.UserAccountServiceException
 import com.filmorate.filmorateapi.security.exception.UserRoleServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +19,11 @@ public class ErrorHandler {
 
     @ExceptionHandler(UserRoleServiceException.class)
     public ProblemDetail handleUserRoleServiceException(UserRoleServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ProblemDetail handleUsernameNotFoundException(UsernameNotFoundException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
