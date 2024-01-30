@@ -29,7 +29,6 @@ public class ErrorHandler {
                 .findFirst()
                 .orElseThrow();
         String errorMessage = String.format("%s: %s", fieldError.getField(), fieldError.getDefaultMessage());
-
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, errorMessage);
     }
 

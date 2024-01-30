@@ -10,7 +10,7 @@ create schema identity;
 create table identity.user_accounts
 (
     id       serial primary key,
-    email varchar(32) unique not null,
+    email    varchar(32) unique not null,
     password varchar(128)       not null
 );
 --rollback drop table identity.user_accounts;
