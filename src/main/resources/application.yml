@@ -4,3 +4,4 @@ spring:
     username: ${FILMORATE_DB_USERNAME}
     password: ${FILMORATE_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+

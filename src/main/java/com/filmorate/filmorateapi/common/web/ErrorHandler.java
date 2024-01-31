@@ -1,7 +1,9 @@
 package com.filmorate.filmorateapi.common.web;
 
+import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.security.exception.UserAccountServiceException;
 import com.filmorate.filmorateapi.security.exception.UserRoleServiceException;
+import com.filmorate.filmorateapi.user.exception.UserProfileServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +14,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(IdentityApiServiceException.class)
+    public ProblemDetail handleIdentityApiServiceException(IdentityApiServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());
+    }
+
+    @ExceptionHandler(UserProfileServiceException.class)
+    public ProblemDetail handleUserProfileServiceException(UserProfileServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(UserAccountServiceException.class)
     public ProblemDetail handleUserAccountServiceException(UserAccountServiceException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());

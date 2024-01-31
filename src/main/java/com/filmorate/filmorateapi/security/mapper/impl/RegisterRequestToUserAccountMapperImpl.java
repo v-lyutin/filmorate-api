@@ -21,7 +21,7 @@ public class RegisterRequestToUserAccountMapperImpl implements RegisterRequestTo
     @Override
     public UserAccount map(RegisterRequest registerRequest) {
         UserRole userRole = userRoleService.findUserRole()
-                .orElseThrow(() -> new UserRoleServiceException("User role not found"));
+                .orElseThrow(() -> new UserRoleServiceException("Роль пользователя не найдена"));
 
         return UserAccount.builder()
                 .email(registerRequest.email().toLowerCase(Locale.ROOT))

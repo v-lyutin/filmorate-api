@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/accounts")
+@RequestMapping("/api/v1/accounts")
 public class UserAccountController {
     private final RegisterUserAccountUseCase registerUserAccountUseCase;
 
