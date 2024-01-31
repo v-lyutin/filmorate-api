@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.user.mapper.impl;
 
-import com.filmorate.filmorateapi.security.api.model.CurrentUserApiModel;
+import com.filmorate.filmorateapi.security.api.model.CurrentUserAccountApiModel;
 import com.filmorate.filmorateapi.security.api.service.IdentityApiService;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserProfileMapper;
@@ -17,7 +17,7 @@ public class UserProfileRegisterRequestToUserProfileMapperImpl
 
     @Override
     public UserProfile map(UserProfileRegisterRequest registerRequest) {
-        CurrentUserApiModel currentUserApiModel = identityApiService
+        CurrentUserAccountApiModel currentUserApiModel = identityApiService
                 .currentUserAccount()
                 .orElseThrow(() -> new IdentityApiServiceException(
                         "Для создания профиля пользователь должен быть авторизован в системе"

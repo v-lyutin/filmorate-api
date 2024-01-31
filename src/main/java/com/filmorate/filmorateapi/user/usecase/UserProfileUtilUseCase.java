@@ -1,9 +1,6 @@
 package com.filmorate.filmorateapi.user.usecase;
 
-import com.filmorate.filmorateapi.user.web.dto.UserProfilePageResponse;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileRegisterRequest;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateImageLinkRequest;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateNicknameRequest;
+import com.filmorate.filmorateapi.user.web.dto.*;
 
 public interface UserProfileUtilUseCase {
     void registerUserProfile(UserProfileRegisterRequest request);
@@ -13,4 +10,6 @@ public interface UserProfileUtilUseCase {
     void updateNickname(UserProfileUpdateNicknameRequest request);
 
     void updateImageLink(UserProfileUpdateImageLinkRequest request);
+
+    void updatePassword(UserProfileUpdatePasswordRequest request);
 }

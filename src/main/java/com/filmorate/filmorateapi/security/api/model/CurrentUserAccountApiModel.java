@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.security.api.model;
 
-public record CurrentUserApiModel(
+public record CurrentUserAccountApiModel(
         Long userAccountId
 ) {
 }

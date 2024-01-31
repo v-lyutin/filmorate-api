@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.security.api.service.impl;
 
-import com.filmorate.filmorateapi.security.api.model.CurrentUserApiModel;
+import com.filmorate.filmorateapi.security.api.model.CurrentUserAccountApiModel;
 import com.filmorate.filmorateapi.security.api.service.IdentityApiService;
 import com.filmorate.filmorateapi.security.service.UserAccountService;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +16,17 @@ public class IdentityApiServiceImpl implements IdentityApiService {
     private final UserAccountService userAccountService;
 
     @Override
-    public Optional<CurrentUserApiModel> currentUserAccount() {
+    public Optional<CurrentUserAccountApiModel> currentUserAccount() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return Optional.ofNullable(securityContext.getAuthentication())
                 .map(Authentication::getName)
-                .flatMap(this::extractCurrentUserApiModel);
+                .flatMap(this::extractCurrentUserAccountApiModel);
     }
 
-    private Optional<CurrentUserApiModel> extractCurrentUserApiModel(String email) {
+
+    private Optional<CurrentUserAccountApiModel> extractCurrentUserAccountApiModel(String email) {
         return userAccountService
                 .findUserByEmail(email)
-                .map(userAccount -> new CurrentUserApiModel(userAccount.getId()));
+                .map(userAccount -> new CurrentUserAccountApiModel(userAccount.getId()));
     }
 }

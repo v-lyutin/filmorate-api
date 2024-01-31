@@ -5,10 +5,7 @@ import com.filmorate.filmorateapi.user.mapper.UserProfileToUserProfilePageRespon
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
 import com.filmorate.filmorateapi.user.usecase.UserProfileUtilUseCase;
-import com.filmorate.filmorateapi.user.web.dto.UserProfilePageResponse;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileRegisterRequest;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateImageLinkRequest;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateNicknameRequest;
+import com.filmorate.filmorateapi.user.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Objects;
@@ -38,6 +35,7 @@ public class UserProfileUtilUseCaseFacade implements UserProfileUtilUseCase {
         if (Objects.equals(userProfile.getNickname(), request.nickname())) {
             return;
         }
+        userProfileService.validateNickname(request.nickname());
         userProfile.setNickname(request.nickname());
         userProfileService.updateUserProfile(userProfile);
     }
@@ -45,10 +43,15 @@ public class UserProfileUtilUseCaseFacade implements UserProfileUtilUseCase {
     @Override
     public void updateImageLink(UserProfileUpdateImageLinkRequest request) {
         UserProfile userProfile = userProfileService.getUserProfile();
-        if (Objects.equals(userProfile.getNickname(), request.imageLink())) {
+        if (Objects.equals(userProfile.getImageLink(), request.imageLink())) {
             return;
         }
         userProfile.setImageLink(request.imageLink());
         userProfileService.updateUserProfile(userProfile);
+    }
+
+    @Override
+    public void updatePassword(UserProfileUpdatePasswordRequest request) {
+
     }
 }

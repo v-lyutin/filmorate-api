@@ -10,4 +10,6 @@ public interface UserProfileService {
     UserProfile getUserProfileById(Long id);
 
     void updateUserProfile(UserProfile userProfile);
+
+    void validateNickname(String nickname);
 }

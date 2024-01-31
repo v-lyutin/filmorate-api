@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.user.service.impl;
 
-import com.filmorate.filmorateapi.security.api.model.CurrentUserApiModel;
+import com.filmorate.filmorateapi.security.api.model.CurrentUserAccountApiModel;
 import com.filmorate.filmorateapi.security.api.service.IdentityApiService;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.user.exception.UserProfileServiceException;
@@ -31,7 +31,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public UserProfile getUserProfile() {
-        CurrentUserApiModel currentUserApiModel = identityApiService
+        CurrentUserAccountApiModel currentUserApiModel = identityApiService
                 .currentUserAccount()
                 .orElseThrow(() -> new IdentityApiServiceException(
                         "Для данного действия пользователь должен быть авторизован в системе"
@@ -53,10 +53,13 @@ public class UserProfileServiceImpl implements UserProfileService {
             throw new UserProfileServiceException("Пользователя с данным ID не существует");
         }
 
-        if (userProfileRepository.existsByNickname(userProfile.getNickname())) {
+        userProfileRepository.save(userProfile);
+    }
+
+    @Override
+    public void validateNickname(String nickname) {
+        if (userProfileRepository.existsByNickname(nickname)) {
             throw new UserProfileServiceException("Данный никнейм уже занят другим пользователем");
         }
-
-        userProfileRepository.save(userProfile);
     }
 }
