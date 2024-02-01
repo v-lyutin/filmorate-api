@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/v1")
 public class UserAccountController {
     private final RegisterUserAccountUseCase registerUserAccountUseCase;
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerAccount(@Valid @RequestBody RegisterRequest registerRequest) {
         registerUserAccountUseCase.register(registerRequest);

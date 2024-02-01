@@ -16,23 +16,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserProfileController {
     private final UserProfileUtilUseCase userProfileUtilUseCase;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUserProfile(@Valid @RequestBody UserProfileRegisterRequest request) {
         userProfileUtilUseCase.registerUserProfile(request);
     }
 
-    @GetMapping("/me")
+    @GetMapping(value = "/me", produces = "application/json")
     public UserProfilePageResponse getUserProfilePage() {
         return userProfileUtilUseCase.getUserProfile();
     }
 
-    @PutMapping("/me/update/nickname")
+    @PutMapping(value = "/me/update/nickname", consumes = "application/json")
     public void updateNickname(@Valid @RequestBody UserProfileUpdateNicknameRequest request) {
         userProfileUtilUseCase.updateNickname(request);
     }
 
-    @PutMapping("/me/update/image")
+    @PutMapping(value = "/me/update/image", consumes = "application/json")
     public void updateImageLink(@Valid @RequestBody UserProfileUpdateImageLinkRequest request) {
         userProfileUtilUseCase.updateImageLink(request);
     }
