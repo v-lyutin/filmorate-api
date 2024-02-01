@@ -1,6 +1,7 @@
 package com.filmorate.filmorateapi.security.web;
 
-import com.filmorate.filmorateapi.security.usecase.RegisterUserAccountUseCase;
+import com.filmorate.filmorateapi.security.usecase.UserAccountUseCase;
+import com.filmorate.filmorateapi.security.web.dto.PasswordRequest;
 import com.filmorate.filmorateapi.security.web.dto.RegisterRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class UserAccountController {
-    private final RegisterUserAccountUseCase registerUserAccountUseCase;
+    private final UserAccountUseCase userAccountUseCase;
 
     @PostMapping(value = "/register", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody RegisterRequest registerRequest) {
-        registerUserAccountUseCase.register(registerRequest);
+    public void registerAccount(@Valid @RequestBody RegisterRequest request) {
+        userAccountUseCase.register(request);
+    }
+
+    @PutMapping(value = "/profiles/me/update/password", consumes = "application/json")
+    public void updatePassword(@Valid @RequestBody PasswordRequest request) {
+        userAccountUseCase.updatePassword(request);
     }
 }

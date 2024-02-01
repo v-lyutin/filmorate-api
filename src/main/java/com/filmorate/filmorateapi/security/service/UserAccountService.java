@@ -7,4 +7,6 @@ public interface UserAccountService {
     void createUserAccount(UserAccount userAccount);
 
     Optional<UserAccount> findUserByEmail(String email);
+
+    void updatePassword(Long userAccountId, String newPassword, String oldPassword);
 }

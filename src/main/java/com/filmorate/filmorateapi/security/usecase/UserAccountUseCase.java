@@ -1,7 +1,10 @@
 package com.filmorate.filmorateapi.security.usecase;
 
+import com.filmorate.filmorateapi.security.web.dto.PasswordRequest;
 import com.filmorate.filmorateapi.security.web.dto.RegisterRequest;
 
-public interface RegisterUserAccountUseCase {
+public interface UserAccountUseCase {
     void register(RegisterRequest registerRequest);
+
+    void updatePassword(PasswordRequest passwordRequest);
 }
