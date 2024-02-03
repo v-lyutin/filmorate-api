@@ -1,6 +1,7 @@
 package com.filmorate.filmorateapi.common.web;
 
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
+import com.filmorate.filmorateapi.security.exception.JwtAccessTokenServiceException;
 import com.filmorate.filmorateapi.security.exception.UserAccountServiceException;
 import com.filmorate.filmorateapi.security.exception.UserRoleServiceException;
 import com.filmorate.filmorateapi.user.exception.UserProfileServiceException;
@@ -14,6 +15,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(JwtAccessTokenServiceException.class)
+    public ProblemDetail handleJwtAccessTokenServiceException(JwtAccessTokenServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+    }
+
     @ExceptionHandler(IdentityApiServiceException.class)
     public ProblemDetail handleIdentityApiServiceException(IdentityApiServiceException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());

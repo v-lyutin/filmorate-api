@@ -6,6 +6,5 @@ public record PasswordRequest(
         @ValidPassword
         String newPassword,
 
-        String oldPassword
-) {
+        String oldPassword) {
 }

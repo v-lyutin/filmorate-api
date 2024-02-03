@@ -10,6 +10,5 @@ public record RegisterRequest(
         String email,
 
         @ValidPassword
-        String password
-) {
+        String password) {
 }
