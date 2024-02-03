@@ -8,6 +8,7 @@ import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateNicknameRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,23 +17,23 @@ import org.springframework.web.bind.annotation.*;
 public class UserProfileController {
     private final UserProfileUtilUseCase userProfileUtilUseCase;
 
-    @PostMapping(value = "/create", consumes = "application/json")
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUserProfile(@Valid @RequestBody UserProfileRegisterRequest request) {
         userProfileUtilUseCase.registerUserProfile(request);
     }
 
-    @GetMapping(value = "/me", produces = "application/json")
+    @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserProfilePageResponse getUserProfilePage() {
         return userProfileUtilUseCase.getUserProfile();
     }
 
-    @PutMapping(value = "/me/update/nickname", consumes = "application/json")
+    @PutMapping(value = "/me/update/nickname", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateNickname(@Valid @RequestBody UserProfileUpdateNicknameRequest request) {
         userProfileUtilUseCase.updateNickname(request);
     }
 
-    @PutMapping(value = "/me/update/image", consumes = "application/json")
+    @PutMapping(value = "/me/update/image", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateImageLink(@Valid @RequestBody UserProfileUpdateImageLinkRequest request) {
         userProfileUtilUseCase.updateImageLink(request);
     }

@@ -1,10 +1,9 @@
 package com.filmorate.filmorateapi.user.web.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import com.filmorate.filmorateapi.user.validation.Nickname;
 
 public record UserProfileRegisterRequest(
-        @NotBlank
+        @Nickname
         String nickname,
-        String imageLink
-) {
+        String imageLink) {
 }

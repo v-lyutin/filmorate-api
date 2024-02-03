@@ -1,9 +1,9 @@
 package com.filmorate.filmorateapi.security.web.dto;
 
-import com.filmorate.filmorateapi.security.validation.ValidPassword;
+import com.filmorate.filmorateapi.security.validation.Password;
 
 public record PasswordRequest(
-        @ValidPassword
+        @Password
         String newPassword,
 
         String oldPassword) {

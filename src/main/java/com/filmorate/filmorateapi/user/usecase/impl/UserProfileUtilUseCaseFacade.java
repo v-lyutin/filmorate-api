@@ -49,9 +49,4 @@ public class UserProfileUtilUseCaseFacade implements UserProfileUtilUseCase {
         userProfile.setImageLink(request.imageLink());
         userProfileService.updateUserProfile(userProfile);
     }
-
-    @Override
-    public void updatePassword(UserProfileUpdatePasswordRequest request) {
-
-    }
 }

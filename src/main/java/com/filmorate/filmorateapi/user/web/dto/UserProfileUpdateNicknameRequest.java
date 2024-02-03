@@ -1,9 +1,8 @@
 package com.filmorate.filmorateapi.user.web.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import com.filmorate.filmorateapi.user.validation.Nickname;
 
 public record UserProfileUpdateNicknameRequest(
-    @NotBlank
-    String nickname
-) {
+    @Nickname
+    String nickname) {
 }

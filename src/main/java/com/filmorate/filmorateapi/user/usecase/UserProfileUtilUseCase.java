@@ -10,6 +10,4 @@ public interface UserProfileUtilUseCase {
     void updateNickname(UserProfileUpdateNicknameRequest request);
 
     void updateImageLink(UserProfileUpdateImageLinkRequest request);
-
-    void updatePassword(UserProfileUpdatePasswordRequest request);
 }
