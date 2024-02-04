@@ -4,7 +4,7 @@ import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserPr
 import com.filmorate.filmorateapi.user.mapper.UserProfileToUserProfilePageResponseMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
-import com.filmorate.filmorateapi.user.usecase.UserProfileUtilUseCase;
+import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
 import com.filmorate.filmorateapi.user.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,13 +12,13 @@ import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
-public class UserProfileUtilUseCaseFacade implements UserProfileUtilUseCase {
+public class UserProfileUseCaseFacade implements UserProfileUseCase {
     private final UserProfileService userProfileService;
     private final UserProfileRegisterRequestToUserProfileMapper userProfileRegisterRequestToUserProfileMapper;
     private final UserProfileToUserProfilePageResponseMapper userProfileToUserProfilePageResponseMapper;
 
     @Override
-    public void registerUserProfile(UserProfileRegisterRequest request) {
+    public void registerUserProfile(UserProfileCreationRequest request) {
         UserProfile userProfile = userProfileRegisterRequestToUserProfileMapper.map(request);
         userProfileService.createUserProfile(userProfile);
     }

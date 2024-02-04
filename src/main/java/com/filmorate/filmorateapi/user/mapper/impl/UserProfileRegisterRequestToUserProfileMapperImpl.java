@@ -5,7 +5,7 @@ import com.filmorate.filmorateapi.security.api.service.IdentityApiService;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserProfileMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileRegisterRequest;
+import com.filmorate.filmorateapi.user.web.dto.UserProfileCreationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class UserProfileRegisterRequestToUserProfileMapperImpl
     private final IdentityApiService identityApiService;
 
     @Override
-    public UserProfile map(UserProfileRegisterRequest registerRequest) {
+    public UserProfile map(UserProfileCreationRequest registerRequest) {
         CurrentUserAccountApiModel currentUserApiModel = identityApiService
                 .currentUserAccount()
                 .orElseThrow(() -> new IdentityApiServiceException(

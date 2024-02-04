@@ -1,8 +1,8 @@
 package com.filmorate.filmorateapi.user.web;
 
-import com.filmorate.filmorateapi.user.usecase.UserProfileUtilUseCase;
+import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
 import com.filmorate.filmorateapi.user.web.dto.UserProfilePageResponse;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileRegisterRequest;
+import com.filmorate.filmorateapi.user.web.dto.UserProfileCreationRequest;
 import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateImageLinkRequest;
 import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateNicknameRequest;
 import jakarta.validation.Valid;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/profiles")
 public class UserProfileController {
-    private final UserProfileUtilUseCase userProfileUtilUseCase;
+    private final UserProfileUseCase userProfileUtilUseCase;
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerUserProfile(@Valid @RequestBody UserProfileRegisterRequest request) {
+    public void registerUserProfile(@Valid @RequestBody UserProfileCreationRequest request) {
         userProfileUtilUseCase.registerUserProfile(request);
     }
 

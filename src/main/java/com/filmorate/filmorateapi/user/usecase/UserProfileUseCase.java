@@ -2,8 +2,8 @@ package com.filmorate.filmorateapi.user.usecase;
 
 import com.filmorate.filmorateapi.user.web.dto.*;
 
-public interface UserProfileUtilUseCase {
-    void registerUserProfile(UserProfileRegisterRequest request);
+public interface UserProfileUseCase {
+    void registerUserProfile(UserProfileCreationRequest request);
 
     UserProfilePageResponse getUserProfile();
 
