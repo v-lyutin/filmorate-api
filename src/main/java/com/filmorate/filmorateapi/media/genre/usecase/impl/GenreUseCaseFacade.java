@@ -4,11 +4,9 @@ import com.filmorate.filmorateapi.media.genre.model.Genre;
 import com.filmorate.filmorateapi.media.genre.service.GenreService;
 import com.filmorate.filmorateapi.media.genre.usecase.GenreUseCase;
 import com.filmorate.filmorateapi.media.genre.web.dto.GenreCreationRequest;
-import com.filmorate.filmorateapi.media.genre.web.dto.GenreResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -16,11 +14,8 @@ public class GenreUseCaseFacade implements GenreUseCase {
     private final GenreService genreService;
 
     @Override
-    public Collection<GenreResponse> getAllGenres() {
-        return genreService.getAllGenres().stream()
-                .map(Genre::getName)
-                .map(GenreResponse::new)
-                .collect(Collectors.toList());
+    public Collection<Genre> getAllGenres() {
+        return genreService.getAllGenres();
     }
 
     @Override
