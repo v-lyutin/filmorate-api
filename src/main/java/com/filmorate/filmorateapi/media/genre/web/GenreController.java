@@ -24,6 +24,12 @@ public class GenreController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping(value = "/{genreId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Genre getGenreById(@PathVariable Long genreId) {
+        return genreUseCase.getGenreById(genreId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void createGenre(@Valid @RequestBody GenreCreationRequest request) {

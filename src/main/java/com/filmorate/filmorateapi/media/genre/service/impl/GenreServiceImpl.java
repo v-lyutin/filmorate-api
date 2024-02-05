@@ -19,6 +19,12 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    public Genre getGenreById(Long genreId) {
+        return genreRepository.findById(genreId)
+                .orElseThrow(() -> new GenreServiceException(String.format("Жанра с ID = {%d} не существует", genreId)));
+    }
+
+    @Override
     public void createGenre(Genre genre) {
         if (genreRepository.existsByName(genre.getName())) {
             throw new GenreServiceException("Жанр с таким названием уже существует");

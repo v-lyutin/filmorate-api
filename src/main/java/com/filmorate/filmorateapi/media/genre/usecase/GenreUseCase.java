@@ -7,6 +7,8 @@ import java.util.Collection;
 public interface GenreUseCase {
     Collection<Genre> getAllGenres();
 
+    Genre getGenreById(Long genreId);
+
     void createGenre(GenreCreationRequest genreCreationRequest);
 
     void updateGenre(Long genreId, GenreCreationRequest genreCreationRequest);
