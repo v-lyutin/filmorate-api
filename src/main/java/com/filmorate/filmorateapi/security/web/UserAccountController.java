@@ -5,6 +5,8 @@ import com.filmorate.filmorateapi.security.web.dto.AccessToken;
 import com.filmorate.filmorateapi.security.web.dto.LoginRequest;
 import com.filmorate.filmorateapi.security.web.dto.PasswordRequest;
 import com.filmorate.filmorateapi.security.web.dto.RegisterRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 public class UserAccountController {
     private final UserAccountUseCase userAccountUseCase;
 
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void registerAccount(@Valid @RequestBody RegisterRequest request) {
         userAccountUseCase.register(request);
@@ -31,6 +33,7 @@ public class UserAccountController {
         return userAccountUseCase.authenticate(request);
     }
 
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     @PutMapping(value = "/profiles/me/update/password", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updatePassword(@Valid @RequestBody PasswordRequest request) {
         userAccountUseCase.updatePassword(request);
