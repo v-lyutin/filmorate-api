@@ -1,5 +1,6 @@
 package com.filmorate.filmorateapi.common.web;
 
+import com.filmorate.filmorateapi.media.career.exception.CareerServiceException;
 import com.filmorate.filmorateapi.media.genre.exception.GenreServiceException;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.security.exception.JwtAccessTokenServiceException;
@@ -17,6 +18,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(CareerServiceException.class)
+    public ProblemDetail handleCareerServiceException(CareerServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ProblemDetail handleAccessDeniedException(AccessDeniedException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());
