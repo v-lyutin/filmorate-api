@@ -2,6 +2,7 @@ package com.filmorate.filmorateapi.common.web;
 
 import com.filmorate.filmorateapi.media.career.exception.CareerServiceException;
 import com.filmorate.filmorateapi.media.genre.exception.GenreServiceException;
+import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.security.exception.JwtAccessTokenServiceException;
 import com.filmorate.filmorateapi.security.exception.UserAccountServiceException;
@@ -18,6 +19,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(PersonServiceException.class)
+    public ProblemDetail handlePersonServiceException(PersonServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(CareerServiceException.class)
     public ProblemDetail handleCareerServiceException(CareerServiceException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
