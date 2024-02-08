@@ -1,5 +1,6 @@
 package com.filmorate.filmorateapi.media.person.web;
 
+import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.usecase.PersonUseCase;
 import com.filmorate.filmorateapi.media.person.web.dto.*;
 import jakarta.validation.Valid;
@@ -16,12 +17,17 @@ public class PersonController {
     private final PersonUseCase personUseCase;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonPageResponse getPersons(
+    public PersonsPageResponse getPersons(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "limit", defaultValue = "10") int limit
     ) {
         PersonFindRequest personFindRequest = new PersonFindRequest(page, limit);
         return personUseCase.findPersons(personFindRequest);
+    }
+
+    @GetMapping("/{personId}")
+    public Person getPerson(@PathVariable(name = "personId") Long personId) {
+        return personUseCase.getPerson(personId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

@@ -3,7 +3,7 @@ package com.filmorate.filmorateapi.media.person.usecase.impl;
 import com.filmorate.filmorateapi.media.career.model.Career;
 import com.filmorate.filmorateapi.media.person.mapper.PersonAddCareersRequestToCareersMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonCreationRequestToPersonMapper;
-import com.filmorate.filmorateapi.media.person.mapper.PersonPageToPersonPageResponseMapper;
+import com.filmorate.filmorateapi.media.person.mapper.PersonPageToPersonsPageResponseMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import com.filmorate.filmorateapi.media.person.usecase.PersonUseCase;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
 import java.util.Set;
 
 @Component
@@ -21,14 +20,19 @@ import java.util.Set;
 public class PersonUseCaseFacade implements PersonUseCase {
     private final PersonService personService;
     private final PersonAddCareersRequestToCareersMapper personAddCareersRequestToCareersMapper;
-    private final PersonPageToPersonPageResponseMapper personPageToPersonPageResponseMapper;
+    private final PersonPageToPersonsPageResponseMapper personPageToPersonPageResponseMapper;
     private final PersonCreationRequestToPersonMapper personCreationRequestToPersonMapper;
 
     @Override
-    public PersonPageResponse findPersons(PersonFindRequest personFindRequest) {
+    public PersonsPageResponse findPersons(PersonFindRequest personFindRequest) {
         Pageable pageable = PageRequest.of(personFindRequest.page(), personFindRequest.limit());
         Page<Person> pageablePersons = personService.findPersons(pageable);
         return personPageToPersonPageResponseMapper.map(pageablePersons);
+    }
+
+    @Override
+    public Person getPerson(Long personId) {
+        return personService.getPersonById(personId);
     }
 
     @Override
