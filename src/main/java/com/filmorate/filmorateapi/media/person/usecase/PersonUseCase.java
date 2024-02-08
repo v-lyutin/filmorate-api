@@ -1,8 +1,6 @@
 package com.filmorate.filmorateapi.media.person.usecase;
 
-import com.filmorate.filmorateapi.media.person.web.dto.PersonCreationRequest;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonFindRequest;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonPageResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
@@ -11,4 +9,12 @@ public interface PersonUseCase {
     PersonPageResponse findPersons(@Valid PersonFindRequest personFindRequest);
 
     void createPerson(PersonCreationRequest personCreationRequest);
+
+    void addImageLink(Long personId, PersonAddImageLinkRequest personAddImageLinkRequest);
+
+    void deleteImageLink(Long personId);
+
+    void addPersonCareers(Long personId, PersonAddCareersRequest personAddCareersRequest);
+
+    void deletePersonCareers(Long personId);
 }

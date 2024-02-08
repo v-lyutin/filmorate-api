@@ -25,6 +25,12 @@ public class CareerServiceImpl implements CareerService {
     }
 
     @Override
+    public Career findCareerByName(String careerName) {
+        return careerRepository.findByName(careerName)
+                .orElseThrow(() -> new CareerServiceException(String.format("Карьеры '%s' не существует", careerName)));
+    }
+
+    @Override
     public void createCareer(Career career) {
         if (careerRepository.existsByName(career.getName())) {
             throw new CareerServiceException("Карьера с таким названием уже существует");

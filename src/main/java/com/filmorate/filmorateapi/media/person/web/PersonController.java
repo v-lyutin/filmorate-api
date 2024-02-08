@@ -1,9 +1,7 @@
 package com.filmorate.filmorateapi.media.person.web;
 
 import com.filmorate.filmorateapi.media.person.usecase.PersonUseCase;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonCreationRequest;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonFindRequest;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonPageResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,5 +29,30 @@ public class PersonController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createPerson(@Valid @RequestBody PersonCreationRequest request) {
         personUseCase.createPerson(request);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value = "/{personId}/image", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateImageLink(@PathVariable(name = "personId") Long personId,
+                                @Valid @RequestBody PersonAddImageLinkRequest request) {
+        personUseCase.addImageLink(personId, request);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{personId}/image")
+    public void deleteImageLink(@PathVariable(name = "personId") Long personId) {
+        personUseCase.deleteImageLink(personId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(value = "/{personId}/careers", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updatePersonCareers(@PathVariable(name = "personId") Long personId,
+                                    @Valid @RequestBody PersonAddCareersRequest request) {
+        personUseCase.addPersonCareers(personId, request);
+    }
+
+    @DeleteMapping(value = "/{personId}/careers")
+    public void deletePersonCareers(@PathVariable(name = "personId") Long personId) {
+        personUseCase.deletePersonCareers(personId);
     }
 }
