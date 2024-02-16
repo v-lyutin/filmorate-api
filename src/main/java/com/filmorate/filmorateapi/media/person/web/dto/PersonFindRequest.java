@@ -4,10 +4,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
 public record PersonFindRequest(
-        @Min(0)
+        @Min(value = 0, message = "Page must be positive")
         int page,
 
-        @Min(10)
-        @Max(100)
+        @Min(value = 10, message = "The minimum limit is 10")
+        @Max(value = 25, message = "The maximum limit is 25")
         int limit) {
 }

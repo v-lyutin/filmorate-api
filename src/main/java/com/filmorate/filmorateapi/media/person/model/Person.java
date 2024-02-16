@@ -31,6 +31,12 @@ public class Person {
     private Date birthDate;
 
     @Column(nullable = false)
+    private String countryOfBirth;
+
+    @Column(nullable = false)
+    private String cityOfBirth;
+
+    @Column(nullable = false)
     private Integer height;
 
     @ManyToMany

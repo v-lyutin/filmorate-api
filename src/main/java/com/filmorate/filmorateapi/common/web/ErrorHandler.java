@@ -8,6 +8,7 @@ import com.filmorate.filmorateapi.security.exception.JwtAccessTokenServiceExcept
 import com.filmorate.filmorateapi.security.exception.UserAccountServiceException;
 import com.filmorate.filmorateapi.security.exception.UserRoleServiceException;
 import com.filmorate.filmorateapi.user.exception.UserProfileServiceException;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
@@ -19,6 +20,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(TypeMismatchException.class)
+    public ProblemDetail handleTypeMismatchException(TypeMismatchException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(PersonServiceException.class)
     public ProblemDetail handlePersonServiceException(PersonServiceException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
