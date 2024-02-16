@@ -3,6 +3,7 @@ package com.filmorate.filmorateapi.media.person.web;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.usecase.PersonUseCase;
 import com.filmorate.filmorateapi.media.person.web.dto.*;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateInfoRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,13 @@ public class PersonController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createPerson(@Valid @RequestBody PersonCreationRequest request) {
         personUseCase.createPerson(request);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping(value = "/{personId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updatePerson(@PathVariable(name = "personId") Long personId,
+                             @Valid @RequestBody PersonUpdateInfoRequest request) {
+        personUseCase.updatePerson(personId, request);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

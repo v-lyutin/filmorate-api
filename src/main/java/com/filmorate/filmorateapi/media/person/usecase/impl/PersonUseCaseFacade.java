@@ -4,10 +4,12 @@ import com.filmorate.filmorateapi.media.career.model.Career;
 import com.filmorate.filmorateapi.media.person.mapper.PersonAddCareersRequestToCareersMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonCreationRequestToPersonMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonPageToPersonsPageResponseMapper;
+import com.filmorate.filmorateapi.media.person.mapper.PersonUpdateMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import com.filmorate.filmorateapi.media.person.usecase.PersonUseCase;
 import com.filmorate.filmorateapi.media.person.web.dto.*;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateInfoRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PersonUseCaseFacade implements PersonUseCase {
     private final PersonService personService;
+    private final PersonUpdateMapper personUpdateMapper;
     private final PersonAddCareersRequestToCareersMapper personAddCareersRequestToCareersMapper;
     private final PersonPageToPersonsPageResponseMapper personPageToPersonPageResponseMapper;
     private final PersonCreationRequestToPersonMapper personCreationRequestToPersonMapper;
@@ -39,6 +42,13 @@ public class PersonUseCaseFacade implements PersonUseCase {
     public void createPerson(PersonCreationRequest personCreationRequest) {
         Person person = personCreationRequestToPersonMapper.map(personCreationRequest);
         personService.createPerson(person);
+    }
+
+    @Override
+    public void updatePerson(Long personId, PersonUpdateInfoRequest personUpdateInfoRequest) {
+        Person person = personService.getPersonById(personId);
+        personUpdateMapper.update(personUpdateInfoRequest, person);
+        personService.updatePerson(person);
     }
 
     @Override
