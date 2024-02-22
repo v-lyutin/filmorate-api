@@ -3,7 +3,7 @@ package com.filmorate.filmorateapi.media.person.mapper.impl;
 import com.filmorate.filmorateapi.media.career.model.Career;
 import com.filmorate.filmorateapi.media.career.service.CareerService;
 import com.filmorate.filmorateapi.media.person.mapper.PersonAddCareersRequestToCareersMapper;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonAddCareersRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonAddCareerRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Set;
@@ -15,7 +15,7 @@ public class PersonAddCareersRequestToCareersMapperImpl implements PersonAddCare
     private final CareerService careerService;
 
     @Override
-    public Set<Career> map(PersonAddCareersRequest personAddCareersRequest) {
+    public Set<Career> map(PersonAddCareerRequest personAddCareersRequest) {
         return personAddCareersRequest.careers().stream()
                 .map(careerService::findCareerByName)
                 .collect(Collectors.toSet());

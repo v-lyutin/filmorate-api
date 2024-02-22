@@ -3,8 +3,7 @@ package com.filmorate.filmorateapi.media.person.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.filmorate.filmorateapi.media.career.model.Career;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +11,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(schema = "filmorate", name = "persons")
 public class Person {
     @Id
@@ -39,6 +42,7 @@ public class Person {
     @Column(nullable = false)
     private Integer height;
 
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(
             schema = "filmorate",

@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.media.person.web.dto;
+package com.filmorate.filmorateapi.media.person.web.dto.response;
 
 import java.util.Collection;
 

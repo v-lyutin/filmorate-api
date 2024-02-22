@@ -3,7 +3,7 @@ package com.filmorate.filmorateapi.media.person.mapper.impl;
 import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonUpdateMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
-import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateInfoRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -11,9 +11,12 @@ public class PersonUpdateMapperImpl extends PersonUpdateMapper {
     private final JsonNullableMapper jsonNullableMapper;
 
     @Override
-    public void update(PersonUpdateInfoRequest request, Person person) {
+    public void map(PersonUpdateRequest request, Person person) {
         if (request == null) {
             return;
+        }
+        if (jsonNullableMapper.isPresent(request.imageLink())) {
+            person.setImageLink(jsonNullableMapper.unwrap(request.imageLink()));
         }
         if (jsonNullableMapper.isPresent(request.firstName())) {
             person.setFirstName(jsonNullableMapper.unwrap(request.firstName()));

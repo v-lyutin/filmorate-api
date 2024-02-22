@@ -3,7 +3,7 @@ package com.filmorate.filmorateapi.media.person.mapper.impl;
 import com.filmorate.filmorateapi.media.person.mapper.PersonPageToPersonsPageResponseMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonToPersonDemoResponseMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
-import com.filmorate.filmorateapi.media.person.web.dto.PersonsPageResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonsPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;

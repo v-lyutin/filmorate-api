@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.media.person.web.dto;
+package com.filmorate.filmorateapi.media.person.web.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

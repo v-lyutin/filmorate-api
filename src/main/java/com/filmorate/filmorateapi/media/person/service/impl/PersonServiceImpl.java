@@ -7,6 +7,7 @@ import com.filmorate.filmorateapi.media.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +24,9 @@ public class PersonServiceImpl implements PersonService {
     public Person getPersonById(Long personId) {
         return personRepository
                 .findById(personId)
-                .orElseThrow(() -> new PersonServiceException(String.format("Личность с ID = %d не найдена", personId)));
+                .orElseThrow(() -> new PersonServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Person with ID = %d not found", personId)));
     }
 
     @Override

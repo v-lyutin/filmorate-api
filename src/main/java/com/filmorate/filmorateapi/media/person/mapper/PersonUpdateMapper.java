@@ -2,7 +2,7 @@ package com.filmorate.filmorateapi.media.person.mapper;
 
 import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
-import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateInfoRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
 import org.mapstruct.*;
 
 @Mapper(
@@ -12,5 +12,6 @@ import org.mapstruct.*;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public abstract class PersonUpdateMapper {
-    public abstract void update(PersonUpdateInfoRequest request, @MappingTarget Person person);
+    public abstract void map(PersonUpdateRequest request, @MappingTarget Person person);
 }
+

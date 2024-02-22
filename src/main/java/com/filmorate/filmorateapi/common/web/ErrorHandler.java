@@ -27,7 +27,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(PersonServiceException.class)
     public ProblemDetail handlePersonServiceException(PersonServiceException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
     }
 
     @ExceptionHandler(CareerServiceException.class)
