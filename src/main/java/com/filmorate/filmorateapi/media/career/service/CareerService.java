@@ -8,6 +8,8 @@ public interface CareerService {
 
     Career findCareerById(Long careerId);
 
+    Career findCareerByName(String careerName);
+
     void createCareer(Career career);
 
     void updateCareer(Career updatedCareer);

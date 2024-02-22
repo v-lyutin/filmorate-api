@@ -1,0 +1,24 @@
+package com.filmorate.filmorateapi.media.person.web.dto.request;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.PastOrPresent;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.util.Date;
+
+public record PersonUpdateRequest(
+        JsonNullable<String> imageLink,
+
+        JsonNullable<String> firstName,
+
+        JsonNullable<String> lastName,
+
+        @PastOrPresent(message = "Date of birth from the future")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        JsonNullable<Date> birthDate,
+
+        JsonNullable<String> countryOfBirth,
+
+        JsonNullable<String> cityOfBirth,
+
+        JsonNullable<Integer> height) {
+}
