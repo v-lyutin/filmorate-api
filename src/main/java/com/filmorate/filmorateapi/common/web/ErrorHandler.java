@@ -7,6 +7,7 @@ import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException
 import com.filmorate.filmorateapi.security.exception.JwtAccessTokenServiceException;
 import com.filmorate.filmorateapi.security.exception.UserAccountServiceException;
 import com.filmorate.filmorateapi.security.exception.UserRoleServiceException;
+import com.filmorate.filmorateapi.user.api.exception.CurrentUserProfileApiServiceException;
 import com.filmorate.filmorateapi.user.exception.UserProfileServiceException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(CurrentUserProfileApiServiceException.class)
+    public ProblemDetail handleCurrentUserProfileApiServiceException(CurrentUserProfileApiServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
     @ExceptionHandler(TypeMismatchException.class)
     public ProblemDetail handleTypeMismatchException(TypeMismatchException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
