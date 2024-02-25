@@ -7,15 +7,23 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/persons")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class FactController {
     private final FactUseCase factUseCase;
 
-    @PostMapping(value = "/{personId}/facts", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{personId}/facts", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<FactResponse> getFactsByPersonId(@PathVariable(name = "personId") Long personId) {
+        return factUseCase.getFactsByPersonId(personId);
+    }
+
+    @PostMapping(value = "/{personId}/facts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public FactResponse addFact(
             @PathVariable(name = "personId") Long personId,
@@ -23,7 +31,7 @@ public class FactController {
         return factUseCase.addFact(personId, request);
     }
 
-    @PutMapping(value = "/{personId}/facts/{factId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{personId}/facts/{factId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public FactResponse editFact(
             @PathVariable(name = "personId") Long personId,
             @PathVariable(name = "factId") Long factId,

@@ -9,10 +9,13 @@ import com.filmorate.filmorateapi.media.fact.usecase.FactUseCase;
 import com.filmorate.filmorateapi.media.fact.web.dto.FactRequest;
 import com.filmorate.filmorateapi.media.fact.web.dto.FactResponse;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
+import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -40,5 +43,13 @@ public class FactUseCaseFacade implements FactUseCase {
         Fact mappedFact = factEditRequestToFactMapper.map(factId, request);
         Fact editedFact = factService.updateFact(mappedFact);
         return factToFactResponseMapper.map(editedFact);
+    }
+
+    @Override
+    public List<FactResponse> getFactsByPersonId(Long personId) {
+        Person person = personService.getPersonById(personId);
+        return factService.getFactsByPerson(person).stream()
+                .map(factToFactResponseMapper::map)
+                .collect(Collectors.toList());
     }
 }
