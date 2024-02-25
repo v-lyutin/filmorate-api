@@ -2,6 +2,7 @@ package com.filmorate.filmorateapi.media.person.usecase.common.impl;
 
 import com.filmorate.filmorateapi.media.person.mapper.PersonCreationRequestToPersonMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonPageToPersonsPageResponseMapper;
+import com.filmorate.filmorateapi.media.person.mapper.PersonToPersonResponseMapper;
 import com.filmorate.filmorateapi.media.person.mapper.PersonUpdateMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
@@ -9,6 +10,7 @@ import com.filmorate.filmorateapi.media.person.usecase.common.PersonCommonUseCas
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonCreationRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonFindRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonsPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,7 @@ public class PersonCommonUseCaseFacade implements PersonCommonUseCase {
     private final PersonUpdateMapper personUpdateMapper;
     private final PersonPageToPersonsPageResponseMapper personPageToPersonPageResponseMapper;
     private final PersonCreationRequestToPersonMapper personCreationRequestToPersonMapper;
+    private final PersonToPersonResponseMapper personToPersonResponseMapper;
 
     @Override
     public PersonsPageResponse findPersons(PersonFindRequest request) {
@@ -32,8 +35,9 @@ public class PersonCommonUseCaseFacade implements PersonCommonUseCase {
     }
 
     @Override
-    public Person getPersonById(Long personId) {
-        return personService.getPersonById(personId);
+    public PersonResponse getPersonById(Long personId) {
+        Person person = personService.getPersonById(personId);
+        return personToPersonResponseMapper.map(person);
     }
 
     @Override

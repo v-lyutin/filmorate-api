@@ -4,9 +4,14 @@ import java.time.Instant;
 
 public record FactResponse(
         long id,
+
         String text,
+
         Instant createdAt,
+
         String createdBy,
+
         Instant editedAt,
+
         String editedBy) {
 }

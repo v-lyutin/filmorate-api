@@ -4,9 +4,12 @@ import com.filmorate.filmorateapi.media.fact.exception.FactServiceException;
 import com.filmorate.filmorateapi.media.fact.model.Fact;
 import com.filmorate.filmorateapi.media.fact.repository.FactRepository;
 import com.filmorate.filmorateapi.media.fact.service.FactService;
+import com.filmorate.filmorateapi.media.person.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -30,5 +33,10 @@ public class FactServiceImpl implements FactService {
                         HttpStatus.NOT_FOUND,
                         String.format("Fact with ID = %d not found", factId))
                 );
+    }
+
+    @Override
+    public List<Fact> getFactsByPerson(Person person) {
+        return factRepository.findFactsByPerson(person);
     }
 }

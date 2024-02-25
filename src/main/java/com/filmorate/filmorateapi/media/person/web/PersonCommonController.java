@@ -3,6 +3,7 @@ package com.filmorate.filmorateapi.media.person.web;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.usecase.common.PersonCommonUseCase;
 import com.filmorate.filmorateapi.media.person.web.dto.request.*;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonsPageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class PersonCommonController {
     }
 
     @GetMapping(value = "/{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person getPersonById(@PathVariable(name = "personId") Long personId) {
+    public PersonResponse getPersonById(@PathVariable(name = "personId") Long personId) {
         return personCommonUseCase.getPersonById(personId);
     }
 
