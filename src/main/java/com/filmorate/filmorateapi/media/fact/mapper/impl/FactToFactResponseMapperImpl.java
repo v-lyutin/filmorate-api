@@ -13,7 +13,9 @@ public class FactToFactResponseMapperImpl implements FactToFactResponseMapper {
                 fact.getId(),
                 fact.getText(),
                 fact.getCreatedAt(),
-                fact.getCreatedBy()
+                fact.getCreatedBy(),
+                fact.getEditedAt(),
+                fact.getEditedBy()
         );
     }
 }

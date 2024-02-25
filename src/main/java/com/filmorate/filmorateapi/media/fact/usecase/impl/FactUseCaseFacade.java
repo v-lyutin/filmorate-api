@@ -1,26 +1,44 @@
 package com.filmorate.filmorateapi.media.fact.usecase.impl;
 
-import com.filmorate.filmorateapi.media.fact.mapper.FactAddRequestToFactMapper;
+import com.filmorate.filmorateapi.media.fact.mapper.FactEditRequestToFactMapper;
+import com.filmorate.filmorateapi.media.fact.mapper.FactRequestToFactMapper;
 import com.filmorate.filmorateapi.media.fact.mapper.FactToFactResponseMapper;
 import com.filmorate.filmorateapi.media.fact.model.Fact;
 import com.filmorate.filmorateapi.media.fact.service.FactService;
 import com.filmorate.filmorateapi.media.fact.usecase.FactUseCase;
-import com.filmorate.filmorateapi.media.fact.web.dto.FactAddRequest;
+import com.filmorate.filmorateapi.media.fact.web.dto.FactRequest;
 import com.filmorate.filmorateapi.media.fact.web.dto.FactResponse;
+import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
+import com.filmorate.filmorateapi.media.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class FactUseCaseFacade implements FactUseCase {
-    private final FactAddRequestToFactMapper factAddRequestToFactMapper;
+    private final FactRequestToFactMapper factRequestToFactMapper;
     private final FactToFactResponseMapper factToFactResponseMapper;
+    private final FactEditRequestToFactMapper factEditRequestToFactMapper;
     private final FactService factService;
+    private final PersonService personService;
 
     @Override
-    public FactResponse addFact(Long personId, FactAddRequest request) {
-        Fact mappedFact = factAddRequestToFactMapper.map(request);
+    public FactResponse addFact(Long personId, FactRequest request) {
+        Fact mappedFact = factRequestToFactMapper.map(personId, request);
         Fact createdFact = factService.createFact(mappedFact);
         return factToFactResponseMapper.map(createdFact);
+    }
+
+    @Override
+    public FactResponse editFact(Long personId, Long factId, FactRequest request) {
+        if (!personService.existsById(personId)) {
+            throw new PersonServiceException(
+                    HttpStatus.NOT_FOUND,
+                    String.format("Person with ID = %d not found", personId));
+        }
+        Fact mappedFact = factEditRequestToFactMapper.map(factId, request);
+        Fact editedFact = factService.updateFact(mappedFact);
+        return factToFactResponseMapper.map(editedFact);
     }
 }

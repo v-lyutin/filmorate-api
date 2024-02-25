@@ -30,7 +30,8 @@ dependencies {
 	implementation group: 'org.passay', name: 'passay', version: '1.6.4'
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 	implementation 'org.liquibase:liquibase-core'
-	compileOnly 'org.projectlombok:lombok'
+    implementation 'org.testng:testng:7.1.0'
+    compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

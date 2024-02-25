@@ -43,4 +43,9 @@ public class PersonServiceImpl implements PersonService {
     public void deletePerson(Long personId) {
         personRepository.deleteById(personId);
     }
+
+    @Override
+    public boolean existsById(Long personId) {
+        return personRepository.existsById(personId);
+    }
 }

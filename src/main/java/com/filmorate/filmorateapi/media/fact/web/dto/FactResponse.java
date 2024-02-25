@@ -6,6 +6,7 @@ public record FactResponse(
         long id,
         String text,
         Instant createdAt,
-
-        String createdBy) {
+        String createdBy,
+        Instant editedAt,
+        String editedBy) {
 }
