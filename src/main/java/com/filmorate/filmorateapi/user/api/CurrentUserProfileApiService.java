@@ -4,4 +4,6 @@ import com.filmorate.filmorateapi.user.model.UserProfile;
 
 public interface CurrentUserProfileApiService {
     UserProfile currentUserProfile();
+
+    void updateUserProfile(UserProfile userProfile);
 }

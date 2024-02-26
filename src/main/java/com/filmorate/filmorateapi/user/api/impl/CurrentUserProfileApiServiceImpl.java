@@ -22,4 +22,9 @@ public class CurrentUserProfileApiServiceImpl implements CurrentUserProfileApiSe
                 .orElseThrow(() -> new CurrentUserProfileApiServiceException("Not authorized", HttpStatus.UNAUTHORIZED));
         return userProfileService.getUserProfileById(currentUserAccountApiModel.userAccountId());
     }
+
+    @Override
+    public void updateUserProfile(UserProfile userProfile) {
+        userProfileService.updateUserProfile(userProfile);
+    }
 }

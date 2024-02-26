@@ -10,8 +10,6 @@ import com.filmorate.filmorateapi.user.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserProfileServiceImpl implements UserProfileService {
