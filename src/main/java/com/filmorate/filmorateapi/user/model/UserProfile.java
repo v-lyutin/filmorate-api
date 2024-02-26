@@ -1,11 +1,11 @@
 package com.filmorate.filmorateapi.user.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.filmorate.filmorateapi.media.person.model.Person;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,4 +19,17 @@ public class UserProfile {
     private String nickname;
 
     private String imageLink;
+
+    @ManyToMany
+    @JoinTable(
+            schema = "filmorate",
+            name = "favorite_persons",
+            joinColumns = {
+                    @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "person_id", referencedColumnName = "id")
+            }
+    )
+    private Set<Person> favoritePersons = new HashSet<>();
 }
