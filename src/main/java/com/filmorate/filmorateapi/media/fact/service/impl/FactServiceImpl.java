@@ -8,7 +8,6 @@ import com.filmorate.filmorateapi.media.person.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Component
@@ -38,5 +37,15 @@ public class FactServiceImpl implements FactService {
     @Override
     public List<Fact> getFactsByPerson(Person person) {
         return factRepository.findFactsByPerson(person);
+    }
+
+    @Override
+    public void removeAllFactsByPerson(Person person) {
+        factRepository.removeAllByPerson(person);
+    }
+
+    @Override
+    public void removeFactByIdAndPerson(Person person, Long factId) {
+        factRepository.removeFactByIdAndPerson(factId, person);
     }
 }

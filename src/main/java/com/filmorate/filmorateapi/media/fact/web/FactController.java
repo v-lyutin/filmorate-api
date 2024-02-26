@@ -38,4 +38,15 @@ public class FactController {
             @Valid @RequestBody FactRequest request) {
         return factUseCase.editFact(personId, factId, request);
     }
+
+    @DeleteMapping(value = "/{personId}/facts/{factId}")
+    public void removeFact(@PathVariable(name = "personId") Long personId,
+                           @PathVariable(name = "factId") Long factId) {
+        factUseCase.removeFact(personId, factId);
+    }
+
+    @DeleteMapping(value = "/{personId}/facts")
+    public void removeFact(@PathVariable(name = "personId") Long personId) {
+        factUseCase.removeAllFactsByPersonId(personId);
+    }
 }

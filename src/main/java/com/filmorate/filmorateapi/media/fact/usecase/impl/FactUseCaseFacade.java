@@ -52,4 +52,16 @@ public class FactUseCaseFacade implements FactUseCase {
                 .map(factToFactResponseMapper::map)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void removeFact(Long personId, Long factId) {
+        Person person = personService.getPersonById(personId);
+        factService.removeFactByIdAndPerson(person, factId);
+    }
+
+    @Override
+    public void removeAllFactsByPersonId(Long personId) {
+        Person person = personService.getPersonById(personId);
+        factService.removeAllFactsByPerson(person);
+    }
 }

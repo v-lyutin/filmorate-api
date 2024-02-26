@@ -10,4 +10,8 @@ public interface FactUseCase {
     FactResponse editFact(Long personId, Long factId, FactRequest request);
 
     List<FactResponse> getFactsByPersonId(Long personId);
+
+    void removeFact(Long personId, Long factId);
+
+    void removeAllFactsByPersonId(Long personId);
 }

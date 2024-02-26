@@ -12,4 +12,8 @@ public interface FactService {
     Fact getFactById(Long factId);
 
     List<Fact> getFactsByPerson(Person person);
+
+    void removeAllFactsByPerson(Person person);
+
+    void removeFactByIdAndPerson(Person person, Long factId);
 }
