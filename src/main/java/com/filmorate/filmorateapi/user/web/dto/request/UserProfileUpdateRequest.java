@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.user.web.dto;
+package com.filmorate.filmorateapi.user.web.dto.request;
 
 import com.filmorate.filmorateapi.user.validation.Nickname;
 import org.openapitools.jackson.nullable.JsonNullable;

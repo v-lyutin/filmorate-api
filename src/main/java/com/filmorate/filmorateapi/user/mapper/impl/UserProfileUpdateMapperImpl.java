@@ -4,7 +4,7 @@ import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
 import com.filmorate.filmorateapi.user.mapper.UserProfileUpdateMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateRequest;
+import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

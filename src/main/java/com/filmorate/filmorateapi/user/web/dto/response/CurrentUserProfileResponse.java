@@ -1,9 +1,9 @@
-package com.filmorate.filmorateapi.user.web.dto;
+package com.filmorate.filmorateapi.user.web.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.Instant;
 
-public record UserProfileResponse(
+public record CurrentUserProfileResponse(
         String imageLink,
 
         String nickname,

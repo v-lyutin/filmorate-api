@@ -1,12 +1,16 @@
 package com.filmorate.filmorateapi.user.web;
 
 import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
-import com.filmorate.filmorateapi.user.web.dto.*;
+import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
+import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
+import com.filmorate.filmorateapi.user.web.dto.response.CurrentUserProfileResponse;
+import com.filmorate.filmorateapi.user.web.dto.response.UserProfileResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,13 +28,18 @@ public class UserProfileController {
 
     @GetMapping(value = "/me")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public UserProfileResponse getUserProfilePage() {
+    public CurrentUserProfileResponse getUserProfilePage() {
         return userProfileUseCase.getUserProfile();
     }
 
     @PatchMapping("/me")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public UserProfileResponse updateUserProfile(@Valid @RequestBody UserProfileUpdateRequest request) {
+    public CurrentUserProfileResponse updateUserProfile(@Valid @RequestBody UserProfileUpdateRequest request) {
         return userProfileUseCase.updateUserProfile(request);
+    }
+
+    @GetMapping(value = "/{userProfileId}")
+    public ResponseEntity<Object> getUserProfileById(@PathVariable(name = "userProfileId") Long userProfileId) {
+        return userProfileUseCase.getUserProfileById(userProfileId);
     }
 }

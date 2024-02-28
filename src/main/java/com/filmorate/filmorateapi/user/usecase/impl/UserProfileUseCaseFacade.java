@@ -1,22 +1,32 @@
 package com.filmorate.filmorateapi.user.usecase.impl;
 
 import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserProfileMapper;
+import com.filmorate.filmorateapi.user.mapper.UserProfileToCurrentUserProfileResponseMapper;
 import com.filmorate.filmorateapi.user.mapper.UserProfileToUserProfileResponseMapper;
 import com.filmorate.filmorateapi.user.mapper.UserProfileUpdateMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
 import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
-import com.filmorate.filmorateapi.user.web.dto.*;
+import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
+import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
+import com.filmorate.filmorateapi.user.web.dto.response.CurrentUserProfileResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import java.net.URI;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
 public class UserProfileUseCaseFacade implements UserProfileUseCase {
     private final UserProfileService userProfileService;
     private final UserProfileRegisterRequestToUserProfileMapper userProfileRegisterRequestToUserProfileMapper;
-    private final UserProfileToUserProfileResponseMapper userProfileToUserProfileResponseMapper;
+    private final UserProfileToCurrentUserProfileResponseMapper userProfileToCurrentUserProfileResponseMapper;
     private final UserProfileUpdateMapper userProfileUpdateMapper;
+    private final UserProfileToUserProfileResponseMapper userProfileToUserProfileResponseMapper;
 
     @Override
     public void registerUserProfile(UserProfileCreationRequest request) {
@@ -25,16 +35,30 @@ public class UserProfileUseCaseFacade implements UserProfileUseCase {
     }
 
     @Override
-    public UserProfileResponse getUserProfile() {
-        UserProfile userProfile = userProfileService.getUserProfile();
-        return userProfileToUserProfileResponseMapper.map(userProfile);
+    public CurrentUserProfileResponse getUserProfile() {
+        UserProfile userProfile = userProfileService.getCurrentUserProfile();
+        return userProfileToCurrentUserProfileResponseMapper.map(userProfile);
     }
 
     @Override
-    public UserProfileResponse updateUserProfile(UserProfileUpdateRequest request) {
-        UserProfile userProfile = userProfileService.getUserProfile();
+    public CurrentUserProfileResponse updateUserProfile(UserProfileUpdateRequest request) {
+        UserProfile userProfile = userProfileService.getCurrentUserProfile();
         userProfileUpdateMapper.map(request, userProfile);
         userProfileService.updateUserProfile(userProfile);
-        return userProfileToUserProfileResponseMapper.map(userProfile);
+        return userProfileToCurrentUserProfileResponseMapper.map(userProfile);
+    }
+
+    @Override
+    @SneakyThrows
+    public ResponseEntity<Object> getUserProfileById(Long userProfileId) {
+        UserProfile requiredUserProfile = userProfileService.getUserProfileById(userProfileId);
+        UserProfile currentUserProfile = userProfileService.getCurrentUserProfile();
+        if (Objects.equals(userProfileId, currentUserProfile.getId())) {
+            URI uri = new URI("http://localhost:8080/api/v1/profiles/me");
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setLocation(uri);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+        }
+        return new ResponseEntity<>(userProfileToUserProfileResponseMapper.map(requiredUserProfile), HttpStatus.OK);
     }
 }

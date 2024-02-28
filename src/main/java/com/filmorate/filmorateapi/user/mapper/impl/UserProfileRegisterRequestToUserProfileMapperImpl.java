@@ -5,7 +5,7 @@ import com.filmorate.filmorateapi.security.api.service.IdentityApiService;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
 import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserProfileMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
-import com.filmorate.filmorateapi.user.web.dto.UserProfileCreationRequest;
+import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

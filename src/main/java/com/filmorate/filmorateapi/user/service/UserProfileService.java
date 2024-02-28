@@ -5,7 +5,7 @@ import com.filmorate.filmorateapi.user.model.UserProfile;
 public interface UserProfileService {
     void createUserProfile(UserProfile userProfile);
 
-    UserProfile getUserProfile();
+    UserProfile getCurrentUserProfile();
 
     UserProfile getUserProfileById(Long id);
 
