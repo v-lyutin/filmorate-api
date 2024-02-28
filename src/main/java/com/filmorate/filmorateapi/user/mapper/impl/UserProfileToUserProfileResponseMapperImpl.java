@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 public class UserProfileToUserProfileResponseMapperImpl implements UserProfileToUserProfileResponseMapper {
     @Override
     public UserProfileResponse map(UserProfile userProfile) {
-        return new UserProfileResponse(userProfile.getNickname(), userProfile.getImageLink());
+        return new UserProfileResponse(
+                userProfile.getImageLink(),
+                userProfile.getNickname(),
+                userProfile.getCreatedAt());
     }
 }
