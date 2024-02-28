@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.user.usecase.impl;
+package com.filmorate.filmorateapi.user.usecase;
 
 import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserProfileMapper;
 import com.filmorate.filmorateapi.user.mapper.UserProfileToCurrentUserProfileResponseMapper;
@@ -6,7 +6,7 @@ import com.filmorate.filmorateapi.user.mapper.UserProfileToUserProfileResponseMa
 import com.filmorate.filmorateapi.user.mapper.UserProfileUpdateMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
-import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
+import com.filmorate.filmorateapi.user.usecase.impl.UserProfileUseCase;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
 import com.filmorate.filmorateapi.user.web.dto.response.CurrentUserProfileResponse;
@@ -29,13 +29,14 @@ public class UserProfileUseCaseFacade implements UserProfileUseCase {
     private final UserProfileToUserProfileResponseMapper userProfileToUserProfileResponseMapper;
 
     @Override
-    public void registerUserProfile(UserProfileCreationRequest request) {
+    public CurrentUserProfileResponse registerUserProfile(UserProfileCreationRequest request) {
         UserProfile userProfile = userProfileRegisterRequestToUserProfileMapper.map(request);
         userProfileService.createUserProfile(userProfile);
+        return userProfileToCurrentUserProfileResponseMapper.map(userProfile);
     }
 
     @Override
-    public CurrentUserProfileResponse getUserProfile() {
+    public CurrentUserProfileResponse getCurrentUserProfile() {
         UserProfile userProfile = userProfileService.getCurrentUserProfile();
         return userProfileToCurrentUserProfileResponseMapper.map(userProfile);
     }

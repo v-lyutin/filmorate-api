@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.user.usecase;
+package com.filmorate.filmorateapi.user.usecase.impl;
 
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
@@ -6,9 +6,9 @@ import com.filmorate.filmorateapi.user.web.dto.response.CurrentUserProfileRespon
 import org.springframework.http.ResponseEntity;
 
 public interface UserProfileUseCase {
-    void registerUserProfile(UserProfileCreationRequest request);
+    CurrentUserProfileResponse registerUserProfile(UserProfileCreationRequest request);
 
-    CurrentUserProfileResponse getUserProfile();
+    CurrentUserProfileResponse getCurrentUserProfile();
 
     CurrentUserProfileResponse updateUserProfile(UserProfileUpdateRequest request);
 

@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.security.web.dto;
+package com.filmorate.filmorateapi.security.web.dto.request;
 
 import com.filmorate.filmorateapi.security.validation.Password;
 

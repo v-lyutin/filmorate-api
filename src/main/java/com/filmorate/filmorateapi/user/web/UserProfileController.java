@@ -1,10 +1,9 @@
 package com.filmorate.filmorateapi.user.web;
 
-import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
+import com.filmorate.filmorateapi.user.usecase.impl.UserProfileUseCase;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
 import com.filmorate.filmorateapi.user.web.dto.response.CurrentUserProfileResponse;
-import com.filmorate.filmorateapi.user.web.dto.response.UserProfileResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -22,14 +21,14 @@ public class UserProfileController {
     @PostMapping(value = "/create")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public void registerUserProfile(@Valid @RequestBody UserProfileCreationRequest request) {
-        userProfileUseCase.registerUserProfile(request);
+    public CurrentUserProfileResponse registerUserProfile(@Valid @RequestBody UserProfileCreationRequest request) {
+        return userProfileUseCase.registerUserProfile(request);
     }
 
     @GetMapping(value = "/me")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public CurrentUserProfileResponse getUserProfilePage() {
-        return userProfileUseCase.getUserProfile();
+    public CurrentUserProfileResponse getUserCurrentProfile() {
+        return userProfileUseCase.getCurrentUserProfile();
     }
 
     @PatchMapping("/me")
@@ -39,6 +38,7 @@ public class UserProfileController {
     }
 
     @GetMapping(value = "/{userProfileId}")
+    @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<Object> getUserProfileById(@PathVariable(name = "userProfileId") Long userProfileId) {
         return userProfileUseCase.getUserProfileById(userProfileId);
     }

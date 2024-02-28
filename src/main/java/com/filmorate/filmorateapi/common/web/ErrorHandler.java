@@ -74,12 +74,12 @@ public class ErrorHandler {
 
     @ExceptionHandler(UserAccountServiceException.class)
     public ProblemDetail handleUserAccountServiceException(UserAccountServiceException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
     }
 
     @ExceptionHandler(UserRoleServiceException.class)
     public ProblemDetail handleUserRoleServiceException(UserRoleServiceException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)

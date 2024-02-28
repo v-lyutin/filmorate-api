@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.security.usecase.impl;
+package com.filmorate.filmorateapi.security.usecase.common.impl;
 
 import com.filmorate.filmorateapi.security.api.model.CurrentUserAccountApiModel;
 import com.filmorate.filmorateapi.security.api.service.IdentityApiService;
@@ -7,11 +7,11 @@ import com.filmorate.filmorateapi.security.mapper.RegisterRequestToUserAccountMa
 import com.filmorate.filmorateapi.security.model.UserAccount;
 import com.filmorate.filmorateapi.security.service.AccessTokenService;
 import com.filmorate.filmorateapi.security.service.UserAccountService;
-import com.filmorate.filmorateapi.security.usecase.UserAccountUseCase;
-import com.filmorate.filmorateapi.security.web.dto.AccessToken;
-import com.filmorate.filmorateapi.security.web.dto.LoginRequest;
-import com.filmorate.filmorateapi.security.web.dto.PasswordRequest;
-import com.filmorate.filmorateapi.security.web.dto.RegisterRequest;
+import com.filmorate.filmorateapi.security.usecase.common.UserAccountUseCase;
+import com.filmorate.filmorateapi.security.web.dto.response.AccessToken;
+import com.filmorate.filmorateapi.security.web.dto.request.LoginRequest;
+import com.filmorate.filmorateapi.security.web.dto.request.PasswordRequest;
+import com.filmorate.filmorateapi.security.web.dto.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

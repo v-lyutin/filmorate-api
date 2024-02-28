@@ -56,3 +56,9 @@ insert into identity.user_roles(authority)
 values ('ROLE_USER'),
        ('ROLE_ADMIN');
 --rollback truncate table identity.user_roles
+
+--changeset v-lyutin:add-support-role-to-user_roles_table
+--comment add support-role to user_roles table
+insert into identity.user_roles(authority)
+values ('ROLE_SUPPORT');
+--rollback truncate table identity.user_roles
