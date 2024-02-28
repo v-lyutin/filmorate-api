@@ -45,9 +45,4 @@ public class UserProfileController {
     public void updateImageLink(@Valid @RequestBody UserProfileUpdateImageLinkRequest request) {
         userProfileUtilUseCase.updateImageLink(request);
     }
-
-    @GetMapping("/me/favoritePersons")
-    public Set<Person> getFavoritePersons() {
-        return userProfileUtilUseCase.getFavoritePersons();
-    }
 }

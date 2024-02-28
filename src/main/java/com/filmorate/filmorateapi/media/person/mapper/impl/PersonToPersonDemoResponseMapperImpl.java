@@ -5,6 +5,7 @@ import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PersonToPersonDemoResponseMapperImpl implements PersonToPersonDemoResponseMapper {
@@ -18,6 +19,6 @@ public class PersonToPersonDemoResponseMapperImpl implements PersonToPersonDemoR
                         person.getLastName(),
                         person.getCareers()
                 ))
-                .toList();
+                .collect(Collectors.toList());
     }
 }

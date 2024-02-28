@@ -17,9 +17,11 @@ public class FactRequestToFactMapperImpl implements FactRequestToFactMapper {
     @Override
     public Fact map(Long personId, FactRequest request) {
         Fact fact = new Fact();
+        String nickname = currentUserProfileApiService.currentUserProfile().getNickname();
         fact.setPerson(personService.getPersonById(personId));
         fact.setText(request.text());
-        fact.setCreatedBy(currentUserProfileApiService.currentUserProfile().getNickname());
+        fact.setCreatedBy(nickname);
+        fact.setEditedBy(nickname);
         return fact;
     }
 }
