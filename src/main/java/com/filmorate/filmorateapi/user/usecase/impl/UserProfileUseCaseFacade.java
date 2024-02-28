@@ -1,14 +1,20 @@
 package com.filmorate.filmorateapi.user.usecase.impl;
 
+import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.user.mapper.UserProfileRegisterRequestToUserProfileMapper;
 import com.filmorate.filmorateapi.user.mapper.UserProfileToUserProfilePageResponseMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
 import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
-import com.filmorate.filmorateapi.user.web.dto.*;
+import com.filmorate.filmorateapi.user.web.dto.UserProfileCreationRequest;
+import com.filmorate.filmorateapi.user.web.dto.UserProfilePageResponse;
+import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateImageLinkRequest;
+import com.filmorate.filmorateapi.user.web.dto.UserProfileUpdateNicknameRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.Objects;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -48,5 +54,11 @@ public class UserProfileUseCaseFacade implements UserProfileUseCase {
         }
         userProfile.setImageLink(request.imageLink());
         userProfileService.updateUserProfile(userProfile);
+    }
+
+    @Override
+    public Set<Person> getFavoritePersons() {
+        UserProfile userProfile = userProfileService.getUserProfile();
+        return userProfile.getFavoritePersons();
     }
 }

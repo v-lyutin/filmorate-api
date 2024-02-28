@@ -1,5 +1,6 @@
 package com.filmorate.filmorateapi.user.web;
 
+import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.user.usecase.UserProfileUseCase;
 import com.filmorate.filmorateapi.user.web.dto.UserProfilePageResponse;
 import com.filmorate.filmorateapi.user.web.dto.UserProfileCreationRequest;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +44,10 @@ public class UserProfileController {
     @PutMapping(value = "/me/update/image", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateImageLink(@Valid @RequestBody UserProfileUpdateImageLinkRequest request) {
         userProfileUtilUseCase.updateImageLink(request);
+    }
+
+    @GetMapping("/me/favoritePersons")
+    public Set<Person> getFavoritePersons() {
+        return userProfileUtilUseCase.getFavoritePersons();
     }
 }
