@@ -1,6 +1,5 @@
 package com.filmorate.filmorateapi.media.person.web;
 
-import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.usecase.common.PersonCommonUseCase;
 import com.filmorate.filmorateapi.media.person.web.dto.request.*;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonResponse;

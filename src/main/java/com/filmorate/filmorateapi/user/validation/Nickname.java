@@ -13,7 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @NotBlank
 public @interface Nickname {
-    String message() default "Некорректный никнейм";
+    String message() default "Incorrect nickname";
 
     Class<?>[] groups() default {};
 

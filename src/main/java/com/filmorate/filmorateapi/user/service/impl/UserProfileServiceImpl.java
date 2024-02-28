@@ -8,6 +8,7 @@ import com.filmorate.filmorateapi.user.model.UserProfile;
 import com.filmorate.filmorateapi.user.repository.UserProfileRepository;
 import com.filmorate.filmorateapi.user.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,13 +20,12 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public void createUserProfile(UserProfile userProfile) {
         if (userProfileRepository.existsById(userProfile.getId())) {
-            throw new UserProfileServiceException("Профиль пользователя с данным ID ранее уже был создан");
+            throw new UserProfileServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("A user profile with an ID = %d has already been created", userProfile.getId())
+            );
         }
-
-        if (userProfileRepository.existsByNickname(userProfile.getNickname())) {
-            throw new UserProfileServiceException("Данный никнейм уже занят другим пользователем");
-        }
-
+        validateNickname(userProfile.getNickname());
         userProfileRepository.save(userProfile);
     }
 
@@ -34,9 +34,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         CurrentUserAccountApiModel currentUserApiModel = identityApiService
                 .currentUserAccount()
                 .orElseThrow(() -> new IdentityApiServiceException(
-                        "Для данного действия пользователь должен быть авторизован в системе"
+                        "For this action the user must be logged in to the system"
                 ));
-
         return getUserProfileById(currentUserApiModel.userAccountId());
     }
 
@@ -44,22 +43,24 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfile getUserProfileById(Long id) {
         return userProfileRepository
                 .findById(id)
-                .orElseThrow(() -> new UserProfileServiceException("Информация о пользователе не найдена"));
+                .orElseThrow(() -> new UserProfileServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("User with ID = %d not found", id)
+                ));
     }
 
     @Override
     public void updateUserProfile(UserProfile userProfile) {
-        if (!userProfileRepository.existsById(userProfile.getId())) {
-            throw new UserProfileServiceException("Пользователя с данным ID не существует");
-        }
-
         userProfileRepository.save(userProfile);
     }
 
     @Override
     public void validateNickname(String nickname) {
         if (userProfileRepository.existsByNickname(nickname)) {
-            throw new UserProfileServiceException("Данный никнейм уже занят другим пользователем");
+            throw new UserProfileServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    "The nickname is already occupied by another user"
+            );
         }
     }
 }

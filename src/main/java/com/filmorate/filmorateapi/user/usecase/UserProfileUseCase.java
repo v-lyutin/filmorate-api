@@ -1,16 +1,11 @@
 package com.filmorate.filmorateapi.user.usecase;
 
-import com.filmorate.filmorateapi.media.person.model.Person;
-import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
 import com.filmorate.filmorateapi.user.web.dto.*;
-import java.util.Set;
 
 public interface UserProfileUseCase {
     void registerUserProfile(UserProfileCreationRequest request);
 
-    UserProfilePageResponse getUserProfile();
+    UserProfileResponse getUserProfile();
 
-    void updateNickname(UserProfileUpdateNicknameRequest request);
-
-    void updateImageLink(UserProfileUpdateImageLinkRequest request);
+    UserProfileResponse updateUserProfile(UserProfileUpdateRequest request);
 }

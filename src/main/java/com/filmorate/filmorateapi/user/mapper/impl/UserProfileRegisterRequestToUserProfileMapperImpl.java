@@ -20,14 +20,12 @@ public class UserProfileRegisterRequestToUserProfileMapperImpl
         CurrentUserAccountApiModel currentUserApiModel = identityApiService
                 .currentUserAccount()
                 .orElseThrow(() -> new IdentityApiServiceException(
-                        "Для создания профиля пользователь должен быть авторизован в системе"
-                        ));
-
+                        "For this action the user must be logged in to the system")
+                );
         UserProfile userProfile = new UserProfile();
         userProfile.setId(currentUserApiModel.userAccountId());
         userProfile.setNickname(registerRequest.nickname());
         userProfile.setImageLink(registerRequest.imageLink());
-
         return userProfile;
     }
 }
