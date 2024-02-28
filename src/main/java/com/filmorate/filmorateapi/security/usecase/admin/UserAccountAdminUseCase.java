@@ -6,7 +6,9 @@ import com.filmorate.filmorateapi.security.web.dto.response.UserAccountResponse;
 import java.util.List;
 
 public interface UserAccountAdminUseCase {
+    List<UserRole> getAllAuthorities();
+
     UserAccountResponse updateUserAccountAuthorities(Long userAccountId, AuthorityRequest request);
 
-    List<UserRole> getAllAuthorities();
+    UserAccountResponse removeUserAccountAuthorities(Long userAccountId, AuthorityRequest request);
 }

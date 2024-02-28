@@ -23,6 +23,11 @@ public class UserAccountAdminUseCaseFacade implements UserAccountAdminUseCase {
     private final AuthorityRequestToUserRoleMapper authorityRequestToUserRoleMapper;
 
     @Override
+    public List<UserRole> getAllAuthorities() {
+        return userRoleService.getAllAuthorities();
+    }
+
+    @Override
     public UserAccountResponse updateUserAccountAuthorities(Long userAccountId, AuthorityRequest request) {
         UserAccount userAccount = userAccountService.getUserAccountById(userAccountId);
         Set<UserRole> authorities = authorityRequestToUserRoleMapper.map(request.authorities());
@@ -32,7 +37,11 @@ public class UserAccountAdminUseCaseFacade implements UserAccountAdminUseCase {
     }
 
     @Override
-    public List<UserRole> getAllAuthorities() {
-        return userRoleService.getAllAuthorities();
+    public UserAccountResponse removeUserAccountAuthorities(Long userAccountId, AuthorityRequest request) {
+        UserAccount userAccount = userAccountService.getUserAccountById(userAccountId);
+        Set<UserRole> authorities = authorityRequestToUserRoleMapper.map(request.authorities());
+        userAccount.getAuthorities().removeAll(authorities);
+        UserAccount updatedUserAccount = userAccountService.updateUserAccount(userAccount);
+        return userAccountToUserAccountResponseMapper.map(updatedUserAccount);
     }
 }

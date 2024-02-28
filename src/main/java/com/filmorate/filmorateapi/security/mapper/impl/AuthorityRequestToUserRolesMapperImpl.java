@@ -16,6 +16,7 @@ public class AuthorityRequestToUserRolesMapperImpl implements AuthorityRequestTo
     @Override
     public Set<UserRole> map(Set<String> source) {
         return source.stream()
+                .filter(authority -> !authority.equals(userRoleService.getUserRole().getAuthority()))
                 .map(userRoleService::getUserRoleByAuthority)
                 .collect(Collectors.toSet());
     }

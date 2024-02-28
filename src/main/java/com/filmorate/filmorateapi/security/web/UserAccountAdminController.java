@@ -28,4 +28,11 @@ public class UserAccountAdminController {
             @Valid @RequestBody AuthorityRequest request) {
         return userAccountAdminUseCase.updateUserAccountAuthorities(userAccountId, request);
     }
+
+    @DeleteMapping(value = "/profiles/{userAccountId}/authorities")
+    public UserAccountResponse removeUserAccountAuthorities(
+            @PathVariable(name = "userAccountId") Long userAccountId,
+            @Valid @RequestBody AuthorityRequest request) {
+        return userAccountAdminUseCase.removeUserAccountAuthorities(userAccountId, request);
+    }
 }
