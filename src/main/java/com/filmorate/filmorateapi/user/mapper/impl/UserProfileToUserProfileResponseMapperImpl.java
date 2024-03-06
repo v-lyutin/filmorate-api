@@ -10,6 +10,7 @@ public class UserProfileToUserProfileResponseMapperImpl implements UserProfileTo
     @Override
     public UserProfileResponse map(UserProfile userProfile) {
         return new UserProfileResponse(
+                userProfile.getId(),
                 userProfile.getImageLink(),
                 userProfile.getNickname()
         );

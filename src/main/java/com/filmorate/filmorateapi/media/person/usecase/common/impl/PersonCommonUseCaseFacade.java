@@ -1,15 +1,13 @@
 package com.filmorate.filmorateapi.media.person.usecase.common.impl;
 
-import com.filmorate.filmorateapi.media.person.mapper.PersonCreationRequestToPersonMapper;
-import com.filmorate.filmorateapi.media.person.mapper.PersonPageToPersonsPageResponseMapper;
-import com.filmorate.filmorateapi.media.person.mapper.PersonToPersonResponseMapper;
-import com.filmorate.filmorateapi.media.person.mapper.PersonUpdateMapper;
+import com.filmorate.filmorateapi.media.person.mapper.*;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import com.filmorate.filmorateapi.media.person.usecase.common.PersonCommonUseCase;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonCreationRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonFindRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonCreationResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonsPageResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +24,7 @@ public class PersonCommonUseCaseFacade implements PersonCommonUseCase {
     private final PersonPageToPersonsPageResponseMapper personPageToPersonPageResponseMapper;
     private final PersonCreationRequestToPersonMapper personCreationRequestToPersonMapper;
     private final PersonToPersonResponseMapper personToPersonResponseMapper;
+    private final PersonToPersonCreationResponseMapper personToPersonCreationResponseMapper;
 
     @Override
     public PersonsPageResponse findPersons(PersonFindRequest request) {
@@ -41,9 +40,10 @@ public class PersonCommonUseCaseFacade implements PersonCommonUseCase {
     }
 
     @Override
-    public void createPerson(PersonCreationRequest request) {
+    public PersonCreationResponse createPerson(PersonCreationRequest request) {
         Person person = personCreationRequestToPersonMapper.map(request);
-        personService.createPerson(person);
+        Person createdPerson = personService.createPerson(person);
+        return personToPersonCreationResponseMapper.map(createdPerson);
     }
 
     @Override

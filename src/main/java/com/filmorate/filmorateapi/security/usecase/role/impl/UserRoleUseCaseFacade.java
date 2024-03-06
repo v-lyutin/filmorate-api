@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.security.usecase.admin.impl;
+package com.filmorate.filmorateapi.security.usecase.role.impl;
 
 import com.filmorate.filmorateapi.security.mapper.AuthorityRequestToUserRoleMapper;
 import com.filmorate.filmorateapi.security.mapper.UserAccountToUserAccountResponseMapper;
@@ -6,7 +6,7 @@ import com.filmorate.filmorateapi.security.model.UserAccount;
 import com.filmorate.filmorateapi.security.model.UserRole;
 import com.filmorate.filmorateapi.security.service.UserAccountService;
 import com.filmorate.filmorateapi.security.service.UserRoleService;
-import com.filmorate.filmorateapi.security.usecase.admin.UserAccountAdminUseCase;
+import com.filmorate.filmorateapi.security.usecase.role.UserRoleUseCase;
 import com.filmorate.filmorateapi.security.web.dto.request.AuthorityRequest;
 import com.filmorate.filmorateapi.security.web.dto.response.UserAccountResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
-public class UserAccountAdminUseCaseFacade implements UserAccountAdminUseCase {
+public class UserRoleUseCaseFacade implements UserRoleUseCase {
     private final UserAccountService userAccountService;
     private final UserRoleService userRoleService;
     private final UserAccountToUserAccountResponseMapper userAccountToUserAccountResponseMapper;

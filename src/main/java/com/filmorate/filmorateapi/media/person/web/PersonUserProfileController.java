@@ -8,21 +8,21 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "api/v1")
 public class PersonUserProfileController {
     private final PersonUserProfileUseCase personUserProfileUseCase;
 
-    @PostMapping(value = "/persons/{personId}/favorites")
+    @PostMapping(value = "persons/{personId:\\d+}/favorites")
     void addPersonToFavorites(@PathVariable(name = "personId") Long personId) {
         personUserProfileUseCase.addPersonToFavorites(personId);
     }
 
-    @DeleteMapping(value = "/persons/{personId}/favorites")
+    @DeleteMapping(value = "persons/{personId:\\d+}/favorites")
     void removePersonFromFavorites(@PathVariable(name = "personId") Long personId) {
         personUserProfileUseCase.removePersonFromFavorites(personId);
     }
 
-    @GetMapping(value = "/profiles/me/favoritePersons")
+    @GetMapping(value = "profiles/myProfile/favoritePersons")
     List<PersonDemoResponse> getFavoritePersons() {
         return personUserProfileUseCase.getFavoritePersons();
     }

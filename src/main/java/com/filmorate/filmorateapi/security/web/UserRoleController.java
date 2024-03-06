@@ -1,7 +1,7 @@
 package com.filmorate.filmorateapi.security.web;
 
 import com.filmorate.filmorateapi.security.model.UserRole;
-import com.filmorate.filmorateapi.security.usecase.admin.UserAccountAdminUseCase;
+import com.filmorate.filmorateapi.security.usecase.role.UserRoleUseCase;
 import com.filmorate.filmorateapi.security.web.dto.request.AuthorityRequest;
 import com.filmorate.filmorateapi.security.web.dto.response.UserAccountResponse;
 import jakarta.validation.Valid;
@@ -12,27 +12,27 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1")
+@RequestMapping(value = "api/v1")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-public class UserAccountAdminController {
-    private final UserAccountAdminUseCase userAccountAdminUseCase;
+public class UserRoleController {
+    private final UserRoleUseCase userRoleUseCase;
 
-    @GetMapping(value = "/authorities")
+    @GetMapping(value = "authorities")
     public List<UserRole> getAllAuthorities() {
-        return userAccountAdminUseCase.getAllAuthorities();
+        return userRoleUseCase.getAllAuthorities();
     }
 
-    @PutMapping(value = "/profiles/{userAccountId}/authorities")
+    @PutMapping(value = "profiles/{userAccountId:\\d+}/authorities")
     public UserAccountResponse updateUserAccountAuthorities(
             @PathVariable(name = "userAccountId") Long userAccountId,
             @Valid @RequestBody AuthorityRequest request) {
-        return userAccountAdminUseCase.updateUserAccountAuthorities(userAccountId, request);
+        return userRoleUseCase.updateUserAccountAuthorities(userAccountId, request);
     }
 
-    @DeleteMapping(value = "/profiles/{userAccountId}/authorities")
+    @DeleteMapping(value = "profiles/{userAccountId:\\d+}/authorities")
     public UserAccountResponse removeUserAccountAuthorities(
             @PathVariable(name = "userAccountId") Long userAccountId,
             @Valid @RequestBody AuthorityRequest request) {
-        return userAccountAdminUseCase.removeUserAccountAuthorities(userAccountId, request);
+        return userRoleUseCase.removeUserAccountAuthorities(userAccountId, request);
     }
 }

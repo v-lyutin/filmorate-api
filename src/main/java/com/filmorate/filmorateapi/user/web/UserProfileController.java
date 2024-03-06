@@ -14,30 +14,30 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/profiles")
+@RequestMapping("api/v1/profiles")
 public class UserProfileController {
     private final UserProfileUseCase userProfileUseCase;
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "create")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public CurrentUserProfileResponse registerUserProfile(@Valid @RequestBody UserProfileCreationRequest request) {
         return userProfileUseCase.registerUserProfile(request);
     }
 
-    @GetMapping(value = "/me")
+    @GetMapping(value = "myProfile")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public CurrentUserProfileResponse getUserCurrentProfile() {
         return userProfileUseCase.getCurrentUserProfile();
     }
 
-    @PatchMapping("/me")
+    @PatchMapping("myProfile")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public CurrentUserProfileResponse updateUserProfile(@Valid @RequestBody UserProfileUpdateRequest request) {
         return userProfileUseCase.updateUserProfile(request);
     }
 
-    @GetMapping(value = "/{userProfileId}")
+    @GetMapping(value = "{userProfileId:\\d+}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     public ResponseEntity<Object> getUserProfileById(@PathVariable(name = "userProfileId") Long userProfileId) {
         return userProfileUseCase.getUserProfileById(userProfileId);

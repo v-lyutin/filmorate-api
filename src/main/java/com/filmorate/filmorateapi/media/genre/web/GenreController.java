@@ -8,44 +8,43 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/genres")
+@RequestMapping("api/v1/genres")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class GenreController {
     private final GenreUseCase genreUseCase;
 
+    @GetMapping
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     Collection<Genre> getAllGenres() {
         return genreUseCase.getAllGenres();
     }
 
+    @GetMapping(value = "{genreId:\\d+}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @GetMapping(value = "/{genreId}", produces = MediaType.APPLICATION_JSON_VALUE)
     Genre getGenreById(@PathVariable Long genreId) {
         return genreUseCase.getGenreById(genreId);
     }
 
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void createGenre(@Valid @RequestBody GenreCreationRequest request) {
         genreUseCase.createGenre(request);
     }
 
+    @PutMapping(value = "{genreId:\\d+}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @PutMapping(value = "/{genreId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     void updateGenre(@PathVariable Long genreId, @Valid @RequestBody GenreCreationRequest request) {
         genreUseCase.updateGenre(genreId, request);
     }
 
-    @DeleteMapping(value = "/{genreId}")
+    @DeleteMapping(value = "{genreId:\\d+}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
     void deleteGenre(@PathVariable Long genreId) {
         genreUseCase.deleteGenre(genreId);

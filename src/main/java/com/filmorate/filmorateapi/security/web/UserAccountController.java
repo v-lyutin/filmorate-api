@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/")
+@RequestMapping("api/v1")
 public class UserAccountController {
     private final UserAccountUseCase userAccountUseCase;
 
@@ -31,7 +31,7 @@ public class UserAccountController {
     }
 
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    @PutMapping(value = "/profiles/me/update/password")
+    @PutMapping(value = "profiles/myProfile/password")
     public void updatePassword(@Valid @RequestBody PasswordRequest request) {
         userAccountUseCase.updatePassword(request);
     }
