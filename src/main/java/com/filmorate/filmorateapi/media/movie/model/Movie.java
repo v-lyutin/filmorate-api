@@ -16,15 +16,12 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(schema = "filmorate", name = "movies")
+@Table(schema = "filmorate", name = "movie")
 @EntityListeners(AuditingEntityListener.class)
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String posterUrl;
 
     @Column(nullable = false)
     private String title;
@@ -46,6 +43,9 @@ public class Movie {
 
     @Column(nullable = false)
     private Integer duration;
+
+    @Column(nullable = false)
+    private String posterUrl;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

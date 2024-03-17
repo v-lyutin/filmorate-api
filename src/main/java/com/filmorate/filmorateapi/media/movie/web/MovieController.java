@@ -4,6 +4,7 @@ import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MovieCreationResponse createMovie(MovieCreationRequest request) {
+    public MovieCreationResponse createMovie(@Valid @RequestBody MovieCreationRequest request) {
         return movieCommonUseCase.createMovie(request);
     }
 
