@@ -54,7 +54,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(GenreServiceException.class)
     public ProblemDetail handleGenreServiceException(GenreServiceException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
     }
 
     @ExceptionHandler(JwtAccessTokenServiceException.class)

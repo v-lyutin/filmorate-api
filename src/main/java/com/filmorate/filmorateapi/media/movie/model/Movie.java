@@ -1,11 +1,13 @@
 package com.filmorate.filmorateapi.media.movie.model;
 
+import com.filmorate.filmorateapi.media.genre.model.Genre;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,16 +24,13 @@ public class Movie {
     private Long id;
 
     @Column(nullable = false)
-    private String url;
-
-    @Column(nullable = false)
     private String posterUrl;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Column(nullable = false)
-    private String enName;
+    private String enTitle;
 
     @Column(nullable = false)
     private String description;
@@ -43,13 +42,22 @@ public class Movie {
     private Integer releaseYear;
 
     @Column(nullable = false)
+    private String country;
+
+    @Column(nullable = false)
     private Integer duration;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
-    @LastModifiedDate
-    @Column(nullable = false)
-    private Instant editedAt;
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            schema = "filmorate",
+            name = "movie_genres",
+            joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
+    )
+    private Set<Genre> genres = new HashSet<>();
 }

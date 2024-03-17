@@ -1,33 +1,38 @@
 package com.filmorate.filmorateapi.media.movie.web.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import java.util.Set;
 
 public record MovieCreationRequest(
-        @NotBlank(message = "Url name should not be an empty")
-        String url,
-
-        @NotBlank(message = "Poster url should not be an empty")
+        @NotBlank(message = "The 'posterUrl' field should not be an empty")
         String posterUrl,
 
-        @NotBlank(message = "Name should not be an empty")
-        String name,
+        @NotBlank(message = "The 'title' field should not be an empty")
+        String title,
 
-        @NotBlank(message = "English name should not be an empty")
-        String enName,
+        @NotBlank(message = "The 'enTitle' field should not be an empty")
+        String enTitle,
 
-        @NotBlank(message = "Description should not be an empty")
+        @NotBlank(message = "The 'description' field should not be an empty")
         String description,
 
-        @NotBlank(message = "English description should not be an empty")
+        @NotBlank(message = "The 'enDescription' field description should not be an empty")
         String enDescription,
 
-        @NotNull(message = "Release year should not be an empty")
-        @Positive(message = "Release year must be a positive number and not equal to zero")
+        @NotNull(message = "The 'releaseYear' field should not be an empty")
+        @Positive(message = "The 'releaseYear' field must be a positive number and not equal to zero")
         Integer releaseYear,
 
-        @NotNull(message = "Duration should not be an empty")
-        @Positive(message = "Duration must be a positive number and not equal to zero")
+        @NotBlank(message = "The 'country' field should not be an empty")
+        String country,
+
+        @NotEmpty(message = "The 'genres' field should not be an empty")
+        Set<String> genres,
+
+        @NotNull(message = "The 'duration' field should not be an empty")
+        @Positive(message = "The 'duration' field must be a positive number and not equal to zero")
         Integer duration) {
 }
