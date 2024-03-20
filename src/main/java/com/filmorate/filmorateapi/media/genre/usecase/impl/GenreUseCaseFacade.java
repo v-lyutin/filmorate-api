@@ -24,15 +24,15 @@ public class GenreUseCaseFacade implements GenreUseCase {
     }
 
     @Override
-    public void createGenre(GenreCreationRequest genreCreationRequest) {
+    public Genre createGenre(GenreCreationRequest genreCreationRequest) {
         Genre genre = new Genre();
         genre.setName(genreCreationRequest.name());
-        genreService.createGenre(genre);
+        return genreService.createGenre(genre);
     }
 
     @Override
-    public void updateGenre(Long genreId, GenreCreationRequest genreCreationRequest) {
-        genreService.updateGenre(genreId, genreCreationRequest.name());
+    public Genre updateGenre(Long genreId, GenreCreationRequest genreCreationRequest) {
+        return genreService.updateGenre(genreId, genreCreationRequest.name());
     }
 
     @Override

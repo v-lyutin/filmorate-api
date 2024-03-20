@@ -14,8 +14,6 @@ public record MovieCreationResponse(
 
         String description,
 
-        String enDescription,
-
         Integer releaseYear,
 
         String country,
@@ -23,6 +21,8 @@ public record MovieCreationResponse(
         List<String> genres,
 
         PersonDemoResponse director,
+
+        List<PersonDemoResponse> actors,
 
         Integer duration,
 

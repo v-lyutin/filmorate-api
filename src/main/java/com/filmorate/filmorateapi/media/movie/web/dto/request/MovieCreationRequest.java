@@ -19,9 +19,6 @@ public record MovieCreationRequest(
         @NotBlank(message = "The 'description' field should not be an empty")
         String description,
 
-        @NotBlank(message = "The 'enDescription' field description should not be an empty")
-        String enDescription,
-
         @NotNull(message = "The 'releaseYear' field should not be an empty")
         @Positive(message = "The 'releaseYear' field must be a positive number and not equal to zero")
         Integer releaseYear,
@@ -32,6 +29,8 @@ public record MovieCreationRequest(
         JsonNullable<Set<String>> genres,
 
         JsonNullable<String> director,
+
+        JsonNullable<Set<String>> actors,
 
         @NotNull(message = "The 'duration' field should not be an empty")
         @Positive(message = "The 'duration' field must be a positive number and not equal to zero")

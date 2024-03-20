@@ -25,11 +25,11 @@ public class MovieToMovieCreationResponseMapperImpl implements MovieToMovieCreat
                 movie.getTitle(),
                 movie.getEnTitle(),
                 movie.getDescription(),
-                movie.getEnDescription(),
                 movie.getReleaseYear(),
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
                 directorToPersonDemoResponse(movie.getDirector()),
+                actorsToPeronResponses(movie.getActors()),
                 movie.getDuration(),
                 movie.getPosterUrl(),
                 movie.getCreatedAt()
@@ -42,6 +42,15 @@ public class MovieToMovieCreationResponseMapperImpl implements MovieToMovieCreat
         }
         return genres.stream()
                 .map(Genre::getName)
+                .collect(Collectors.toList());
+    }
+
+    private List<PersonDemoResponse> actorsToPeronResponses(Set<Person> actors) {
+        if (actors == null) {
+            return null;
+        }
+        return actors.stream()
+                .map(personToPersonDemoResponseMapper::map)
                 .collect(Collectors.toList());
     }
 

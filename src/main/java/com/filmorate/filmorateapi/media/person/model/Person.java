@@ -2,6 +2,7 @@ package com.filmorate.filmorateapi.media.person.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.filmorate.filmorateapi.media.career.model.Career;
+import com.filmorate.filmorateapi.media.event.EventType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
@@ -23,20 +24,15 @@ public class Person {
 
     private String imageLink;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
-    @Column(nullable = false)
     private String countryOfBirth;
 
-    @Column(nullable = false)
     private String cityOfBirth;
 
-    @Column(nullable = false)
     private Integer height;
 
     @ToString.Exclude
@@ -48,4 +44,7 @@ public class Person {
             inverseJoinColumns = { @JoinColumn(name = "career_id", referencedColumnName = "id") }
     )
     private Set<Career> careers = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
 }

@@ -56,4 +56,9 @@ public class PersonServiceImpl implements PersonService {
     public boolean existsById(Long personId) {
         return personRepository.existsById(personId);
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        return personRepository.existsByName(name);
+    }
 }

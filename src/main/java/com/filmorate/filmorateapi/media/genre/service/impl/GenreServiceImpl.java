@@ -36,17 +36,17 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public void createGenre(Genre genre) {
+    public Genre createGenre(Genre genre) {
         if (genreRepository.existsByName(genre.getName())) {
             throw new GenreServiceException(
                     HttpStatus.BAD_REQUEST,
                     String.format("Genre with name '%s' is already exists", genre.getName()));
         }
-        genreRepository.save(genre);
+        return genreRepository.save(genre);
     }
 
     @Override
-    public void updateGenre(Long genreId, String genreName) {
+    public Genre updateGenre(Long genreId, String genreName) {
         if (genreRepository.existsByName(genreName)) {
             throw new GenreServiceException(
                     HttpStatus.BAD_REQUEST,
@@ -57,7 +57,7 @@ public class GenreServiceImpl implements GenreService {
                         HttpStatus.NOT_FOUND,
                         String.format("Genre with ID = '%d' not found", genreId)));
         genre.setName(genreName);
-        genreRepository.save(genre);
+        return genreRepository.save(genre);
     }
 
     @Override

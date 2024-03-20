@@ -32,7 +32,6 @@ public class MovieCreationRequestToMovieMapperImpl implements MovieCreationReque
                 .title(request.title())
                 .enTitle(request.enTitle())
                 .description(request.description())
-                .enDescription(request.enDescription())
                 .releaseYear(request.releaseYear())
                 .country(request.country())
                 .duration(request.duration())
@@ -43,12 +42,29 @@ public class MovieCreationRequestToMovieMapperImpl implements MovieCreationReque
         if (jsonNullableMapper.isPresent(request.director())) {
             movie.setDirector(parseDirector(jsonNullableMapper.unwrap(request.director())));
         }
+        if (jsonNullableMapper.isPresent(request.actors())) {
+            movie.setActors(parseActors(jsonNullableMapper.unwrap(request.actors())));
+        }
         return movie;
     }
 
     private Set<Genre> parseGenres(Set<String> genres) {
         return genres.stream()
                 .map(genreFromStringMapper::map)
+                .collect(Collectors.toSet());
+    }
+
+    private Set<Person> parseActors(Set<String> actors) {
+        return actors.stream()
+                .map(personFromStringMapper::map)
+                .map(person -> {
+                    Set<Career> careers = person.getCareers();
+                    if (careers != null && careers.stream().noneMatch(career -> career.getName().equals("actor"))) {
+                        careers.add(careerFromStringMapper.map("actor"));
+                        return personService.updatePerson(person);
+                    }
+                    return person;
+                })
                 .collect(Collectors.toSet());
     }
 

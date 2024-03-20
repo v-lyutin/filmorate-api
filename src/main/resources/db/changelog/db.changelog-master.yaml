@@ -18,9 +18,6 @@ databaseChangeLog:
       file: 0.0.1/changelog-create-filmorate-persons-table.sql
       relativeToChangelogFile: true
   - include:
-      file: 0.0.1/changelog-modify-filmorate-persons-table.sql
-      relativeToChangelogFile: true
-  - include:
       file: 0.0.1/changelog-create-filmorate-facts-table.sql
       relativeToChangelogFile: true
   - include:

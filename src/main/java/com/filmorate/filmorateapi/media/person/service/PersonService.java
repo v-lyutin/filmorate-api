@@ -18,4 +18,6 @@ public interface PersonService {
     void deletePerson(Long personId);
 
     boolean existsById(Long personId);
+
+    boolean existsByName(String name);
 }

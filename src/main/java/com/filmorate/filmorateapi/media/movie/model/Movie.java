@@ -34,9 +34,6 @@ public class Movie {
     private String description;
 
     @Column(nullable = false)
-    private String enDescription;
-
-    @Column(nullable = false)
     private Integer releaseYear;
 
     @Column(nullable = false)
@@ -58,8 +55,19 @@ public class Movie {
     )
     private Set<Genre> genres = new HashSet<>();
 
+    @ToString.Exclude
     @ManyToOne
     private Person director;
+
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            schema = "filmorate",
+            name = "movie_actors",
+            joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "actor_id", referencedColumnName = "id") }
+    )
+    private Set<Person> actors = new HashSet<>();
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
