@@ -8,9 +8,7 @@ public record PersonCreationResponse(
 
         String imageLink,
 
-        String firstName,
-
-        String lastName,
+        String name,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date birthDate,

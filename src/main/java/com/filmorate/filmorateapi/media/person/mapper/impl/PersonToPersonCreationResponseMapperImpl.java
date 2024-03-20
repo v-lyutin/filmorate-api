@@ -12,8 +12,7 @@ public class PersonToPersonCreationResponseMapperImpl implements PersonToPersonC
         return new PersonCreationResponse(
                 person.getId(),
                 person.getImageLink(),
-                person.getFirstName(),
-                person.getLastName(),
+                person.getName(),
                 person.getBirthDate(),
                 person.getCountryOfBirth(),
                 person.getCityOfBirth(),

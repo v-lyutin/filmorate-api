@@ -42,3 +42,16 @@ alter table filmorate.movie_genres
 --rollback alter table filmorate.movie_genres drop constraint movie_genres__genres_fk;
 --rollback alter table filmorate.movie_genres drop constraint movie_genres__movie_fk;
 --rollback alter table filmorate.movie_genres drop constraint movie_genres_unique;
+
+--changeset v-lyutin:add-filmorate-movie-table-column-person_id
+--comment add column director_id to filmorate.movie table
+alter table filmorate.movie
+    add column director_id integer;
+--rollback alter table filmorate.movie_genres drop column director_id;
+
+--changeset v-lyutin:add-filmorate-movie-table-constraint
+--comment add constraints to filmorate.movie table
+alter table filmorate.movie
+    add constraint director__movie__fk
+        foreign key (director_id) references filmorate.persons (id);
+--rollback alter table filmorate.movie drop constraint director__movie__fk;

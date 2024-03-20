@@ -11,8 +11,7 @@ public class PersonCreationRequestToPersonMapperImpl implements PersonCreationRe
     public Person map(PersonCreationRequest personCreationRequest) {
         return Person.builder()
                 .imageLink(personCreationRequest.imageLink())
-                .firstName(personCreationRequest.firstName())
-                .lastName(personCreationRequest.lastName())
+                .name(personCreationRequest.name())
                 .birthDate(personCreationRequest.birthDate())
                 .countryOfBirth(personCreationRequest.countryOfBirth())
                 .cityOfBirth(personCreationRequest.cityOfBirth())

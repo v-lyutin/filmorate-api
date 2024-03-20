@@ -9,9 +9,7 @@ import java.util.Date;
 public record PersonUpdateRequest(
         JsonNullable<String> imageLink,
 
-        JsonNullable<String> firstName,
-
-        JsonNullable<String> lastName,
+        JsonNullable<String> name,
 
         @PastOrPresent(message = "Date of birth from the future")
         @JsonFormat(pattern = "yyyy-MM-dd")

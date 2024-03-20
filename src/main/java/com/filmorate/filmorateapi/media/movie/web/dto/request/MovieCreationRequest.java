@@ -1,9 +1,9 @@
 package com.filmorate.filmorateapi.media.movie.web.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.Set;
 
 public record MovieCreationRequest(
@@ -29,8 +29,9 @@ public record MovieCreationRequest(
         @NotBlank(message = "The 'country' field should not be an empty")
         String country,
 
-        @NotEmpty(message = "The 'genres' field should not be an empty")
-        Set<String> genres,
+        JsonNullable<Set<String>> genres,
+
+        JsonNullable<String> director,
 
         @NotNull(message = "The 'duration' field should not be an empty")
         @Positive(message = "The 'duration' field must be a positive number and not equal to zero")

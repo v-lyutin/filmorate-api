@@ -1,11 +1,9 @@
 package com.filmorate.filmorateapi.media.movie.web.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.filmorate.filmorateapi.media.genre.model.Genre;
-import com.filmorate.filmorateapi.media.genre.web.dto.GenreResponse;
-
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 public record MovieCreationResponse(
         Long id,
@@ -22,7 +20,9 @@ public record MovieCreationResponse(
 
         String country,
 
-        Set<GenreResponse> genres,
+        List<String> genres,
+
+        PersonDemoResponse director,
 
         Integer duration,
 

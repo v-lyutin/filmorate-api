@@ -26,8 +26,7 @@ public class PersonToPersonResponseMapperImpl implements PersonToPersonResponseM
         return new PersonResponse(
                 person.getId(),
                 person.getImageLink(),
-                person.getFirstName(),
-                person.getLastName(),
+                person.getName(),
                 person.getBirthDate(),
                 person.getCountryOfBirth(),
                 person.getCityOfBirth(),

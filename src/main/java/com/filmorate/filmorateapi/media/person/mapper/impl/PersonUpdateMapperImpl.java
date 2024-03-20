@@ -18,11 +18,8 @@ public class PersonUpdateMapperImpl extends PersonUpdateMapper {
         if (jsonNullableMapper.isPresent(request.imageLink())) {
             person.setImageLink(jsonNullableMapper.unwrap(request.imageLink()));
         }
-        if (jsonNullableMapper.isPresent(request.firstName())) {
-            person.setFirstName(jsonNullableMapper.unwrap(request.firstName()));
-        }
-        if (jsonNullableMapper.isPresent(request.lastName())) {
-            person.setLastName(jsonNullableMapper.unwrap(request.lastName()));
+        if (jsonNullableMapper.isPresent(request.name())) {
+            person.setName(jsonNullableMapper.unwrap(request.name()));
         }
         if (jsonNullableMapper.isPresent(request.birthDate())) {
             person.setBirthDate(jsonNullableMapper.unwrap(request.birthDate()));

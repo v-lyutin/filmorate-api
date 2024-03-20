@@ -30,13 +30,21 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Person getPersonByName(String name) {
+        return personRepository.findByName(name)
+                .orElseThrow(() -> new PersonServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Person with name '%s' not found", name)));
+    }
+
+    @Override
     public Person createPerson(Person person) {
         return personRepository.save(person);
     }
 
     @Override
-    public void updatePerson(Person updatedPerson) {
-        personRepository.save(updatedPerson);
+    public Person updatePerson(Person updatedPerson) {
+        return personRepository.save(updatedPerson);
     }
 
     @Override

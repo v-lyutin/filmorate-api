@@ -24,10 +24,7 @@ public class Person {
     private String imageLink;
 
     @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
+    private String name;
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd")

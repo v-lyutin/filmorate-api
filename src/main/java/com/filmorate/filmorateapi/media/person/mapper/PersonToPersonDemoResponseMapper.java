@@ -6,4 +6,5 @@ import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoRespon
 import java.util.List;
 
 public interface PersonToPersonDemoResponseMapper extends Mapper<List<PersonDemoResponse>, List<Person>> {
+    PersonDemoResponse map(Person person);
 }

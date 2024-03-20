@@ -1,21 +1,22 @@
 package com.filmorate.filmorateapi.media.movie.mapper.impl;
 
-import com.filmorate.filmorateapi.media.genre.mapper.GenreToGenreResponseMapper;
 import com.filmorate.filmorateapi.media.genre.model.Genre;
-import com.filmorate.filmorateapi.media.genre.web.dto.GenreResponse;
 import com.filmorate.filmorateapi.media.movie.mapper.MovieToMovieCreationResponseMapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
+import com.filmorate.filmorateapi.media.person.mapper.PersonToPersonDemoResponseMapper;
+import com.filmorate.filmorateapi.media.person.model.Person;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class MovieToMovieCreationResponseMapperImpl implements MovieToMovieCreationResponseMapper {
-    private final GenreToGenreResponseMapper genreToGenreResponseMapper;
+    private final PersonToPersonDemoResponseMapper personToPersonDemoResponseMapper;
 
     @Override
     public MovieCreationResponse map(Movie movie) {
@@ -28,15 +29,26 @@ public class MovieToMovieCreationResponseMapperImpl implements MovieToMovieCreat
                 movie.getReleaseYear(),
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
+                directorToPersonDemoResponse(movie.getDirector()),
                 movie.getDuration(),
                 movie.getPosterUrl(),
                 movie.getCreatedAt()
         );
     }
 
-    private Set<GenreResponse> genresToGenreResponses(Set<Genre> genres) {
+    private List<String> genresToGenreResponses(Set<Genre> genres) {
+        if (genres == null) {
+            return null;
+        }
         return genres.stream()
-                .map(genreToGenreResponseMapper::map)
-                .collect(Collectors.toSet());
+                .map(Genre::getName)
+                .collect(Collectors.toList());
+    }
+
+    private PersonDemoResponse directorToPersonDemoResponse(Person director) {
+        if (director == null) {
+            return null;
+        }
+        return personToPersonDemoResponseMapper.map(director);
     }
 }

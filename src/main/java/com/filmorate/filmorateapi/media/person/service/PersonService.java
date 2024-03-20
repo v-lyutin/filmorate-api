@@ -9,9 +9,11 @@ public interface PersonService {
 
     Person getPersonById(Long personId);
 
+    Person getPersonByName(String name);
+
     Person createPerson(Person person);
 
-    void updatePerson(Person updatedPerson);
+    Person updatePerson(Person updatedPerson);
 
     void deletePerson(Long personId);
 

@@ -39,3 +39,12 @@ alter table filmorate.persons_careers
 --rollback alter table filmorate.persons_careers drop constraint persons_careers__persons_fk;
 --rollback alter table filmorate.persons_careers drop constraint persons_careers_unique;
 
+--changeset v-lyutin:drop-filmorate-persons-columns-first_name-last_name
+--comment drop filmorate.persons columns first_name, last_name
+alter table filmorate.persons
+    drop column first_name,
+    drop column last_name,
+    add column name varchar(32) not null;
+--rollback alter table filmorate.persons add first_name;
+--rollback alter table filmorate.persons add column last_name;
+--rollback alter table filmorate.persons drop column name;
