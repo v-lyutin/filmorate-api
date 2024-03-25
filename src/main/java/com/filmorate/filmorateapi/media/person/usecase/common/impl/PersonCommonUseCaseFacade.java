@@ -1,5 +1,6 @@
 package com.filmorate.filmorateapi.media.person.usecase.common.impl;
 
+import com.filmorate.filmorateapi.media.event.EventType;
 import com.filmorate.filmorateapi.media.person.mapper.*;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
@@ -30,6 +31,13 @@ public class PersonCommonUseCaseFacade implements PersonCommonUseCase {
     public PersonsPageResponse findPersons(PersonFindRequest request) {
         Pageable pageable = PageRequest.of(request.page(), request.limit());
         Page<Person> pageablePersons = personService.findPersons(pageable);
+        return personPageToPersonPageResponseMapper.map(pageablePersons);
+    }
+
+    @Override
+    public PersonsPageResponse findPersonsByEventType(PersonFindRequest request, String eventType) {
+        Pageable pageable = PageRequest.of(request.page(), request.limit());
+        Page<Person> pageablePersons = personService.findPersonsByEventType(pageable, EventType.valueOf(eventType));
         return personPageToPersonPageResponseMapper.map(pageablePersons);
     }
 

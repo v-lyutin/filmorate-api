@@ -1,5 +1,6 @@
 package com.filmorate.filmorateapi.media.person.service.impl;
 
+import com.filmorate.filmorateapi.media.event.EventType;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.repository.PersonRepository;
@@ -18,6 +19,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Page<Person> findPersons(Pageable pageable) {
         return personRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Person> findPersonsByEventType(Pageable pageable, EventType eventType) {
+        return personRepository.findAllByEventType(pageable, eventType);
     }
 
     @Override

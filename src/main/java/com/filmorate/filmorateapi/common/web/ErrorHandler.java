@@ -1,6 +1,8 @@
 package com.filmorate.filmorateapi.common.web;
 
 import com.filmorate.filmorateapi.media.career.exception.CareerServiceException;
+import com.filmorate.filmorateapi.media.content.exception.ContentServiceException;
+import com.filmorate.filmorateapi.media.content.exception.ContentTypeServiceException;
 import com.filmorate.filmorateapi.media.fact.exception.FactServiceException;
 import com.filmorate.filmorateapi.media.genre.exception.GenreServiceException;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
@@ -22,6 +24,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(ContentServiceException.class)
+    public ProblemDetail handleContentServiceException(ContentServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
+    @ExceptionHandler(ContentTypeServiceException.class)
+    public ProblemDetail handleContentTypeServiceException(ContentTypeServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
 
     @ExceptionHandler(FactServiceException.class)
     public ProblemDetail handleFactServiceException(FactServiceException exception) {
