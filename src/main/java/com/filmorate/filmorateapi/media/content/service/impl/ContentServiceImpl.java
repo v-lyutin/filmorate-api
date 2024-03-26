@@ -62,23 +62,8 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public void deleteContent(Movie movie, Long contentId) {
-        if (movie == null) {
-            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'movie' variable is null");
-        }
-        List<Content> movieContent = getContentByMovie(movie);
-        if (movieContent == null || movieContent.isEmpty()) {
-            return;
-        }
-        Long requiredContentId = movieContent.stream()
-                .map(Content::getId)
-                .filter(id -> id.equals(contentId))
-                .findFirst()
-                .orElseThrow(() -> new ContentServiceException(
-                        HttpStatus.NOT_FOUND,
-                        String.format("Content with ID = '%d' for movie with ID = '%d' not found", contentId, movie.getId())
-                ));
-        contentRepository.deleteById(requiredContentId);
+    public void removeContentById(Long contentId) {
+        contentRepository.deleteById(contentId);
     }
 
     @Override

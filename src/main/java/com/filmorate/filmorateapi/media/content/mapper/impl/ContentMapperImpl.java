@@ -5,6 +5,7 @@ import com.filmorate.filmorateapi.media.content.mapper.ContentMapper;
 import com.filmorate.filmorateapi.media.content.mapper.ContentTypeMapper;
 import com.filmorate.filmorateapi.media.content.model.Content;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentRequest;
+import com.filmorate.filmorateapi.media.content.web.dto.request.ContentUpdateRequest;
 import com.filmorate.filmorateapi.media.content.web.dto.response.ContentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,17 @@ public class ContentMapperImpl implements ContentMapper {
         if (jsonNullableMapper.isPresent(request.title())) {
             content.setTitle(jsonNullableMapper.unwrap(request.title()));
         }
+        return content;
+    }
+
+    @Override
+    public Content map(Content content, ContentUpdateRequest request) {
+        if (jsonNullableMapper.isPresent(request.title())) {
+            content.setTitle(jsonNullableMapper.unwrap(request.title()));
+        } else {
+            content.setTitle(null);
+        }
+        content.setContentUrl(request.url());
         return content;
     }
 

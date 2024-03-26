@@ -16,7 +16,7 @@ public interface ContentService {
 
     Content getContentById(Long contentId);
 
-    void deleteContent(Movie movie, Long contentId);
+    void removeContentById(Long contentId);
 
     void deleteAllContentByMovie(Movie movie);
 }

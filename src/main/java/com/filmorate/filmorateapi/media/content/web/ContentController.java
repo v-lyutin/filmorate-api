@@ -2,6 +2,7 @@ package com.filmorate.filmorateapi.media.content.web;
 
 import com.filmorate.filmorateapi.media.content.usecase.ContentUseCase;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentRequest;
+import com.filmorate.filmorateapi.media.content.web.dto.request.ContentUpdateRequest;
 import com.filmorate.filmorateapi.media.content.web.dto.response.ContentResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,13 @@ public class ContentController {
         return contentUseCase.createContent(movieId, request);
     }
 
+    @PutMapping(value = "content/{contentId:\\d+}")
+    public ContentResponse updateContent(
+            @PathVariable(name = "contentId") Long contentId,
+            @Valid @RequestBody ContentUpdateRequest request) {
+        return contentUseCase.updateContent(contentId, request);
+    }
+
     @GetMapping(value = "{movieId:\\d+}/content")
     public List<ContentResponse> getContentByMovie(
             @RequestParam(name = "contentType", required = false, defaultValue = "ALL") String contentType,
@@ -32,15 +40,18 @@ public class ContentController {
         return contentUseCase.getContentByMovie(movieId, contentType);
     }
 
+    @GetMapping(value = "content/{contentId:\\d+}")
+    public ContentResponse getContentById(@PathVariable(name = "contentId") Long contentId) {
+        return contentUseCase.getContentById(contentId);
+    }
+
     @DeleteMapping(value = "{movieId:\\d+}/content")
-    public void removeAllContentByMovieId(@PathVariable(name = "movieId") Long movieId) {
+    public void removeAllContentByMovie(@PathVariable(name = "movieId") Long movieId) {
         contentUseCase.removeAllContentByMovie(movieId);
     }
 
-    @DeleteMapping(value = "{movieId:\\d+}/content/{contentId:\\d+}")
-    public void removeContent(
-            @PathVariable(name = "movieId") Long movieId,
-            @PathVariable(name = "contentId") Long contentId) {
-        contentUseCase.removeContentById(movieId, contentId);
+    @DeleteMapping(value = "content/{contentId:\\d+}")
+    public void removeContent(@PathVariable(name = "contentId") Long contentId) {
+        contentUseCase.removeContentById(contentId);
     }
 }
