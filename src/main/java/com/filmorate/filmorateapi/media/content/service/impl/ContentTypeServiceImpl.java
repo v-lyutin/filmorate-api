@@ -19,7 +19,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
         if (contentType == null) {
             throw new ContentTypeServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'contentType' variable is null");
         }
-        if (contentTypeRepository.existsByNameContainingIgnoreCase(contentType.getName())) {
+        if (contentTypeRepository.existsByNameIgnoreCase(contentType.getName())) {
             throw new ContentTypeServiceException(
                     HttpStatus.BAD_REQUEST,
                     String.format("Content type with name '%s' already exists", contentType.getName())
@@ -38,7 +38,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
 
     @Override
     public ContentType getContentTypeByName(String name) {
-        return contentTypeRepository.findByNameContainingIgnoreCase(name)
+        return contentTypeRepository.findByNameIgnoreCase(name)
                 .orElseThrow(() -> new ContentTypeServiceException(
                         HttpStatus.NOT_FOUND,
                         String.format("Content type with name = '%s' not found", name)));

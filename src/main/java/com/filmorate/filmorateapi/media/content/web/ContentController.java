@@ -26,8 +26,10 @@ public class ContentController {
     }
 
     @GetMapping(value = "{movieId:\\d+}/content")
-    public List<ContentResponse> getContentByMovie(@PathVariable(name = "movieId") Long movieId) {
-        return contentUseCase.getContentByMovie(movieId);
+    public List<ContentResponse> getContentByMovie(
+            @RequestParam(name = "contentType", required = false, defaultValue = "ALL") String contentType,
+            @PathVariable(name = "movieId") Long movieId) {
+        return contentUseCase.getContentByMovie(movieId, contentType);
     }
 
     @DeleteMapping(value = "{movieId:\\d+}/content")

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface ContentTypeRepository extends JpaRepository<ContentType, Long> {
-    Optional<ContentType> findByNameContainingIgnoreCase(String name);
+    Optional<ContentType> findByNameIgnoreCase(String name);
 
-    boolean existsByNameContainingIgnoreCase(String name);
+    boolean existsByNameIgnoreCase(String name);
 }

@@ -2,6 +2,7 @@ package com.filmorate.filmorateapi.media.content.service.impl;
 
 import com.filmorate.filmorateapi.media.content.exception.ContentServiceException;
 import com.filmorate.filmorateapi.media.content.model.Content;
+import com.filmorate.filmorateapi.media.content.model.ContentType;
 import com.filmorate.filmorateapi.media.content.repository.ContentRepository;
 import com.filmorate.filmorateapi.media.content.service.ContentService;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
@@ -31,6 +32,17 @@ public class ContentServiceImpl implements ContentService {
             throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'movie' variable is null");
         }
         return contentRepository.findAllByMovie(movie);
+    }
+
+    @Override
+    public List<Content> getContentByMovieAndContentType(Movie movie, ContentType contentType) {
+        if (movie == null) {
+            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'movie' variable is null");
+        }
+        if (contentType == null) {
+            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'contentType' variable is null");
+        }
+        return contentRepository.findAllByMovieAndContentType(movie, contentType);
     }
 
     @Override

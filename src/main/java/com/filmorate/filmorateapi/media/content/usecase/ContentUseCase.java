@@ -7,7 +7,7 @@ import java.util.List;
 public interface ContentUseCase {
     ContentResponse createContent(Long movieId, ContentRequest request);
 
-    List<ContentResponse> getContentByMovie(Long movieId);
+    List<ContentResponse> getContentByMovie(Long movieId, String contentType);
 
     void removeAllContentByMovie(Long movieId);
 

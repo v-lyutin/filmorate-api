@@ -8,6 +8,8 @@ import com.filmorate.filmorateapi.media.content.web.dto.request.ContentRequest;
 import com.filmorate.filmorateapi.media.content.web.dto.response.ContentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -36,5 +38,12 @@ public class ContentMapperImpl implements ContentMapper {
                 contentTypeMapper.map(content.getContentType()),
                 content.getMovie().getId()
         );
+    }
+
+    @Override
+    public List<ContentResponse> map(List<Content> content) {
+        return content.stream()
+                .map(this::map)
+                .collect(Collectors.toList());
     }
 }
