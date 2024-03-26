@@ -1,8 +1,8 @@
 package com.filmorate.filmorateapi.media.content.usecase.impl;
 
 import com.filmorate.filmorateapi.media.content.mapper.ContentMapper;
-import com.filmorate.filmorateapi.media.content.mapper.ContentTypeMapper;
 import com.filmorate.filmorateapi.media.content.model.Content;
+import com.filmorate.filmorateapi.media.content.model.ContentType;
 import com.filmorate.filmorateapi.media.content.service.ContentService;
 import com.filmorate.filmorateapi.media.content.usecase.ContentUseCase;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentRequest;
@@ -20,12 +20,11 @@ public class ContentUseCaseFacade implements ContentUseCase {
     private final MovieService movieService;
     private final ContentService contentService;
     private final ContentMapper contentMapper;
-    private final ContentTypeMapper contentTypeMapper;
 
     @Override
-    public ContentResponse createContent(Long movieId, ContentRequest request) {
+    public ContentResponse createContent(Long movieId, ContentRequest request, ContentType contentType) {
         Movie movie = movieService.getMovieById(movieId);
-        Content content = contentMapper.map(request);
+        Content content = contentMapper.map(request, contentType);
         content.setMovie(movie);
         return contentMapper.map(contentService.createContent(content));
     }
@@ -38,12 +37,12 @@ public class ContentUseCaseFacade implements ContentUseCase {
     }
 
     @Override
-    public List<ContentResponse> getContentByMovie(Long movieId, String contentType) {
+    public List<ContentResponse> getContentByMovie(Long movieId, ContentType contentType) {
         Movie movie = movieService.getMovieById(movieId);
-        if (contentType.equals("ALL")) {
+        if (contentType == ContentType.ALL) {
             return contentMapper.map(contentService.getContentByMovie(movie));
         }
-        return contentMapper.map(contentService.getContentByMovieAndContentType(movie, contentTypeMapper.map(contentType)));
+        return contentMapper.map(contentService.getContentByMovieAndContentType(movie, contentType));
     }
 
     @Override

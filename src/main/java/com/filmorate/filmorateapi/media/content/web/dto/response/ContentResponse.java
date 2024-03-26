@@ -1,5 +1,7 @@
 package com.filmorate.filmorateapi.media.content.web.dto.response;
 
+import com.filmorate.filmorateapi.media.content.model.ContentType;
+
 public record ContentResponse (
     long id,
 
@@ -7,7 +9,7 @@ public record ContentResponse (
 
     String contentUrl,
 
-    String contentType,
+    ContentType contentType,
 
     long movieId) {
 }

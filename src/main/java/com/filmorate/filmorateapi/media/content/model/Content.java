@@ -21,8 +21,8 @@ public class Content {
     @Column(nullable = false)
     private String contentUrl;
 
-    @ManyToOne
-    private ContentType contentType;
+    @Enumerated(EnumType.STRING)
+    ContentType contentType;
 
     @ManyToOne(optional = false)
     private Movie movie;

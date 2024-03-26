@@ -1,9 +1,9 @@
 package com.filmorate.filmorateapi.media.movie.web;
 
-import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
+import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class MovieController {
     }
 
     @GetMapping("{movieId:\\d+}")
-    public Movie getMovieById(@PathVariable(name = "movieId") Long movieId) {
+    public MovieResponse getMovieById(@PathVariable(name = "movieId") Long movieId) {
         return movieCommonUseCase.getMovieById(movieId);
     }
 

@@ -2,8 +2,8 @@ package com.filmorate.filmorateapi.media.content.mapper.impl;
 
 import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
 import com.filmorate.filmorateapi.media.content.mapper.ContentMapper;
-import com.filmorate.filmorateapi.media.content.mapper.ContentTypeMapper;
 import com.filmorate.filmorateapi.media.content.model.Content;
+import com.filmorate.filmorateapi.media.content.model.ContentType;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentRequest;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentUpdateRequest;
 import com.filmorate.filmorateapi.media.content.web.dto.response.ContentResponse;
@@ -16,12 +16,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ContentMapperImpl implements ContentMapper {
     private final JsonNullableMapper jsonNullableMapper;
-    private final ContentTypeMapper contentTypeMapper;
 
     @Override
-    public Content map(ContentRequest request) {
+    public Content map(ContentRequest request, ContentType contentType) {
         Content content = Content.builder()
-                .contentType(contentTypeMapper.map(request.contentType()))
+                .contentType(contentType)
                 .contentUrl(request.url())
                 .build();
         if (jsonNullableMapper.isPresent(request.title())) {
@@ -47,7 +46,7 @@ public class ContentMapperImpl implements ContentMapper {
                 content.getId(),
                 content.getTitle() == null ? null : content.getTitle(),
                 content.getContentUrl(),
-                contentTypeMapper.map(content.getContentType()),
+                content.getContentType(),
                 content.getMovie().getId()
         );
     }

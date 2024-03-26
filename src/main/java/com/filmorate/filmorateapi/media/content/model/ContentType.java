@@ -1,16 +1,18 @@
 package com.filmorate.filmorateapi.media.content.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+public enum ContentType {
+    VIDEO("video"),
+    TRAILER("trailer"),
+    SCREENSHOT("screenshot"),
+    ALL("all");
 
-@Getter
-@Setter
-@Entity
-@Table(schema = "filmorate", name = "content_types")
-public class ContentType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final String type;
 
-    private String name;
+    ContentType(String type) {
+        this.type = type;
+    }
+
+    public String getValue() {
+        return type;
+    }
 }

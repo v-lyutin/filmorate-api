@@ -20,9 +20,6 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Content createContent(Content content) {
-        if (content == null) {
-            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'content' variable is null");
-        }
         return contentRepository.save(content);
     }
 
@@ -36,20 +33,11 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public List<Content> getContentByMovieAndContentType(Movie movie, ContentType contentType) {
-        if (movie == null) {
-            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'movie' variable is null");
-        }
-        if (contentType == null) {
-            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'contentType' variable is null");
-        }
         return contentRepository.findAllByMovieAndContentType(movie, contentType);
     }
 
     @Override
     public Content updateContent(Content content) {
-        if (content == null) {
-            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'content' variable is null");
-        }
         return contentRepository.save(content);
     }
 
@@ -68,9 +56,6 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public void deleteAllContentByMovie(Movie movie) {
-        if (movie == null) {
-            throw new ContentServiceException(HttpStatus.INTERNAL_SERVER_ERROR, "The 'movie' variable is null");
-        }
         contentRepository.removeAllByMovie(movie);
     }
 }
