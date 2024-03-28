@@ -1,7 +1,6 @@
 package com.filmorate.filmorateapi.media.movie.model;
 
 import com.filmorate.filmorateapi.media.genre.model.Genre;
-import com.filmorate.filmorateapi.media.person.model.Person;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -42,9 +41,6 @@ public class Movie {
     @Column(nullable = false)
     private Integer duration;
 
-    @Column(nullable = false)
-    private String posterUrl;
-
     @ToString.Exclude
     @ManyToMany
     @JoinTable(
@@ -54,20 +50,6 @@ public class Movie {
             inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
     )
     private Set<Genre> genres = new HashSet<>();
-
-    @ToString.Exclude
-    @ManyToOne
-    private Person director;
-
-    @ToString.Exclude
-    @ManyToMany
-    @JoinTable(
-            schema = "filmorate",
-            name = "movie_actors",
-            joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "actor_id", referencedColumnName = "id") }
-    )
-    private Set<Person> actors = new HashSet<>();
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

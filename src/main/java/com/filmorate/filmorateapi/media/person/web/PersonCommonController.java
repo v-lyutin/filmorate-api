@@ -21,11 +21,10 @@ public class PersonCommonController {
 
     @GetMapping
     public PersonsPageResponse findPersonsWithFilters(
-            @RequestParam(name = "eventType", defaultValue = "COMPLETED") String eventType,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "limit", defaultValue = "10") int limit) {
         PersonFindRequest personFindRequest = new PersonFindRequest(page, limit);
-        return personCommonUseCase.findPersonsByEventType(personFindRequest, eventType);
+        return personCommonUseCase.findPersons(personFindRequest);
     }
 
     @GetMapping(value = "{personId:\\d+}")

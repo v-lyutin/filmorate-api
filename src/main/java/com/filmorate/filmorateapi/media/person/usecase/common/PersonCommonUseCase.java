@@ -11,8 +11,6 @@ import org.springframework.validation.annotation.Validated;
 public interface PersonCommonUseCase {
     PersonsPageResponse findPersons(@Valid PersonFindRequest request);
 
-    PersonsPageResponse findPersonsByEventType(@Valid PersonFindRequest request, String eventType);
-
     PersonResponse getPersonById(Long personId);
 
     PersonCreationResponse createPerson(PersonCreationRequest request);
