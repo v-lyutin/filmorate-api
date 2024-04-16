@@ -1,7 +1,6 @@
 package com.filmorate.filmorateapi.media.actor.usecase;
 
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
-import com.filmorate.filmorateapi.media.actor.model.MovieActor;
 import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorCreationRequest;
 import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorUpdateRequest;
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorPageResponse;

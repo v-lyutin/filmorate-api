@@ -22,24 +22,21 @@ public class MovieActorController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "{movieId:\\d+}/actors")
-    public List<MovieActorResponse> addActors(
-            @PathVariable(name = "movieId") Long movieId,
-            @Valid @RequestBody List<MovieActorCreationRequest> request) {
+    public List<MovieActorResponse> addActors(@PathVariable(name = "movieId") Long movieId,
+                                              @Valid @RequestBody List<MovieActorCreationRequest> request) {
         return movieActorUseCase.createActors(movieId, request);
     }
 
     @PatchMapping(value = "actors/{actorId:\\d+}")
-    public MovieActorResponse updateActorById(
-            @PathVariable(name = "actorId") Long actorId,
-            @Valid @RequestBody MovieActorUpdateRequest request) {
+    public MovieActorResponse updateActorById(@PathVariable(name = "actorId") Long actorId,
+                                              @Valid @RequestBody MovieActorUpdateRequest request) {
         return movieActorUseCase.updateActorById(actorId, request);
     }
 
     @GetMapping(value = "{movieId:\\d+}/actors")
-    public MovieActorPageResponse getActorsByMovie(
-            @PathVariable(name = "movieId") Long movieId,
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "limit", defaultValue = "10") int limit) {
+    public MovieActorPageResponse getActorsByMovie(@PathVariable(name = "movieId") Long movieId,
+                                                   @RequestParam(name = "page", defaultValue = "0") int page,
+                                                   @RequestParam(name = "limit", defaultValue = "10") int limit) {
         PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
         return movieActorUseCase.getActorsByMovie(movieId, pageFindRequest);
     }

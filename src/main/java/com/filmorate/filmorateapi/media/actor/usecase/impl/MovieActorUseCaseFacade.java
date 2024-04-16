@@ -20,7 +20,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MovieActorUseCaseImpl implements MovieActorUseCase {
+public class MovieActorUseCaseFacade implements MovieActorUseCase {
     private final MovieActorService movieActorService;
     private final MovieService movieService;
     private final MovieActorMapper movieActorMapper;
