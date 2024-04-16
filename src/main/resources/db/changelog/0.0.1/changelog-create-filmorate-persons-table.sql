@@ -4,14 +4,14 @@
 --comment create table filmorate.persons
 create table filmorate.persons
 (
-    id         serial primary key,
-    image_link varchar,
-    name       varchar(32),
-    birth_date date,
+    id               serial primary key,
+    image_link       varchar,
+    name             varchar(32),
+    birth_date       date,
     country_of_birth varchar(50),
-    city_of_birth varchar(50),
-    height     integer,
-    event_type varchar
+    city_of_birth    varchar(50),
+    height           integer,
+    event_type       varchar
 );
 --rollback drop table filmorate.persons;
 
@@ -40,3 +40,8 @@ alter table filmorate.persons_careers
 --rollback alter table filmorate.persons_careers drop constraint persons_careers__careers_fk;
 --rollback alter table filmorate.persons_careers drop constraint persons_careers__persons_fk;
 --rollback alter table filmorate.persons_careers drop constraint persons_careers_unique;
+
+--changeset v-lyutin:drop-event_type-column
+--comment drop event_type column
+alter table filmorate.persons
+    drop column event_type;

@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.media.person.web.dto.response;
 
-import java.util.List;
+import java.util.Set;
 
 public record PersonDemoResponse(
         long id,
@@ -9,5 +9,5 @@ public record PersonDemoResponse(
 
         String name,
 
-        List<String> careers) {
+        Set<String> careers) {
 }

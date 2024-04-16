@@ -1,6 +1,5 @@
 package com.filmorate.filmorateapi.media.person.service.impl;
 
-import com.filmorate.filmorateapi.media.event.EventType;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.repository.PersonRepository;
@@ -17,13 +16,13 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
 
     @Override
-    public Page<Person> findPersons(Pageable pageable) {
-        return personRepository.findAll(pageable);
+    public Person createPerson(Person person) {
+        return personRepository.save(person);
     }
 
     @Override
-    public Page<Person> findPersonsByEventType(Pageable pageable, EventType eventType) {
-        return personRepository.findAllByEventType(pageable, eventType);
+    public Person updatePerson(Person updatedPerson) {
+        return personRepository.save(updatedPerson);
     }
 
     @Override
@@ -36,35 +35,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person getPersonByName(String name) {
-        return personRepository.findByName(name)
-                .orElseThrow(() -> new PersonServiceException(
-                        HttpStatus.NOT_FOUND,
-                        String.format("Person with name '%s' not found", name)));
+    public Page<Person> getAllPersons(Pageable pageable) {
+        return personRepository.findAll(pageable);
     }
 
     @Override
-    public Person createPerson(Person person) {
-        return personRepository.save(person);
-    }
-
-    @Override
-    public Person updatePerson(Person updatedPerson) {
-        return personRepository.save(updatedPerson);
-    }
-
-    @Override
-    public void deletePerson(Long personId) {
+    public void removePersonById(Long personId) {
         personRepository.deleteById(personId);
-    }
-
-    @Override
-    public boolean existsById(Long personId) {
-        return personRepository.existsById(personId);
-    }
-
-    @Override
-    public boolean existsByName(String name) {
-        return personRepository.existsByName(name);
     }
 }

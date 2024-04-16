@@ -1,10 +1,8 @@
 package com.filmorate.filmorateapi.media.person.web.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.filmorate.filmorateapi.media.career.model.Career;
-import com.filmorate.filmorateapi.media.fact.web.dto.FactDemoResponse;
-import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 public record PersonResponse(
         long id,
@@ -22,7 +20,5 @@ public record PersonResponse(
 
         int height,
 
-        Collection<Career> careers,
-
-        Collection<FactDemoResponse> facts) {
+        Set<String> careers) {
 }

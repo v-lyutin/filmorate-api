@@ -8,7 +8,7 @@ import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorUpdateRe
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorPageResponse;
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorResponse;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
-import com.filmorate.filmorateapi.media.person.mapper.PersonToPersonDemoResponseMapper;
+import com.filmorate.filmorateapi.media.person.mapper.PersonMapper;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieActorMapperImpl implements MovieActorMapper {
     private final PersonService personService;
-    private final PersonToPersonDemoResponseMapper personMapper;
+    private final PersonMapper personMapper;
     private final JsonNullableMapper jsonNullableMapper;
 
     @Override
@@ -28,7 +28,7 @@ public class MovieActorMapperImpl implements MovieActorMapper {
         return new MovieActorResponse(
                 actor.getId(),
                 actor.getMovie().getId(),
-                personMapper.map(actor.getPerson()),
+                personMapper.toPersonDemoResponse(actor.getPerson()),
                 actor.getRole(),
                 actor.getIsMainRole()
         );

@@ -5,6 +5,7 @@ import com.filmorate.filmorateapi.media.career.model.Career;
 import com.filmorate.filmorateapi.media.career.repository.CareerRepository;
 import com.filmorate.filmorateapi.media.career.service.CareerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.Collection;
 
@@ -21,34 +22,37 @@ public class CareerServiceImpl implements CareerService {
     @Override
     public Career findCareerById(Long careerId) {
         return careerRepository.findById(careerId)
-                .orElseThrow(() -> new CareerServiceException(String.format("Карьеры с ID = {%d} не существует", careerId)));
+                .orElseThrow(() -> new CareerServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Career with ID = '%d' not found", careerId)));
     }
 
     @Override
     public Career findCareerByName(String careerName) {
-        return careerRepository.findByName(careerName)
-                .orElseThrow(() -> new CareerServiceException(String.format("Карьеры '%s' не существует", careerName)));
-    }
-
-    @Override
-    public void createCareer(Career career) {
-        if (careerRepository.existsByName(career.getName())) {
-            throw new CareerServiceException("Карьера с таким названием уже существует");
-        }
-        careerRepository.save(career);
-    }
-
-    @Override
-    public void updateCareer(Career updatedCareer) {
-        if (careerRepository.existsByName(updatedCareer.getName())) {
-            throw new CareerServiceException("Карьера с таким названием уже существует");
-        }
-        Career career = careerRepository.findById(updatedCareer.getId())
+        return careerRepository.findByName(careerName.toLowerCase())
                 .orElseThrow(() -> new CareerServiceException(
-                        String.format("Карьеры с ID = {%d} не существует", updatedCareer.getId()))
-                );
-        career.setName(updatedCareer.getName());
-        careerRepository.save(career);
+                        HttpStatus.NOT_FOUND,
+                        String.format("Career with name '%s' not found", careerName)));
+    }
+
+    @Override
+    public Career createCareer(Career career) {
+        if (careerRepository.existsByNameContainingIgnoreCase(career.getName())) {
+            throw new CareerServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("Career with name '%s' is already exists", career.getName()));
+        }
+        return careerRepository.save(career);
+    }
+
+    @Override
+    public Career updateCareer(Career career) {
+        if (careerRepository.existsByNameContainingIgnoreCase(career.getName())) {
+            throw new CareerServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("Career with name '%s' is already exists", career.getName()));
+        }
+        return careerRepository.save(career);
     }
 
     @Override

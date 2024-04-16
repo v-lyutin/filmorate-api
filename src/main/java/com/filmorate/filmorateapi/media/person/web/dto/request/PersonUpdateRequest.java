@@ -5,6 +5,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.util.Date;
+import java.util.Set;
 
 public record PersonUpdateRequest(
         JsonNullable<String> imageLink,
@@ -20,5 +21,7 @@ public record PersonUpdateRequest(
         JsonNullable<String> cityOfBirth,
 
         @Positive(message = "The height must be a positive number and not equal to zero")
-        JsonNullable<Integer> height) {
+        JsonNullable<Integer> height,
+
+        JsonNullable<Set<String>> careers) {
 }

@@ -2,7 +2,6 @@ package com.filmorate.filmorateapi.media.person.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.filmorate.filmorateapi.media.career.model.Career;
-import com.filmorate.filmorateapi.media.event.EventType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
@@ -44,7 +43,4 @@ public class Person {
             inverseJoinColumns = { @JoinColumn(name = "career_id", referencedColumnName = "id") }
     )
     private Set<Career> careers = new HashSet<>();
-
-    @Enumerated(EnumType.STRING)
-    private EventType eventType;
 }

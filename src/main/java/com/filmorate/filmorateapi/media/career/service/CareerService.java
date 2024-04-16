@@ -10,9 +10,9 @@ public interface CareerService {
 
     Career findCareerByName(String careerName);
 
-    void createCareer(Career career);
+    Career createCareer(Career career);
 
-    void updateCareer(Career updatedCareer);
+    Career updateCareer(Career updatedCareer);
 
     void deleteCareer(Long careerId);
 }

@@ -74,7 +74,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(CareerServiceException.class)
     public ProblemDetail handleCareerServiceException(CareerServiceException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface CareerRepository extends JpaRepository<Career, Long> {
-    boolean existsByName(String name);
+    boolean existsByNameContainingIgnoreCase(String name);
 
     Optional<Career> findByName(String name);
 }

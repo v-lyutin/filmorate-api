@@ -35,11 +35,6 @@ public class FactUseCaseFacade implements FactUseCase {
 
     @Override
     public FactResponse editFact(Long personId, Long factId, FactRequest request) {
-        if (!personService.existsById(personId)) {
-            throw new PersonServiceException(
-                    HttpStatus.NOT_FOUND,
-                    String.format("Person with ID = %d not found", personId));
-        }
         Fact mappedFact = factEditRequestToFactMapper.map(factId, request);
         Fact editedFact = factService.updateFact(mappedFact);
         return factToFactResponseMapper.map(editedFact);
