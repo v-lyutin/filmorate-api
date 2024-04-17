@@ -10,4 +10,6 @@ public interface MovieService {
     void deleteMovieById(Long movieId);
 
     Movie getMovieById(Long movieId);
+
+    boolean existsById(Long movieId);
 }

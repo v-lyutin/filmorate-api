@@ -15,4 +15,6 @@ public interface PersonService {
     Page<Person> getAllPersons(Pageable pageable);
 
     void removePersonById(Long personId);
+
+    boolean existsById(Long personId);
 }

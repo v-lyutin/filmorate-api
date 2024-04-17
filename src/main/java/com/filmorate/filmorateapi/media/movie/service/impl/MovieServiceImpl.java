@@ -36,4 +36,9 @@ public class MovieServiceImpl implements MovieService {
                         String.format("Movie with ID = %d not found", movieId))
                 );
     }
+
+    @Override
+    public boolean existsById(Long movieId) {
+        return movieRepository.existsById(movieId);
+    }
 }

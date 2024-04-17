@@ -1,7 +1,7 @@
 package com.filmorate.filmorateapi.media.fact.service;
 
 import com.filmorate.filmorateapi.media.fact.model.Fact;
-import com.filmorate.filmorateapi.media.person.model.Person;
+import com.filmorate.filmorateapi.media.fact.model.FactType;
 import java.util.List;
 
 public interface FactService {
@@ -11,9 +11,9 @@ public interface FactService {
 
     Fact getFactById(Long factId);
 
-    List<Fact> getFactsByPerson(Person person);
+    List<Fact> getFactsByFactTypeAndEntityId(FactType factType, Long entityId);
 
-    void removeAllFactsByPerson(Person person);
+    void removeFactById(Long factId);
 
-    void removeFactByIdAndPerson(Person person, Long factId);
+    void removeAllFactsByFactTypeAndEntityId(FactType factType, Long entityId);
 }

@@ -2,14 +2,12 @@ package com.filmorate.filmorateapi.media.fact.service.impl;
 
 import com.filmorate.filmorateapi.media.fact.exception.FactServiceException;
 import com.filmorate.filmorateapi.media.fact.model.Fact;
+import com.filmorate.filmorateapi.media.fact.model.FactType;
 import com.filmorate.filmorateapi.media.fact.repository.FactRepository;
 import com.filmorate.filmorateapi.media.fact.service.FactService;
-import com.filmorate.filmorateapi.media.person.model.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Component
@@ -37,19 +35,17 @@ public class FactServiceImpl implements FactService {
     }
 
     @Override
-    public List<Fact> getFactsByPerson(Person person) {
-        return factRepository.findFactsByPerson(person);
+    public List<Fact> getFactsByFactTypeAndEntityId(FactType factType, Long entityId) {
+        return factRepository.findFactByFactTypeAndEntityId(factType, entityId);
     }
 
     @Override
-    @Transactional
-    public void removeAllFactsByPerson(Person person) {
-        factRepository.removeAllByPerson(person);
+    public void removeFactById(Long factId) {
+        factRepository.deleteById(factId);
     }
 
     @Override
-    @Transactional
-    public void removeFactByIdAndPerson(Person person, Long factId) {
-        factRepository.removeFactByIdAndPerson(factId, person);
+    public void removeAllFactsByFactTypeAndEntityId(FactType factType, Long entityId) {
+        factRepository.deleteAllByFactTypeAndEntityId(factType, entityId);
     }
 }
