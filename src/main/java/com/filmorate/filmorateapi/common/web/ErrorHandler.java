@@ -7,6 +7,9 @@ import com.filmorate.filmorateapi.media.fact.exception.FactServiceException;
 import com.filmorate.filmorateapi.media.genre.exception.GenreServiceException;
 import com.filmorate.filmorateapi.media.movie.exception.MovieServiceException;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
+import com.filmorate.filmorateapi.media.series.exception.EpisodeServiceException;
+import com.filmorate.filmorateapi.media.series.exception.SeasonServiceException;
+import com.filmorate.filmorateapi.media.series.exception.SeriesServiceException;
 import com.filmorate.filmorateapi.media.staff.exception.StaffRoleServiceException;
 import com.filmorate.filmorateapi.media.staff.exception.StaffServiceException;
 import com.filmorate.filmorateapi.security.exception.IdentityApiServiceException;
@@ -27,6 +30,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(SeasonServiceException.class)
+    public ProblemDetail handleSeasonServiceException(SeasonServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
+    @ExceptionHandler(EpisodeServiceException.class)
+    public ProblemDetail handleEpisodeServiceException(EpisodeServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
+    @ExceptionHandler(SeriesServiceException.class)
+    public ProblemDetail handleSeriesServiceException(SeriesServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
     @ExceptionHandler(StaffRoleServiceException.class)
     public ProblemDetail handleStaffRoleServiceException(StaffRoleServiceException exception) {
         return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());

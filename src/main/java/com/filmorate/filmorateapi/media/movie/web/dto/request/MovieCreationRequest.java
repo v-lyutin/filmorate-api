@@ -8,10 +8,13 @@ import java.util.Set;
 
 public record MovieCreationRequest(
         @NotBlank(message = "The 'title' field should not be an empty")
+        String posterUrl,
+
+        @NotBlank(message = "The 'title' field should not be an empty")
         String title,
 
-        @NotBlank(message = "The 'enTitle' field should not be an empty")
-        String enTitle,
+        @NotBlank(message = "The 'originalTitle' field should not be an empty")
+        String originalTitle,
 
         @NotBlank(message = "The 'description' field should not be an empty")
         String description,

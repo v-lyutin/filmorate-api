@@ -4,14 +4,14 @@
 --comment create table filmorate.movie
 create table filmorate.movie
 (
-    id           serial primary key,
-    title        varchar(32)  not null,
-    en_title     varchar(32)  not null,
-    description  varchar(500) not null,
-    release_year integer      not null,
-    country      varchar(20)  not null,
-    duration     integer      not null,
-    created_at   timestamp    not null
+    id             serial primary key,
+    poster_url     varchar       not null,
+    title          varchar(32)   not null,
+    original_title varchar(32)   not null,
+    description    varchar(1000) not null,
+    release_year   integer       not null,
+    country        varchar(20)   not null,
+    duration       integer       not null
 );
 --rollback drop table filmorate.movie;
 

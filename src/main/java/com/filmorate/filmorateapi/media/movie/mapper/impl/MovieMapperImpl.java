@@ -22,14 +22,14 @@ public class MovieMapperImpl implements MovieMapper {
     public MovieCreationResponse map(Movie movie) {
         return new MovieCreationResponse(
                 movie.getId(),
+                movie.getPosterUrl(),
                 movie.getTitle(),
-                movie.getEnTitle(),
+                movie.getOriginalTitle(),
                 movie.getDescription(),
                 movie.getReleaseYear(),
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
-                movie.getDuration(),
-                movie.getCreatedAt()
+                movie.getDuration()
         );
     }
 
@@ -37,7 +37,7 @@ public class MovieMapperImpl implements MovieMapper {
     public Movie map(MovieCreationRequest request) {
         return Movie.builder()
                 .title(request.title())
-                .enTitle(request.enTitle())
+                .originalTitle(request.originalTitle())
                 .description(request.description())
                 .releaseYear(request.releaseYear())
                 .country(request.country())
@@ -50,14 +50,14 @@ public class MovieMapperImpl implements MovieMapper {
     public MovieResponse toMovieResponse(Movie movie) {
         return new MovieResponse(
                 movie.getId(),
+                movie.getPosterUrl(),
                 movie.getTitle(),
-                movie.getEnTitle(),
+                movie.getOriginalTitle(),
                 movie.getDescription(),
                 movie.getReleaseYear(),
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
-                movie.getDuration(),
-                movie.getCreatedAt()
+                movie.getDuration()
         );
     }
 

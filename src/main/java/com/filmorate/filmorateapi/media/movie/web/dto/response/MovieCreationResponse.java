@@ -1,15 +1,15 @@
 package com.filmorate.filmorateapi.media.movie.web.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.Instant;
 import java.util.List;
 
 public record MovieCreationResponse(
         Long id,
 
+        String posterUrl,
+
         String title,
 
-        String enTitle,
+        String originalTitle,
 
         String description,
 
@@ -19,8 +19,5 @@ public record MovieCreationResponse(
 
         List<String> genres,
 
-        Integer duration,
-
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
-        Instant createdAt) {
+        Integer duration) {
 }

@@ -1,9 +1,8 @@
-package com.filmorate.filmorateapi.media.movie.model;
+package com.filmorate.filmorateapi.media.series.model;
 
 import com.filmorate.filmorateapi.media.genre.model.Genre;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,9 +13,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(schema = "filmorate", name = "movie")
-@EntityListeners(AuditingEntityListener.class)
-public class Movie {
+@Table(schema = "filmorate", name = "series")
+public class Series {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -40,14 +38,14 @@ public class Movie {
     protected String country;
 
     @Column(nullable = false)
-    private Integer duration;
+    private boolean isFinished;
 
     @ToString.Exclude
     @ManyToMany
     @JoinTable(
             schema = "filmorate",
-            name = "movie_genres",
-            joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
+            name = "series_genres",
+            joinColumns = { @JoinColumn(name = "series_id", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
     )
     protected Set<Genre> genres = new HashSet<>();
