@@ -1,0 +1,52 @@
+package com.filmorate.filmorateapi.media.series.model;
+
+import com.filmorate.filmorateapi.media.genre.model.Genre;
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@Entity
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(schema = "filmorate", name = "series")
+public class Series {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
+    @Column(nullable = false)
+    protected String posterUrl;
+
+    @Column(nullable = false)
+    protected String title;
+
+    @Column(nullable = false)
+    protected String originalTitle;
+
+    @Column(nullable = false)
+    protected String description;
+
+    @Column(nullable = false)
+    protected Integer releaseYear;
+
+    @Column(nullable = false)
+    protected String country;
+
+    @Column(nullable = false)
+    private boolean isFinished;
+
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            schema = "filmorate",
+            name = "series_genres",
+            joinColumns = { @JoinColumn(name = "series_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
+    )
+    protected Set<Genre> genres = new HashSet<>();
+}

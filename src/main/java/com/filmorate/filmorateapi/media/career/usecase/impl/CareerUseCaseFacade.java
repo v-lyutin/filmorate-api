@@ -24,17 +24,17 @@ public class CareerUseCaseFacade implements CareerUseCase {
     }
 
     @Override
-    public void createCareer(CareerCreationRequest careerCreationRequest) {
+    public Career createCareer(CareerCreationRequest careerCreationRequest) {
         Career career = new Career();
         career.setName(careerCreationRequest.name());
-        careerService.createCareer(career);
+        return careerService.createCareer(career);
     }
 
     @Override
-    public void updateCareer(Long careerId, CareerCreationRequest careerCreationRequest) {
+    public Career updateCareer(Long careerId, CareerCreationRequest careerCreationRequest) {
         Career career = careerService.findCareerById(careerId);
         career.setName(careerCreationRequest.name());
-        careerService.updateCareer(career);
+        return careerService.updateCareer(career);
     }
 
     @Override

@@ -34,14 +34,14 @@ public class GenreController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    void createGenre(@Valid @RequestBody GenreCreationRequest request) {
-        genreUseCase.createGenre(request);
+    Genre createGenre(@Valid @RequestBody GenreCreationRequest request) {
+        return genreUseCase.createGenre(request);
     }
 
     @PutMapping(value = "{genreId:\\d+}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    void updateGenre(@PathVariable Long genreId, @Valid @RequestBody GenreCreationRequest request) {
-        genreUseCase.updateGenre(genreId, request);
+    Genre updateGenre(@PathVariable Long genreId, @Valid @RequestBody GenreCreationRequest request) {
+        return genreUseCase.updateGenre(genreId, request);
     }
 
     @DeleteMapping(value = "{genreId:\\d+}")

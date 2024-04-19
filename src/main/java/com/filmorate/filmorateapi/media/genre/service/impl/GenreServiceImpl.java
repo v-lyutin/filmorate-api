@@ -5,6 +5,7 @@ import com.filmorate.filmorateapi.media.genre.model.Genre;
 import com.filmorate.filmorateapi.media.genre.repository.GenreRepository;
 import com.filmorate.filmorateapi.media.genre.service.GenreService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.Collection;
 
@@ -21,26 +22,42 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public Genre getGenreById(Long genreId) {
         return genreRepository.findById(genreId)
-                .orElseThrow(() -> new GenreServiceException(String.format("Жанра с ID = {%d} не существует", genreId)));
+                .orElseThrow(() -> new GenreServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Genre with ID = '%d' not found", genreId)));
     }
 
     @Override
-    public void createGenre(Genre genre) {
+    public Genre getGenreByName(String name) {
+        return genreRepository.findByName(name)
+                .orElseThrow(() -> new GenreServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Genre with name '%s' not found", name)));
+    }
+
+    @Override
+    public Genre createGenre(Genre genre) {
         if (genreRepository.existsByName(genre.getName())) {
-            throw new GenreServiceException("Жанр с таким названием уже существует");
+            throw new GenreServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("Genre with name '%s' is already exists", genre.getName()));
         }
-        genreRepository.save(genre);
+        return genreRepository.save(genre);
     }
 
     @Override
-    public void updateGenre(Long genreId, String genreName) {
+    public Genre updateGenre(Long genreId, String genreName) {
         if (genreRepository.existsByName(genreName)) {
-            throw new GenreServiceException("Жанр с таким названием уже существует");
+            throw new GenreServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    String.format("Genre with name '%s' is already exists", genreName));
         }
         Genre genre = genreRepository.findById(genreId)
-                .orElseThrow(() -> new GenreServiceException(String.format("Жанра с ID = {%d} не существует", genreId)));
+                .orElseThrow(() -> new GenreServiceException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Genre with ID = '%d' not found", genreId)));
         genre.setName(genreName);
-        genreRepository.save(genre);
+        return genreRepository.save(genre);
     }
 
     @Override

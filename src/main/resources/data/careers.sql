@@ -1,0 +1,13 @@
+INSERT INTO filmorate.careers (name) VALUES ('режиссёр');
+INSERT INTO filmorate.careers (name) VALUES ('сценарист');
+INSERT INTO filmorate.careers (name) VALUES ('продюсер');
+INSERT INTO filmorate.careers (name) VALUES ('актёр');
+INSERT INTO filmorate.careers (name) VALUES ('оператор');
+INSERT INTO filmorate.careers (name) VALUES ('художник-постановщик');
+INSERT INTO filmorate.careers (name) VALUES ('композитор');
+INSERT INTO filmorate.careers (name) VALUES ('монтажёр');
+INSERT INTO filmorate.careers (name) VALUES ('звукорежиссёр');
+INSERT INTO filmorate.careers (name) VALUES ('кастинг-директор');
+INSERT INTO filmorate.careers (name) VALUES ('гримёр');
+INSERT INTO filmorate.careers (name) VALUES ('редактор');
+INSERT INTO filmorate.careers (name) VALUES ('специалист по спецэффектам');

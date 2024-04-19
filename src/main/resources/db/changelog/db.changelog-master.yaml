@@ -18,11 +18,23 @@ databaseChangeLog:
       file: 0.0.1/changelog-create-filmorate-persons-table.sql
       relativeToChangelogFile: true
   - include:
-      file: 0.0.1/changelog-modify-filmorate-persons-table.sql
-      relativeToChangelogFile: true
-  - include:
       file: 0.0.1/changelog-create-filmorate-facts-table.sql
       relativeToChangelogFile: true
   - include:
       file: 0.0.1/changelog-create-filmorate-favorite_persons-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-filmorate-movie-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-filmorate-movie_content-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-filmorate-movie_actors-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-filmorate-movie_staff-table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-filmorate-series-table.sql
       relativeToChangelogFile: true

@@ -34,14 +34,14 @@ public class CareerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public void createCareer(@Valid @RequestBody CareerCreationRequest request) {
-        careerUseCase.createCareer(request);
+    public Career createCareer(@Valid @RequestBody CareerCreationRequest request) {
+        return careerUseCase.createCareer(request);
     }
 
     @PutMapping(value = "{careerId:\\d+}")
     @Operation(security = { @SecurityRequirement(name = "bearer-key") })
-    public void updateCareer(@PathVariable Long careerId, @Valid @RequestBody CareerCreationRequest request) {
-        careerUseCase.updateCareer(careerId, request);
+    public Career updateCareer(@PathVariable Long careerId, @Valid @RequestBody CareerCreationRequest request) {
+        return careerUseCase.updateCareer(careerId, request);
     }
 
     @DeleteMapping(value = "{careerId:\\d+}")

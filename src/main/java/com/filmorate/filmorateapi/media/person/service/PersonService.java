@@ -1,19 +1,24 @@
 package com.filmorate.filmorateapi.media.person.service;
 
+import com.filmorate.filmorateapi.media.career.model.Career;
 import com.filmorate.filmorateapi.media.person.model.Person;
+import com.filmorate.filmorateapi.media.person.web.dto.filter.PersonFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface PersonService {
-    Page<Person> findPersons(Pageable pageable);
+import java.util.Set;
 
-    Person getPersonById(Long personId);
+public interface PersonService {
 
     Person createPerson(Person person);
 
-    void updatePerson(Person updatedPerson);
+    Person updatePerson(Person person);
 
-    void deletePerson(Long personId);
+    Person getPersonById(Long personId);
+
+    Page<Person> getPersons(PersonFilter personFilter, Pageable pageable);
+
+    void removePersonById(Long personId);
 
     boolean existsById(Long personId);
 }

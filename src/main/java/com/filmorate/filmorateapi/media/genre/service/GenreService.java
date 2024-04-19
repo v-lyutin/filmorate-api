@@ -8,9 +8,11 @@ public interface GenreService {
 
     Genre getGenreById(Long genreId);
 
-    void createGenre(Genre genre);
+    Genre getGenreByName(String name);
 
-    void updateGenre(Long genreId, String genreName);
+    Genre createGenre(Genre genre);
+
+    Genre updateGenre(Long genreId, String genreName);
 
     void deleteGenre(Long genreId);
 }

@@ -4,12 +4,13 @@
 --comment create table filmorate.persons
 create table filmorate.persons
 (
-    id         serial primary key,
-    first_name varchar(32) not null,
-    last_name  varchar(32) not null,
-    birth_date date        not null,
-    height     integer     not null,
-    image_link varchar
+    id               serial primary key,
+    image_link       varchar,
+    name             varchar(32),
+    birth_date       date,
+    country_of_birth varchar(50),
+    city_of_birth    varchar(50),
+    height           integer
 );
 --rollback drop table filmorate.persons;
 
@@ -38,4 +39,3 @@ alter table filmorate.persons_careers
 --rollback alter table filmorate.persons_careers drop constraint persons_careers__careers_fk;
 --rollback alter table filmorate.persons_careers drop constraint persons_careers__persons_fk;
 --rollback alter table filmorate.persons_careers drop constraint persons_careers_unique;
-

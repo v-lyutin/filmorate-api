@@ -9,9 +9,9 @@ public interface GenreUseCase {
 
     Genre getGenreById(Long genreId);
 
-    void createGenre(GenreCreationRequest genreCreationRequest);
+    Genre createGenre(GenreCreationRequest genreCreationRequest);
 
-    void updateGenre(Long genreId, GenreCreationRequest genreCreationRequest);
+    Genre updateGenre(Long genreId, GenreCreationRequest genreCreationRequest);
 
     void deleteGenre(Long genreId);
 }

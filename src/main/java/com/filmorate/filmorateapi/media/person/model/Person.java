@@ -23,23 +23,15 @@ public class Person {
 
     private String imageLink;
 
-    @Column(nullable = false)
-    private String firstName;
+    private String name;
 
-    @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
-    @Column(nullable = false)
     private String countryOfBirth;
 
-    @Column(nullable = false)
     private String cityOfBirth;
 
-    @Column(nullable = false)
     private Integer height;
 
     @ToString.Exclude

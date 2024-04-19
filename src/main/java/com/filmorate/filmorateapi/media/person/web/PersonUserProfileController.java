@@ -1,7 +1,7 @@
 package com.filmorate.filmorateapi.media.person.web;
 
 import com.filmorate.filmorateapi.media.person.usecase.user.PersonUserProfileUseCase;
-import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonPreviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -23,7 +23,7 @@ public class PersonUserProfileController {
     }
 
     @GetMapping(value = "profiles/myProfile/favoritePersons")
-    List<PersonDemoResponse> getFavoritePersons() {
+    List<PersonPreviewResponse> getFavoritePersons() {
         return personUserProfileUseCase.getFavoritePersons();
     }
 }

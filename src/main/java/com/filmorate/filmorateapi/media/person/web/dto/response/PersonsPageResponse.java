@@ -6,5 +6,5 @@ public record PersonsPageResponse(
         long totalPages,
         boolean isFirstPage,
         boolean isLastPage,
-        Collection<PersonDemoResponse> persons) {
+        Collection<PersonPreviewResponse> persons) {
 }
