@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface CareerRepository extends JpaRepository<Career, Long> {
     boolean existsByNameContainingIgnoreCase(String name);
 
-    Optional<Career> findByName(String name);
+    Optional<Career> findByNameContainingIgnoreCase(String name);
 }

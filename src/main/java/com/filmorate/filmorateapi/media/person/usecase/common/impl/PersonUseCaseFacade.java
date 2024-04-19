@@ -1,9 +1,11 @@
 package com.filmorate.filmorateapi.media.person.usecase.common.impl;
 
-import com.filmorate.filmorateapi.media.person.mapper.*;
+import com.filmorate.filmorateapi.media.person.mapper.PersonMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
+import com.filmorate.filmorateapi.media.person.model.Person_;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import com.filmorate.filmorateapi.media.person.usecase.common.PersonUseCase;
+import com.filmorate.filmorateapi.media.person.web.dto.filter.PersonFilter;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonCreationRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonFindRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -42,9 +45,9 @@ public class PersonUseCaseFacade implements PersonUseCase {
     }
 
     @Override
-    public PersonsPageResponse getAllPersons(PersonFindRequest request) {
-        Pageable pageable = PageRequest.of(request.page(), request.limit());
-        Page<Person> pageablePersons = personService.getAllPersons(pageable);
+    public PersonsPageResponse getPersonsWithFilters(PersonFilter personFilter, PersonFindRequest request) {
+        Pageable pageable = PageRequest.of(request.page(), request.limit(), Sort.by(Sort.Order.by(Person_.NAME)));
+        Page<Person> pageablePersons = personService.getPersons(personFilter, pageable);
         return personMapper.toPersonsPageResponse(pageablePersons);
     }
 

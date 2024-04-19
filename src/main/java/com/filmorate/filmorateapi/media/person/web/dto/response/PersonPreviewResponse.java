@@ -2,7 +2,7 @@ package com.filmorate.filmorateapi.media.person.web.dto.response;
 
 import java.util.Set;
 
-public record PersonDemoResponse(
+public record PersonPreviewResponse(
         long id,
 
         String imageLink,

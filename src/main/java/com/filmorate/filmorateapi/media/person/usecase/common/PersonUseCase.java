@@ -1,6 +1,9 @@
 package com.filmorate.filmorateapi.media.person.usecase.common;
 
-import com.filmorate.filmorateapi.media.person.web.dto.request.*;
+import com.filmorate.filmorateapi.media.person.web.dto.filter.PersonFilter;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonCreationRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonFindRequest;
+import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonsPageResponse;
 import jakarta.validation.Valid;
@@ -15,7 +18,7 @@ public interface PersonUseCase {
 
     PersonResponse getPersonById(Long personId);
 
-    PersonsPageResponse getAllPersons(@Valid PersonFindRequest request);
+    PersonsPageResponse getPersonsWithFilters(PersonFilter personFilter, @Valid PersonFindRequest request);
 
     void removePersonById(Long personId);
 }

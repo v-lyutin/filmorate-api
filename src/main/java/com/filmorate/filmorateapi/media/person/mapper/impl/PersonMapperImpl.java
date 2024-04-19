@@ -7,7 +7,7 @@ import com.filmorate.filmorateapi.media.person.mapper.PersonMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonCreationRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
-import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonPreviewResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonResponse;
 import com.filmorate.filmorateapi.media.person.web.dto.response.PersonsPageResponse;
 import lombok.RequiredArgsConstructor;
@@ -51,20 +51,20 @@ public class PersonMapperImpl implements PersonMapper {
 
     @Override
     public PersonsPageResponse toPersonsPageResponse(Page<Person> pageablePersons) {
-        List<PersonDemoResponse> personDemoResponses = pageablePersons.getContent().stream()
+        List<PersonPreviewResponse> personPreviews = pageablePersons.getContent().stream()
                 .map(this::toPersonDemoResponse)
                 .toList();
         return new PersonsPageResponse(
                 pageablePersons.getTotalPages(),
                 pageablePersons.isFirst(),
                 pageablePersons.isLast(),
-                personDemoResponses
+                personPreviews
         );
     }
 
     @Override
-    public PersonDemoResponse toPersonDemoResponse(Person person) {
-        return new PersonDemoResponse(
+    public PersonPreviewResponse toPersonDemoResponse(Person person) {
+        return new PersonPreviewResponse(
                 person.getId(),
                 person.getImageLink(),
                 person.getName(),

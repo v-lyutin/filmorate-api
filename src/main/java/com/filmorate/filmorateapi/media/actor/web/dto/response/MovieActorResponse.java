@@ -1,13 +1,13 @@
 package com.filmorate.filmorateapi.media.actor.web.dto.response;
 
-import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonPreviewResponse;
 
 public record MovieActorResponse(
     long actorId,
 
     long movieId,
 
-    PersonDemoResponse personPreview,
+    PersonPreviewResponse personPreview,
 
     String role,
 

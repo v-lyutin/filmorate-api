@@ -29,7 +29,7 @@ public class CareerServiceImpl implements CareerService {
 
     @Override
     public Career findCareerByName(String careerName) {
-        return careerRepository.findByName(careerName.toLowerCase())
+        return careerRepository.findByNameContainingIgnoreCase(careerName.toLowerCase())
                 .orElseThrow(() -> new CareerServiceException(
                         HttpStatus.NOT_FOUND,
                         String.format("Career with name '%s' not found", careerName)));

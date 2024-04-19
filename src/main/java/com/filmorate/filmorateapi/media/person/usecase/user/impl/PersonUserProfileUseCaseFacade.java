@@ -4,7 +4,7 @@ import com.filmorate.filmorateapi.media.person.mapper.PersonMapper;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
 import com.filmorate.filmorateapi.media.person.usecase.user.PersonUserProfileUseCase;
-import com.filmorate.filmorateapi.media.person.web.dto.response.PersonDemoResponse;
+import com.filmorate.filmorateapi.media.person.web.dto.response.PersonPreviewResponse;
 import com.filmorate.filmorateapi.user.api.CurrentUserProfileApiService;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class PersonUserProfileUseCaseFacade implements PersonUserProfileUseCase 
     }
 
     @Override
-    public List<PersonDemoResponse> getFavoritePersons() {
+    public List<PersonPreviewResponse> getFavoritePersons() {
         UserProfile userProfile = currentUserProfileApiService.currentUserProfile();
         return userProfile.getFavoritePersons().stream()
                 .map(personMapper::toPersonDemoResponse)

@@ -1,6 +1,7 @@
 package com.filmorate.filmorateapi.media.person.web;
 
 import com.filmorate.filmorateapi.media.person.usecase.common.PersonUseCase;
+import com.filmorate.filmorateapi.media.person.web.dto.filter.PersonFilter;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonCreationRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonFindRequest;
 import com.filmorate.filmorateapi.media.person.web.dto.request.PersonUpdateRequest;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,11 +20,23 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
     private final PersonUseCase personCommonUseCase;
 
-    @GetMapping
+    @GetMapping(value = "search")
     public PersonsPageResponse getAllPersons(@RequestParam(name = "page", defaultValue = "0") int page,
-                                             @RequestParam(name = "limit", defaultValue = "10") int limit) {
+                                             @RequestParam(name = "limit", defaultValue = "10") int limit,
+                                             @RequestParam(name = "name", required = false) String name,
+                                             @RequestParam(name = "countryOfBirth", required = false) String countryOfBirth,
+                                             @RequestParam(name = "cityOfBirth", required = false) String cityOfBirth,
+                                             @RequestParam(name = "height", required = false) String height,
+                                             @RequestParam(name = "careers", required = false) Set<String> careers) {
+        PersonFilter personFilter = PersonFilter.builder()
+                .name(name)
+                .cityOfBirth(cityOfBirth)
+                .countryOfBirth(countryOfBirth)
+                .height(height)
+                .careers(careers)
+                .build();
         PersonFindRequest personFindRequest = new PersonFindRequest(page, limit);
-        return personCommonUseCase.getAllPersons(personFindRequest);
+        return personCommonUseCase.getPersonsWithFilters(personFilter, personFindRequest);
     }
 
     @GetMapping(value = "{personId:\\d+}")
