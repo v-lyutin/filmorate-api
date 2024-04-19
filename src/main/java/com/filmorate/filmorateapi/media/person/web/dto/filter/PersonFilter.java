@@ -18,6 +18,7 @@ import java.util.Set;
 @Builder
 public class PersonFilter implements Specification<Person> {
     private String name;
+    private String enName;
     private String countryOfBirth;
     private String cityOfBirth;
     private String height;
@@ -28,20 +29,19 @@ public class PersonFilter implements Specification<Person> {
                                  @NonNull CriteriaQuery<?> query,
                                  @NonNull CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
-        if (StringUtils.isNotBlank(name))
-        {
+        if (StringUtils.isNotBlank(name)) {
             predicates.add(criteriaBuilder.like(root.get(Person_.NAME), "%" + name + "%"));
         }
-        if (StringUtils.isNotBlank(countryOfBirth))
-        {
+        if (StringUtils.isNotBlank(enName)) {
+            predicates.add(criteriaBuilder.like(root.get(Person_.EN_NAME), "%" + enName + "%"));
+        }
+        if (StringUtils.isNotBlank(countryOfBirth)) {
             predicates.add(criteriaBuilder.like(root.get(Person_.COUNTRY_OF_BIRTH), "%" + countryOfBirth + "%"));
         }
-        if (StringUtils.isNotBlank(cityOfBirth))
-        {
+        if (StringUtils.isNotBlank(cityOfBirth)) {
             predicates.add(criteriaBuilder.like(root.get(Person_.CITY_OF_BIRTH), "%" + cityOfBirth + "%"));
         }
-        if (StringUtils.isNotBlank(height))
-        {
+        if (StringUtils.isNotBlank(height)) {
             predicates.add(criteriaBuilder.equal(root.get(Person_.HEIGHT), height));
         }
         if (careers != null && !careers.isEmpty()) {

@@ -9,5 +9,7 @@ public record PersonPreviewResponse(
 
         String name,
 
+        String enName,
+
         Set<String> careers) {
 }

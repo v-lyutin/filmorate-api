@@ -11,6 +11,8 @@ public record PersonResponse(
 
         String name,
 
+        String enName,
+
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date birthDate,
 

@@ -25,6 +25,8 @@ public class Person {
 
     private String name;
 
+    private String enName;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 

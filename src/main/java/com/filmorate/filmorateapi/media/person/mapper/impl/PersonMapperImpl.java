@@ -28,6 +28,7 @@ public class PersonMapperImpl implements PersonMapper {
         return Person.builder()
                 .imageLink(request.imageLink())
                 .name(request.name())
+                .enName(request.enName())
                 .birthDate(request.birthDate())
                 .countryOfBirth(request.countryOfBirth())
                 .cityOfBirth(request.cityOfBirth())
@@ -42,6 +43,7 @@ public class PersonMapperImpl implements PersonMapper {
                 person.getId(),
                 person.getImageLink(),
                 person.getName(),
+                person.getEnName(),
                 person.getBirthDate(),
                 person.getCountryOfBirth(),
                 person.getCityOfBirth(),
@@ -58,6 +60,7 @@ public class PersonMapperImpl implements PersonMapper {
                 pageablePersons.getTotalPages(),
                 pageablePersons.isFirst(),
                 pageablePersons.isLast(),
+                pageablePersons.getTotalElements(),
                 personPreviews
         );
     }
@@ -68,6 +71,7 @@ public class PersonMapperImpl implements PersonMapper {
                 person.getId(),
                 person.getImageLink(),
                 person.getName(),
+                person.getEnName(),
                 careersToString(person.getCareers())
         );
     }
@@ -82,6 +86,9 @@ public class PersonMapperImpl implements PersonMapper {
         }
         if (jsonNullableMapper.isPresent(request.name())) {
             person.setName(jsonNullableMapper.unwrap(request.name()));
+        }
+        if (jsonNullableMapper.isPresent(request.enName())) {
+            person.setName(jsonNullableMapper.unwrap(request.enName()));
         }
         if (jsonNullableMapper.isPresent(request.birthDate())) {
             person.setBirthDate(jsonNullableMapper.unwrap(request.birthDate()));
