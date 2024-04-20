@@ -24,3 +24,31 @@ alter table filmorate.movie_actors
 --rollback alter table filmorate.movie_actors drop constraint movie_actors__persons__fk;
 --rollback alter table filmorate.movie_actors drop constraint movie_actors__movies__fk;
 
+
+
+
+
+
+--changeset v-lyutin:create-filmorate-series_actors-table
+--comment create table filmorate.series_actors
+create table filmorate.series_actors
+(
+    id           serial primary key,
+    person_id    integer      not null,
+    series_id     integer      not null,
+    role         varchar(32) not null,
+    is_main_role boolean      not null
+);
+--rollback drop table filmorate.series_actors;
+
+--changeset v-lyutin:add-filmorate-series_actors-table-constraints
+--comment add constraints to filmorate.series_actors table
+alter table filmorate.series_actors
+    add constraint series_actors__persons__fk
+        foreign key (person_id) references filmorate.persons (id);
+
+alter table filmorate.series_actors
+    add constraint series_actors__series__fk
+        foreign key (series_id) references filmorate.series (id);
+--rollback alter table filmorate.series_actors drop constraint series_actors__persons__fk;
+--rollback alter table filmorate.series_actors drop constraint series_actors__series__fk;

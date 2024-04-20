@@ -1,15 +1,15 @@
 package com.filmorate.filmorateapi.media.actor.mapper.impl;
 
 import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
-import com.filmorate.filmorateapi.media.actor.mapper.MovieActorMapper;
-import com.filmorate.filmorateapi.media.actor.model.MovieActor;
+import com.filmorate.filmorateapi.media.actor.mapper.SeriesActorMapper;
+import com.filmorate.filmorateapi.media.actor.model.SeriesActor;
 import com.filmorate.filmorateapi.media.actor.web.dto.request.ActorCreationRequest;
 import com.filmorate.filmorateapi.media.actor.web.dto.request.ActorUpdateRequest;
-import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorPageResponse;
-import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorResponse;
-import com.filmorate.filmorateapi.media.movie.model.Movie;
+import com.filmorate.filmorateapi.media.actor.web.dto.response.SeriesActorPageResponse;
+import com.filmorate.filmorateapi.media.actor.web.dto.response.SeriesActorResponse;
 import com.filmorate.filmorateapi.media.person.mapper.PersonMapper;
 import com.filmorate.filmorateapi.media.person.service.PersonService;
+import com.filmorate.filmorateapi.media.series.model.Series;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -18,16 +18,16 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class MovieActorMapperImpl implements MovieActorMapper {
+public class SeriesActorMapperImpl implements SeriesActorMapper {
     private final PersonService personService;
     private final PersonMapper personMapper;
     private final JsonNullableMapper jsonNullableMapper;
 
     @Override
-    public MovieActorResponse map(MovieActor actor) {
-        return new MovieActorResponse(
+    public SeriesActorResponse map(SeriesActor actor) {
+        return new SeriesActorResponse(
                 actor.getId(),
-                actor.getMovie().getId(),
+                actor.getSeries().getId(),
                 personMapper.toPersonDemoResponse(actor.getPerson()),
                 actor.getRole(),
                 actor.getIsMainRole()
@@ -35,11 +35,11 @@ public class MovieActorMapperImpl implements MovieActorMapper {
     }
 
     @Override
-    public List<MovieActor> map(Movie movie, List<ActorCreationRequest> requests) {
+    public List<SeriesActor> map(Series series, List<ActorCreationRequest> requests) {
         return requests.stream()
-                .map(movieActorRequest -> MovieActor.builder()
+                .map(movieActorRequest -> SeriesActor.builder()
                         .person(personService.getPersonById(movieActorRequest.personId()))
-                        .movie(movie)
+                        .series(series)
                         .role(movieActorRequest.role())
                         .isMainRole(movieActorRequest.isMainRole())
                         .build()
@@ -48,15 +48,15 @@ public class MovieActorMapperImpl implements MovieActorMapper {
     }
 
     @Override
-    public List<MovieActorResponse> map(List<MovieActor> actors) {
+    public List<SeriesActorResponse> map(List<SeriesActor> actors) {
         return actors.stream()
                 .map(this::map)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public MovieActorPageResponse map(Page<MovieActor> pageableActors) {
-        return new MovieActorPageResponse(
+    public SeriesActorPageResponse map(Page<SeriesActor> pageableActors) {
+        return new SeriesActorPageResponse(
                 pageableActors.getTotalPages(),
                 pageableActors.isFirst(),
                 pageableActors.isLast(),
@@ -66,15 +66,14 @@ public class MovieActorMapperImpl implements MovieActorMapper {
     }
 
     @Override
-    public void update(MovieActor actor, ActorUpdateRequest request) {
-        if (request == null) {
-            return;
-        }
-        if (jsonNullableMapper.isPresent(request.role())) {
-            actor.setRole(jsonNullableMapper.unwrap(request.role()));
-        }
-        if (jsonNullableMapper.isPresent(request.isMainRole())) {
-            actor.setIsMainRole(jsonNullableMapper.unwrap(request.isMainRole()));
+    public void update(SeriesActor actor, ActorUpdateRequest request) {
+        if (request != null) {
+            if (jsonNullableMapper.isPresent(request.role())) {
+                actor.setRole(jsonNullableMapper.unwrap(request.role()));
+            }
+            if (jsonNullableMapper.isPresent(request.isMainRole())) {
+                actor.setIsMainRole(jsonNullableMapper.unwrap(request.isMainRole()));
+            }
         }
     }
 }

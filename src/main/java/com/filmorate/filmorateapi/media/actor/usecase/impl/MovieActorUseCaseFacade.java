@@ -5,8 +5,8 @@ import com.filmorate.filmorateapi.media.actor.mapper.MovieActorMapper;
 import com.filmorate.filmorateapi.media.actor.model.MovieActor;
 import com.filmorate.filmorateapi.media.actor.service.MovieActorService;
 import com.filmorate.filmorateapi.media.actor.usecase.MovieActorUseCase;
-import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorCreationRequest;
-import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorUpdateRequest;
+import com.filmorate.filmorateapi.media.actor.web.dto.request.ActorCreationRequest;
+import com.filmorate.filmorateapi.media.actor.web.dto.request.ActorUpdateRequest;
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorPageResponse;
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorResponse;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
@@ -23,21 +23,21 @@ import java.util.List;
 public class MovieActorUseCaseFacade implements MovieActorUseCase {
     private final MovieActorService movieActorService;
     private final MovieService movieService;
-    private final MovieActorMapper movieActorMapper;
+    private final MovieActorMapper actorMapper;
 
     @Override
-    public List<MovieActorResponse> createActors(Long movieId, List<MovieActorCreationRequest> request) {
+    public List<MovieActorResponse> createActors(Long movieId, List<ActorCreationRequest> request) {
         Movie movie = movieService.getMovieById(movieId);
-        List<MovieActor> createdActors = movieActorService.createActors(movieActorMapper.map(movie, request));
-        return movieActorMapper.map(createdActors);
+        List<MovieActor> createdActors = movieActorService.createActors(actorMapper.map(movie, request));
+        return actorMapper.map(createdActors);
     }
 
     @Override
-    public MovieActorResponse updateActorById(Long actorId, MovieActorUpdateRequest request) {
+    public MovieActorResponse updateActorById(Long actorId, ActorUpdateRequest request) {
         MovieActor actor = movieActorService.getActorById(actorId);
-        movieActorMapper.update(actor, request);
+        actorMapper.update(actor, request);
         movieActorService.updateActor(actor);
-        return movieActorMapper.map(actor);
+        return actorMapper.map(actor);
     }
 
     @Override
@@ -45,12 +45,12 @@ public class MovieActorUseCaseFacade implements MovieActorUseCase {
         Movie movie = movieService.getMovieById(movieId);
         Pageable pageable = PageRequest.of(request.page(), request.limit());
         Page<MovieActor> pageableActors = movieActorService.getActorsByMovie(pageable, movie);
-        return movieActorMapper.map(pageableActors);
+        return actorMapper.map(pageableActors);
     }
 
     @Override
     public MovieActorResponse getActorById(Long actorId) {
-        return movieActorMapper.map(movieActorService.getActorById(actorId));
+        return actorMapper.map(movieActorService.getActorById(actorId));
     }
 
     @Override

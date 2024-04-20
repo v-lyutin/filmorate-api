@@ -24,12 +24,14 @@ public class PersonController {
     public PersonsPageResponse getAllPersons(@RequestParam(name = "page", defaultValue = "0") int page,
                                              @RequestParam(name = "limit", defaultValue = "10") int limit,
                                              @RequestParam(name = "name", required = false) String name,
+                                             @RequestParam(name = "enName", required = false) String enName,
                                              @RequestParam(name = "countryOfBirth", required = false) String countryOfBirth,
                                              @RequestParam(name = "cityOfBirth", required = false) String cityOfBirth,
                                              @RequestParam(name = "height", required = false) String height,
                                              @RequestParam(name = "careers", required = false) Set<String> careers) {
         PersonFilter personFilter = PersonFilter.builder()
                 .name(name)
+                .enName(enName)
                 .cityOfBirth(cityOfBirth)
                 .countryOfBirth(countryOfBirth)
                 .height(height)

@@ -7,6 +7,7 @@ create table filmorate.persons
     id               serial primary key,
     image_link       varchar,
     name             varchar(32),
+    en_name          varchar(32),
     birth_date       date,
     country_of_birth varchar(50),
     city_of_birth    varchar(50),

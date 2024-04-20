@@ -2,8 +2,8 @@ package com.filmorate.filmorateapi.media.actor.web;
 
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
 import com.filmorate.filmorateapi.media.actor.usecase.MovieActorUseCase;
-import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorCreationRequest;
-import com.filmorate.filmorateapi.media.actor.web.dto.request.MovieActorUpdateRequest;
+import com.filmorate.filmorateapi.media.actor.web.dto.request.ActorCreationRequest;
+import com.filmorate.filmorateapi.media.actor.web.dto.request.ActorUpdateRequest;
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorPageResponse;
 import com.filmorate.filmorateapi.media.actor.web.dto.response.MovieActorResponse;
 import jakarta.validation.Valid;
@@ -23,13 +23,13 @@ public class MovieActorController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "{movieId:\\d+}/actors")
     public List<MovieActorResponse> addActors(@PathVariable(name = "movieId") Long movieId,
-                                              @Valid @RequestBody List<MovieActorCreationRequest> request) {
+                                              @Valid @RequestBody List<ActorCreationRequest> request) {
         return movieActorUseCase.createActors(movieId, request);
     }
 
     @PatchMapping(value = "actors/{actorId:\\d+}")
     public MovieActorResponse updateActorById(@PathVariable(name = "actorId") Long actorId,
-                                              @Valid @RequestBody MovieActorUpdateRequest request) {
+                                              @Valid @RequestBody ActorUpdateRequest request) {
         return movieActorUseCase.updateActorById(actorId, request);
     }
 
