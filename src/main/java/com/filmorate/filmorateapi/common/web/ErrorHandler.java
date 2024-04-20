@@ -1,6 +1,7 @@
 package com.filmorate.filmorateapi.common.web;
 
 import com.filmorate.filmorateapi.media.actor.exception.MovieActorServiceException;
+import com.filmorate.filmorateapi.media.actor.exception.SeriesActorServiceException;
 import com.filmorate.filmorateapi.media.career.exception.CareerServiceException;
 import com.filmorate.filmorateapi.media.content.exception.ContentServiceException;
 import com.filmorate.filmorateapi.media.fact.exception.FactServiceException;
@@ -30,6 +31,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(SeriesActorServiceException.class)
+    public ProblemDetail handleSeriesActorServiceException(SeriesActorServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
     @ExceptionHandler(SeasonServiceException.class)
     public ProblemDetail handleSeasonServiceException(SeasonServiceException exception) {
         return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
