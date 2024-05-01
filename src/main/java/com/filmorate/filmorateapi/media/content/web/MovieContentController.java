@@ -1,11 +1,11 @@
 package com.filmorate.filmorateapi.media.content.web;
 
 import com.filmorate.filmorateapi.media.content.model.ContentType;
-import com.filmorate.filmorateapi.media.content.usecase.ContentUseCase;
+import com.filmorate.filmorateapi.media.content.usecase.MovieContentUseCase;
 import com.filmorate.filmorateapi.media.content.util.ContentTypeEditor;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentRequest;
 import com.filmorate.filmorateapi.media.content.web.dto.request.ContentUpdateRequest;
-import com.filmorate.filmorateapi.media.content.web.dto.response.ContentResponse;
+import com.filmorate.filmorateapi.media.content.web.dto.response.MovieContentResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping(value = "api/v1/movies")
-public class ContentController {
-    private final ContentUseCase contentUseCase;
+public class MovieContentController {
+    private final MovieContentUseCase contentUseCase;
 
     @InitBinder(value = "contentType")
     public void initBinder(WebDataBinder dataBinder) {
@@ -28,7 +28,7 @@ public class ContentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "{movieId:\\d+}/content")
-    public ContentResponse addContent(
+    public MovieContentResponse addContent(
             @RequestParam(name = "contentType") ContentType contentType,
             @PathVariable(name = "movieId") Long movieId,
             @Valid @RequestBody ContentRequest request) {
@@ -36,21 +36,21 @@ public class ContentController {
     }
 
     @PutMapping(value = "content/{contentId:\\d+}")
-    public ContentResponse updateContent(
+    public MovieContentResponse updateContent(
             @PathVariable(name = "contentId") Long contentId,
             @Valid @RequestBody ContentUpdateRequest request) {
         return contentUseCase.updateContent(contentId, request);
     }
 
     @GetMapping(value = "{movieId:\\d+}/content")
-    public List<ContentResponse> getContentByMovie(
+    public List<MovieContentResponse> getContentByMovie(
             @RequestParam(name = "contentType", required = false, defaultValue = "ALL") ContentType contentType,
             @PathVariable(name = "movieId") Long movieId) {
         return contentUseCase.getContentByMovie(movieId, contentType);
     }
 
     @GetMapping(value = "content/{contentId:\\d+}")
-    public ContentResponse getContentById(@PathVariable(name = "contentId") Long contentId) {
+    public MovieContentResponse getContentById(@PathVariable(name = "contentId") Long contentId) {
         return contentUseCase.getContentById(contentId);
     }
 

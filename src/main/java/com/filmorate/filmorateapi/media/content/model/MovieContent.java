@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(schema = "filmorate", name = "movie_content")
-public class Content {
+public class MovieContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -2,7 +2,9 @@ package com.filmorate.filmorateapi.media.fact.model;
 
 public enum FactType {
     MOVIE("movie"),
-    PERSON("person");
+    PERSON("person"),
+    SERIES("series"),
+    EPISODE("episode");
 
     private final String type;
 
