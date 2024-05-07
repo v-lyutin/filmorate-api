@@ -36,6 +36,7 @@ public class MovieMapperImpl implements MovieMapper {
     @Override
     public Movie map(MovieCreationRequest request) {
         return Movie.builder()
+                .posterUrl(request.posterUrl())
                 .title(request.title())
                 .originalTitle(request.originalTitle())
                 .description(request.description())

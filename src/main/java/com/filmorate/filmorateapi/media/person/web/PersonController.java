@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Set;
 
 @RestController
@@ -56,7 +57,7 @@ public class PersonController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping(value = "{personId:\\d+}")
     public PersonResponse updatePerson(@PathVariable(name = "personId") Long personId,
-                             @Valid @RequestBody PersonUpdateRequest request) {
+                                       @Valid @RequestBody PersonUpdateRequest request) {
         return personCommonUseCase.updatePerson(personId, request);
     }
 

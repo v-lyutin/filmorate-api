@@ -19,25 +19,25 @@ import java.util.Set;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @Column(nullable = false)
-    protected String posterUrl;
+    private String posterUrl;
 
     @Column(nullable = false)
-    protected String title;
+    private String title;
 
     @Column(nullable = false)
-    protected String originalTitle;
+    private String originalTitle;
 
     @Column(nullable = false)
-    protected String description;
+    private String description;
 
     @Column(nullable = false)
-    protected Integer releaseYear;
+    private Integer releaseYear;
 
     @Column(nullable = false)
-    protected String country;
+    private String country;
 
     @Column(nullable = false)
     private Integer duration;
@@ -50,5 +50,5 @@ public class Movie {
             joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
     )
-    protected Set<Genre> genres = new HashSet<>();
+    private Set<Genre> genres = new HashSet<>();
 }

@@ -1,0 +1,56 @@
+package com.filmorate.filmorateapi.media.comment.web;
+
+import com.filmorate.filmorateapi.media.comment.usecase.SeriesCommentUseCase;
+import com.filmorate.filmorateapi.media.comment.web.dto.request.CommentPageRequest;
+import com.filmorate.filmorateapi.media.comment.web.dto.request.CommentRequest;
+import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentPageResponse;
+import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/series")
+public class SeriesCommentController {
+    private final SeriesCommentUseCase seriesCommentUseCase;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "{seriesId:\\d+}/comments")
+    public CommentResponse addComment(@PathVariable(name = "seriesId") Long seriesId,
+                                      @Valid @RequestBody CommentRequest request) {
+        return seriesCommentUseCase.createComment(seriesId, request);
+    }
+
+    @PutMapping(value = "comments/{commentId:\\d+}")
+    public CommentResponse updateComment(@PathVariable(name = "commentId") Long commentId,
+                                         @Valid @RequestBody CommentRequest request) {
+        return seriesCommentUseCase.updateComment(commentId, request);
+    }
+
+    @GetMapping(value = "comments/{commentId:\\d+}")
+    public CommentResponse getComment(@PathVariable(name = "commentId") Long commentId) {
+        return seriesCommentUseCase.getCommentById(commentId);
+    }
+
+    @GetMapping(value = "{seriesId:\\d+}/comments")
+    public CommentPageResponse getCommentsByMovie(@PathVariable(name = "seriesId") Long seriesId,
+                                                  @RequestParam(name = "page", defaultValue = "0") int page,
+                                                  @RequestParam(name = "limit", defaultValue = "10") int limit) {
+        CommentPageRequest request = new CommentPageRequest(page, limit);
+        return seriesCommentUseCase.getCommentsBySeries(seriesId, request);
+    }
+
+    @DeleteMapping(value = "comments/{commentId:\\d+}")
+    public void removeComment(@PathVariable(name = "commentId") Long commentId) {
+        seriesCommentUseCase.removeCommentById(commentId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "{seriesId:\\d+}/comments")
+    public void removeAllCommentsByMovie(@PathVariable(name = "seriesId") Long seriesId) {
+        seriesCommentUseCase.removeAllCommentsBySeries(seriesId);
+    }
+}
