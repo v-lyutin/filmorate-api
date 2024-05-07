@@ -7,5 +7,6 @@ public record MoviePreviewResponse(
         String posterUrl,
         String title,
         String originalTitle,
-        List<String> genres) {
+        List<String> genres,
+        long likesCount) {
 }

@@ -40,3 +40,29 @@ alter table filmorate.movie_genres
 --rollback alter table filmorate.movie_genres drop constraint movie_genres__genres_fk;
 --rollback alter table filmorate.movie_genres drop constraint movie_genres__movie_fk;
 --rollback alter table filmorate.movie_genres drop constraint movie_genres_unique;
+
+--changeset v-lyutin:create-filmorate-movie_likes-table
+--comment create table filmorate.movie_likes
+create table filmorate.movie_likes
+(
+    movie_id integer not null,
+    user_profile_id integer not null
+);
+--rollback drop table filmorate.movie_likes;
+
+--changeset v-lyutin:add-movie_likes-table-constraints
+--comment add constraints to movie_likes
+alter table filmorate.movie_likes
+    add constraint movie_likes__user_profile_fk
+        foreign key (user_profile_id) references filmorate.user_profiles (id);
+
+alter table filmorate.movie_likes
+    add constraint movie_likes__movie_fk
+        foreign key (movie_id) references filmorate.movie (id);
+
+alter table filmorate.movie_likes
+    add constraint movie_likes_unique
+        unique (movie_id, user_profile_id);
+--rollback alter table filmorate.movie_likes drop constraint movie_likes__user_profile_fk;
+--rollback alter table filmorate.movie_likes drop constraint movie_likes__movie_fk;
+--rollback alter table filmorate.movie_likes drop constraint movie_likes_unique;

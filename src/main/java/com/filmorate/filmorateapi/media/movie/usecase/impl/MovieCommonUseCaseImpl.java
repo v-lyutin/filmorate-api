@@ -44,5 +44,10 @@ public class MovieCommonUseCaseImpl implements MovieCommonUseCase {
         Page<Movie> movies = movieService.getMoviesWithFilters(movieFilter, pageable);
         return movieMapper.toMoviesPageResponse(movies);
     }
+
+    @Override
+    public void toggleLike(Long movieId) {
+        movieService.toggleLike(movieId);
+    }
 }
 

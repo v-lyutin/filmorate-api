@@ -4,6 +4,7 @@ import com.filmorate.filmorateapi.media.genre.mapper.GenreFromStringMapper;
 import com.filmorate.filmorateapi.media.genre.model.Genre;
 import com.filmorate.filmorateapi.media.movie.mapper.MovieMapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
+import com.filmorate.filmorateapi.media.movie.service.MovieService;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviePreviewResponse;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieMapperImpl implements MovieMapper {
     private final GenreFromStringMapper genreFromStringMapper;
+    private final MovieService movieService;
 
     @Override
     public MovieCreationResponse map(Movie movie) {
@@ -61,7 +63,8 @@ public class MovieMapperImpl implements MovieMapper {
                 movie.getReleaseYear(),
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
-                movie.getDuration()
+                movie.getDuration(),
+                movieService.getMovieLikeCount(movie.getId())
         );
     }
 
@@ -85,7 +88,8 @@ public class MovieMapperImpl implements MovieMapper {
                 movie.getPosterUrl(),
                 movie.getTitle(),
                 movie.getOriginalTitle(),
-                genresToGenreResponses(movie.getGenres())
+                genresToGenreResponses(movie.getGenres()),
+                movieService.getMovieLikeCount(movie.getId())
         );
     }
 

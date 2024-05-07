@@ -39,7 +39,6 @@ public class MovieController {
                 .build();
         PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
         return movieCommonUseCase.getMoviesWithFilters(movieFilter, pageFindRequest);
-
     }
 
     @PostMapping
@@ -56,5 +55,10 @@ public class MovieController {
     @DeleteMapping("{movieId:\\d+}")
     public void removeMovieById(@PathVariable(name = "movieId") Long movieId) {
         movieCommonUseCase.removeMovieById(movieId);
+    }
+
+    @PostMapping("{movieId:\\d+}/like")
+    public void toggleLike(@PathVariable(name = "movieId") Long movieId) {
+        movieCommonUseCase.toggleLike(movieId);
     }
 }

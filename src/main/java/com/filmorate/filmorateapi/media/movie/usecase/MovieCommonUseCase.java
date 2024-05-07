@@ -18,4 +18,6 @@ public interface MovieCommonUseCase {
     void removeMovieById(Long movieId);
 
     MoviesPageResponse getMoviesWithFilters(MovieFilter movieFilter, @Valid  PageFindRequest request);
+
+    void toggleLike(Long movieId);
 }

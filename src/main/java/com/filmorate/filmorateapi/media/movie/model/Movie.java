@@ -52,4 +52,14 @@ public class Movie {
             inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
     )
     private Set<Genre> genres = new HashSet<>();
+
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            schema = "filmorate",
+            name = "movie_likes",
+            joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_profile_id", referencedColumnName = "id") }
+    )
+    private Set<UserProfile> likedByUsers = new HashSet<>();
 }

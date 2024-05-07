@@ -3,7 +3,7 @@ package com.filmorate.filmorateapi.media.movie.web.dto.response;
 import java.util.List;
 
 public record MovieResponse(
-        Long id,
+        long id,
 
         String posterUrl,
 
@@ -19,5 +19,7 @@ public record MovieResponse(
 
         List<String> genres,
 
-        Integer duration) {
+        Integer duration,
+
+        long likesCount) {
 }
