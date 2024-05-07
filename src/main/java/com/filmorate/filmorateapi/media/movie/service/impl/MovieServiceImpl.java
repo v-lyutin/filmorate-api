@@ -4,7 +4,10 @@ import com.filmorate.filmorateapi.media.movie.exception.MovieServiceException;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.repository.MovieRepository;
 import com.filmorate.filmorateapi.media.movie.service.MovieService;
+import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +43,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public boolean existsById(Long movieId) {
         return movieRepository.existsById(movieId);
+    }
+
+    @Override
+    public Page<Movie> getMoviesWithFilters(MovieFilter movieFilter, Pageable pageable) {
+        return movieRepository.findAll(movieFilter, pageable);
     }
 }

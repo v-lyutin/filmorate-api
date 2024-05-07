@@ -6,8 +6,11 @@ import com.filmorate.filmorateapi.media.movie.mapper.MovieMapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
+import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviePreviewResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
+import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +62,30 @@ public class MovieMapperImpl implements MovieMapper {
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
                 movie.getDuration()
+        );
+    }
+
+    @Override
+    public MoviesPageResponse toMoviesPageResponse(Page<Movie> movies) {
+        List<MoviePreviewResponse> moviePreviews = movies.getContent().stream()
+                .map(this::toMoviePreviewResponse)
+                .toList();
+        return new MoviesPageResponse(
+                movies.getTotalPages(),
+                movies.isFirst(),
+                movies.isLast(),
+                movies.getTotalElements(),
+                moviePreviews
+        );
+    }
+
+    private MoviePreviewResponse toMoviePreviewResponse(Movie movie) {
+        return new MoviePreviewResponse(
+                movie.getId(),
+                movie.getPosterUrl(),
+                movie.getTitle(),
+                movie.getOriginalTitle(),
+                genresToGenreResponses(movie.getGenres())
         );
     }
 

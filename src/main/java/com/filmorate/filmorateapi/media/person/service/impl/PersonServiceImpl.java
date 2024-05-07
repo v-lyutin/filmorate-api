@@ -1,6 +1,5 @@
 package com.filmorate.filmorateapi.media.person.service.impl;
 
-import com.filmorate.filmorateapi.media.career.model.Career;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
 import com.filmorate.filmorateapi.media.person.model.Person;
 import com.filmorate.filmorateapi.media.person.repository.PersonRepository;
@@ -11,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

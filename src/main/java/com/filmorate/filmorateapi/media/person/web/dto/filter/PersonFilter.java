@@ -49,6 +49,6 @@ public class PersonFilter implements Specification<Person> {
                 predicates.add(criteriaBuilder.equal(root.join(Person_.CAREERS).get(Career_.NAME), career));
             }
         }
-        return predicates.size() == 0 ? null : criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        return predicates.isEmpty() ? null : criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }

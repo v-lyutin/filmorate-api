@@ -1,6 +1,7 @@
 package com.filmorate.filmorateapi.media.movie.model;
 
 import com.filmorate.filmorateapi.media.genre.model.Genre;
+import com.filmorate.filmorateapi.user.model.UserProfile;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

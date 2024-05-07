@@ -1,19 +1,46 @@
 package com.filmorate.filmorateapi.media.movie.web;
 
+import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
 import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
+import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
+import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/movies")
 public class MovieController {
     private final MovieCommonUseCase movieCommonUseCase;
+
+    @GetMapping("search")
+    public MoviesPageResponse getMovies(@RequestParam(name = "page", defaultValue = "0") int page,
+                                        @RequestParam(name = "limit", defaultValue = "10") int limit,
+                                        @RequestParam(name = "title", required = false) String title,
+                                        @RequestParam(name = "originalTitle", required = false) String originalTitle,
+                                        @RequestParam(name = "releaseYear", required = false) String releaseYear,
+                                        @RequestParam(name = "country", required = false) String country,
+                                        @RequestParam(name = "duration", required = false) String duration,
+                                        @RequestParam(name = "genre", required = false) Set<String> genres) {
+        MovieFilter movieFilter = MovieFilter.builder()
+                .title(title)
+                .originalTitle(originalTitle)
+                .releaseYear(releaseYear)
+                .country(country)
+                .duration(duration)
+                .genres(genres)
+                .build();
+        PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
+        return movieCommonUseCase.getMoviesWithFilters(movieFilter, pageFindRequest);
+
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
