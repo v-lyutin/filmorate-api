@@ -6,10 +6,14 @@ import com.filmorate.filmorateapi.media.genre.model.Genre;
 import com.filmorate.filmorateapi.media.series.mapper.SeriesMapper;
 import com.filmorate.filmorateapi.media.series.model.Series;
 import com.filmorate.filmorateapi.media.series.service.SeasonService;
+import com.filmorate.filmorateapi.media.series.service.SeriesService;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesCreationRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesUpdateRequest;
+import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPageResponse;
+import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPreviewResponse;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +25,7 @@ public class SeriesMapperImpl implements SeriesMapper {
     private final SeasonService seasonService;
     private final GenreFromStringMapper genreFromStringMapper;
     private final JsonNullableMapper jsonNullableMapper;
+    private final SeriesService seriesService;
 
     @Override
     public Series map(SeriesCreationRequest request) {
@@ -79,6 +84,31 @@ public class SeriesMapperImpl implements SeriesMapper {
         if (jsonNullableMapper.isPresent(request.isFinished())) {
             series.setFinished(jsonNullableMapper.unwrap(request.isFinished()));
         }
+    }
+
+    @Override
+    public SeriesPageResponse toSeriesPageResponse(Page<Series> series) {
+        List<SeriesPreviewResponse> seriesPreviewResponses = series.getContent().stream()
+                .map(this::toSeriesPreviewResponse)
+                .toList();
+        return new SeriesPageResponse(
+                series.getTotalPages(),
+                series.isFirst(),
+                series.isLast(),
+                series.getTotalElements(),
+                seriesPreviewResponses
+        );
+    }
+
+    private SeriesPreviewResponse toSeriesPreviewResponse(Series series) {
+        return new SeriesPreviewResponse(
+                series.getId(),
+                series.getPosterUrl(),
+                series.getTitle(),
+                series.getOriginalTitle(),
+                genresToGenreResponses(series.getGenres()),
+                seriesService.getSeriesLikeCount(series.getId())
+        );
     }
 
     private Set<Genre> parseGenres(Set<String> genres) {

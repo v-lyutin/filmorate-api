@@ -32,7 +32,7 @@ alter table filmorate.movie_genres
 
 alter table filmorate.movie_genres
     add constraint movie_genres__movie_fk
-        foreign key (movie_id) references filmorate.movie (id);
+        foreign key (movie_id) references filmorate.movie (id) ON DELETE CASCADE;
 
 alter table filmorate.movie_genres
     add constraint movie_genres_unique
@@ -58,7 +58,7 @@ alter table filmorate.movie_likes
 
 alter table filmorate.movie_likes
     add constraint movie_likes__movie_fk
-        foreign key (movie_id) references filmorate.movie (id);
+        foreign key (movie_id) references filmorate.movie (id) ON DELETE CASCADE;
 
 alter table filmorate.movie_likes
     add constraint movie_likes_unique

@@ -20,7 +20,7 @@ import java.util.Set;
 public class MovieController {
     private final MovieCommonUseCase movieCommonUseCase;
 
-    @GetMapping("search")
+    @GetMapping(value = "search")
     public MoviesPageResponse getMovies(@RequestParam(name = "page", defaultValue = "0") int page,
                                         @RequestParam(name = "limit", defaultValue = "10") int limit,
                                         @RequestParam(name = "title", required = false) String title,

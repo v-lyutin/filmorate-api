@@ -1,6 +1,7 @@
 package com.filmorate.filmorateapi.media.series.model;
 
 import com.filmorate.filmorateapi.media.genre.model.Genre;
+import com.filmorate.filmorateapi.user.model.UserProfile;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -49,4 +50,14 @@ public class Series {
             inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") }
     )
     protected Set<Genre> genres = new HashSet<>();
+
+    @ToString.Exclude
+    @ManyToMany
+    @JoinTable(
+            schema = "filmorate",
+            name = "series_likes",
+            joinColumns = { @JoinColumn(name = "series_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_profile_id", referencedColumnName = "id") }
+    )
+    private Set<UserProfile> likedByUsers = new HashSet<>();
 }

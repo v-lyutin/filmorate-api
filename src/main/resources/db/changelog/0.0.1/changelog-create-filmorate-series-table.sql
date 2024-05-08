@@ -81,3 +81,29 @@ alter table filmorate.episodes
     add constraint episodes__seasons__fk
         foreign key (season_id) references filmorate.seasons (id);
 --rollback alter table filmorate.episodes drop constraint episodes__movies__fk;
+
+--changeset v-lyutin:create-filmorate-series_likes-table
+--comment create table filmorate.series_likes
+create table filmorate.series_likes
+(
+    series_id integer not null,
+    user_profile_id integer not null
+);
+--rollback drop table filmorate.series_likes;
+
+--changeset v-lyutin:add-series_likes-table-constraints
+--comment add constraints to series_likes
+alter table filmorate.series_likes
+    add constraint series_likes__user_profile_fk
+        foreign key (user_profile_id) references filmorate.user_profiles (id);
+
+alter table filmorate.series_likes
+    add constraint series_likes__series_fk
+        foreign key (series_id) references filmorate.series (id);
+
+alter table filmorate.series_likes
+    add constraint series_likes_unique
+        unique (series_id, user_profile_id);
+--rollback alter table filmorate.series_likes drop constraint series_likes__user_profile_fk;
+--rollback alter table filmorate.series_likes drop constraint series_likes__series_fk;
+--rollback alter table filmorate.series_likes drop constraint series_likes_unique;
