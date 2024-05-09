@@ -3,6 +3,12 @@ package com.filmorate.filmorateapi.media.series.mapper.impl;
 import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
 import com.filmorate.filmorateapi.media.genre.mapper.GenreFromStringMapper;
 import com.filmorate.filmorateapi.media.genre.model.Genre;
+import com.filmorate.filmorateapi.media.rating.mapper.MPAARatingMapper;
+import com.filmorate.filmorateapi.media.rating.mapper.RARSRatingMapper;
+import com.filmorate.filmorateapi.media.rating.model.MPAARating;
+import com.filmorate.filmorateapi.media.rating.model.RARSRating;
+import com.filmorate.filmorateapi.media.rating.service.MPAARatingService;
+import com.filmorate.filmorateapi.media.rating.service.RARSRatingService;
 import com.filmorate.filmorateapi.media.series.mapper.SeriesMapper;
 import com.filmorate.filmorateapi.media.series.model.Series;
 import com.filmorate.filmorateapi.media.series.service.SeasonService;
@@ -26,9 +32,15 @@ public class SeriesMapperImpl implements SeriesMapper {
     private final GenreFromStringMapper genreFromStringMapper;
     private final JsonNullableMapper jsonNullableMapper;
     private final SeriesService seriesService;
+    private final MPAARatingMapper mpaaRatingMapper;
+    private final RARSRatingMapper rarsRatingMapper;
+    private final MPAARatingService mpaaRatingService;
+    private final RARSRatingService rarsRatingService;
 
     @Override
     public Series map(SeriesCreationRequest request) {
+        MPAARating mpaaRating = mpaaRatingService.getByName(request.mpaaRating());
+        RARSRating rarsRating = rarsRatingService.getByName(request.rarsRating());
         return Series.builder()
                 .posterUrl(request.posterUrl())
                 .title(request.title())
@@ -38,6 +50,8 @@ public class SeriesMapperImpl implements SeriesMapper {
                 .releaseYear(request.releaseYear())
                 .country(request.country())
                 .isFinished(request.isFinished())
+                .mpaaRating(mpaaRating)
+                .rarsRating(rarsRating)
                 .build();
     }
 
@@ -53,7 +67,10 @@ public class SeriesMapperImpl implements SeriesMapper {
                 series.getReleaseYear(),
                 series.getCountry(),
                 seasonService.countSeasonsBySeries(series),
-                series.isFinished()
+                series.isFinished(),
+                mpaaRatingMapper.map(series.getMpaaRating()),
+                rarsRatingMapper.map(series.getRarsRating()),
+                seriesService.getSeriesLikeCount(series.getId())
         );
     }
 
@@ -74,6 +91,14 @@ public class SeriesMapperImpl implements SeriesMapper {
         }
         if (jsonNullableMapper.isPresent(request.description())) {
             series.setDescription(jsonNullableMapper.unwrap(request.description()));
+        }
+        if (jsonNullableMapper.isPresent(request.mpaaRating())) {
+            MPAARating mpaaRating = mpaaRatingService.getByName(jsonNullableMapper.unwrap(request.mpaaRating()));
+            series.setMpaaRating(mpaaRating);
+        }
+        if (jsonNullableMapper.isPresent(request.rarsRating())) {
+            RARSRating rarsRating = rarsRatingService.getByName(jsonNullableMapper.unwrap(request.rarsRating()));
+            series.setRarsRating(rarsRating);
         }
         if (jsonNullableMapper.isPresent(request.releaseYear())) {
             series.setReleaseYear(jsonNullableMapper.unwrap(request.releaseYear()));
@@ -107,6 +132,8 @@ public class SeriesMapperImpl implements SeriesMapper {
                 series.getTitle(),
                 series.getOriginalTitle(),
                 genresToGenreResponses(series.getGenres()),
+                series.getMpaaRating().getName(),
+                series.getRarsRating().getName(),
                 seriesService.getSeriesLikeCount(series.getId())
         );
     }

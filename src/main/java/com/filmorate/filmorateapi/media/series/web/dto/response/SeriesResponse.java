@@ -1,5 +1,7 @@
 package com.filmorate.filmorateapi.media.series.web.dto.response;
 
+import com.filmorate.filmorateapi.media.rating.web.dto.response.RatingResponse;
+
 import java.util.List;
 
 public record SeriesResponse(
@@ -21,5 +23,11 @@ public record SeriesResponse(
 
         Integer seasonsCount,
 
-        Boolean isFinished) {
+        Boolean isFinished,
+
+        RatingResponse mpaaRating,
+
+        RatingResponse rarsRaring,
+
+        long likesCount) {
 }

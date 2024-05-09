@@ -25,5 +25,11 @@ public record SeriesUpdateRequest(
         @Size(max = 32, message = "The size of the 'title' field must not exceed 32 characters")
         JsonNullable<String> country,
 
-        JsonNullable<Boolean> isFinished) {
+        JsonNullable<Boolean> isFinished,
+
+        @Size(max = 5, message = "The size of the 'mpaaRating' field must not exceed 5 characters")
+        JsonNullable<String> mpaaRating,
+
+        @Size(max = 5, message = "The size of the 'rarsRating' field must not exceed 5 characters")
+        JsonNullable<String> rarsRating) {
 }

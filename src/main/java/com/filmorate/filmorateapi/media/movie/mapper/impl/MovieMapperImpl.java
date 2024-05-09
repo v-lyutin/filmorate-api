@@ -131,15 +131,11 @@ public class MovieMapperImpl implements MovieMapper {
             if (jsonNullableMapper.isPresent(request.duration())) {
                 movie.setDuration(jsonNullableMapper.unwrap(request.duration()));
             }
-            if (jsonNullableMapper.isPresent(request.duration())) {
-                RARSRating rarsRating = rarsRatingService.getByName(jsonNullableMapper.unwrap(request.rarsRating()));
-                movie.setRarsRating(rarsRating);
-            }
             if (jsonNullableMapper.isPresent(request.mpaaRating())) {
                 MPAARating mpaaRating = mpaaRatingService.getByName(jsonNullableMapper.unwrap(request.mpaaRating()));
                 movie.setMpaaRating(mpaaRating);
             }
-            if (jsonNullableMapper.isPresent(request.duration())) {
+            if (jsonNullableMapper.isPresent(request.rarsRating())) {
                 RARSRating rarsRating = rarsRatingService.getByName(jsonNullableMapper.unwrap(request.rarsRating()));
                 movie.setRarsRating(rarsRating);
             }

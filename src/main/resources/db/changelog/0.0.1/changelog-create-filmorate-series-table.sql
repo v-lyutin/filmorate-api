@@ -11,9 +11,23 @@ create table filmorate.series
     description    varchar(1000) not null,
     release_year   integer       not null,
     country        varchar(32),
-    is_finished    boolean       not null
+    is_finished    boolean       not null,
+    mpaa_rating_id integer       not null,
+    rars_rating_id integer       not null
 );
 --rollback drop table filmorate.series;
+
+--changeset v-lyutin:add-filmorate-series-table-constraints
+--comment add constraints to filmorate.series table
+alter table filmorate.series
+    add constraint series__mpaa_rating_id__fk
+        foreign key (mpaa_rating_id) references filmorate.mpaa_ratings (id);
+
+alter table filmorate.series
+    add constraint series__rars_rating_id__fk
+        foreign key (rars_rating_id) references filmorate.rars_ratings (id);
+--rollback alter table filmorate.series drop constraint series__mpaa_rating_id__fk;
+--rollback alter table filmorate.series drop constraint series__rars_rating_id__fk;
 
 --changeset v-lyutin:create-filmorate-series_genres-table
 --comment create table filmorate.series_genres

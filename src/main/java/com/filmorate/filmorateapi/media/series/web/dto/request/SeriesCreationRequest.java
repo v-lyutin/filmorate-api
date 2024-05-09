@@ -32,5 +32,13 @@ public record SeriesCreationRequest(
         String country,
 
         @NotNull(message = "The 'isFinished' field should not be an empty")
-        Boolean isFinished) {
+        Boolean isFinished,
+
+        @NotBlank(message = "The 'mpaaRating' should not be an empty")
+        @Size(max = 5, message = "The size of the 'mpaaRating' field must not exceed 5 characters")
+        String mpaaRating,
+
+        @NotBlank(message = "The 'rarsRating' should not be an empty")
+        @Size(max = 5, message = "The size of the 'rarsRating' field must not exceed 5 characters")
+        String rarsRating) {
 }

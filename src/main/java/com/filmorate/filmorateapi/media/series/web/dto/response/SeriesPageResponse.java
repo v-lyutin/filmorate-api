@@ -6,6 +6,6 @@ public record SeriesPageResponse(
         long totalPages,
         boolean isFirstPage,
         boolean isLastPage,
-        long totalMovies,
-        Collection<SeriesPreviewResponse> movies) {
+        long totalSeries,
+        Collection<SeriesPreviewResponse> series) {
 }
