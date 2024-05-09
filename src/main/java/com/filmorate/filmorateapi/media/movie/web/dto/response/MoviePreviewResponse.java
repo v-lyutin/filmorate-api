@@ -8,5 +8,8 @@ public record MoviePreviewResponse(
         String title,
         String originalTitle,
         List<String> genres,
+        int duration,
+        String mpaaRating,
+        String rarsRaring,
         long likesCount) {
 }

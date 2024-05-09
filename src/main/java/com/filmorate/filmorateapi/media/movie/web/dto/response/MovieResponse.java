@@ -1,5 +1,7 @@
 package com.filmorate.filmorateapi.media.movie.web.dto.response;
 
+import com.filmorate.filmorateapi.media.rating.web.dto.response.RatingResponse;
+
 import java.util.List;
 
 public record MovieResponse(
@@ -20,6 +22,10 @@ public record MovieResponse(
         List<String> genres,
 
         Integer duration,
+
+        RatingResponse mpaaRating,
+
+        RatingResponse rarsRating,
 
         long likesCount) {
 }

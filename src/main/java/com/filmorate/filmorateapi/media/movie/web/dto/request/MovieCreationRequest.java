@@ -1,9 +1,7 @@
 package com.filmorate.filmorateapi.media.movie.web.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
+
 import java.util.Set;
 
 public record MovieCreationRequest(
@@ -31,5 +29,13 @@ public record MovieCreationRequest(
 
         @NotNull(message = "The 'duration' field should not be an empty")
         @Positive(message = "The 'duration' field must be a positive number and not equal to zero")
-        Integer duration) {
+        Integer duration,
+
+        @NotBlank(message = "The 'mpaaRating' should not be an empty")
+        @Size(max = 5, message = "The size of the 'mpaaRating' field must not exceed 5 characters")
+        String mpaaRating,
+
+        @NotBlank(message = "The 'rarsRating' should not be an empty")
+        @Size(max = 5, message = "The size of the 'rarsRating' field must not exceed 5 characters")
+        String rarsRating) {
 }

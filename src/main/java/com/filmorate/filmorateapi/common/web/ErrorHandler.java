@@ -9,6 +9,7 @@ import com.filmorate.filmorateapi.media.fact.exception.FactServiceException;
 import com.filmorate.filmorateapi.media.genre.exception.GenreServiceException;
 import com.filmorate.filmorateapi.media.movie.exception.MovieServiceException;
 import com.filmorate.filmorateapi.media.person.exception.PersonServiceException;
+import com.filmorate.filmorateapi.media.rating.exception.RatingServiceException;
 import com.filmorate.filmorateapi.media.series.exception.EpisodeServiceException;
 import com.filmorate.filmorateapi.media.series.exception.SeasonServiceException;
 import com.filmorate.filmorateapi.media.series.exception.SeriesServiceException;
@@ -32,6 +33,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+    @ExceptionHandler(RatingServiceException.class)
+    public ProblemDetail handleRatingServiceException(RatingServiceException exception) {
+        return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());
+    }
+
     @ExceptionHandler(CommentServiceException.class)
     public ProblemDetail handleCommentServiceException(CommentServiceException exception) {
         return ProblemDetail.forStatusAndDetail(exception.getHttpStatus(), exception.getMessage());

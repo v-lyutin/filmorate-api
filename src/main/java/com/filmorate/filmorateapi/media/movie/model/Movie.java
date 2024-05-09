@@ -1,6 +1,8 @@
 package com.filmorate.filmorateapi.media.movie.model;
 
 import com.filmorate.filmorateapi.media.genre.model.Genre;
+import com.filmorate.filmorateapi.media.rating.model.MPAARating;
+import com.filmorate.filmorateapi.media.rating.model.RARSRating;
 import com.filmorate.filmorateapi.user.model.UserProfile;
 import jakarta.persistence.*;
 import lombok.*;
@@ -43,6 +45,12 @@ public class Movie {
     @Column(nullable = false)
     private Integer duration;
 
+    @ManyToOne(optional = false)
+    private MPAARating mpaaRating;
+
+    @ManyToOne(optional = false)
+    private RARSRating rarsRating;
+
     @ToString.Exclude
     @ManyToMany
     @JoinTable(
@@ -54,7 +62,7 @@ public class Movie {
     private Set<Genre> genres = new HashSet<>();
 
     @ToString.Exclude
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             schema = "filmorate",
             name = "movie_likes",

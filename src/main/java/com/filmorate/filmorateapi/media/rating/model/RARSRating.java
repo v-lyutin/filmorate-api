@@ -10,12 +10,15 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(schema = "filmorate", name = "rating_rars")
-public class RARS {
+@Table(schema = "filmorate", name = "rars_ratings")
+public class RARSRating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String description;
 }

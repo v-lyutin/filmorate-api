@@ -11,9 +11,23 @@ create table filmorate.movie
     description    varchar(1000) not null,
     release_year   integer       not null,
     country        varchar(20)   not null,
-    duration       integer       not null
+    duration       integer       not null,
+    mpaa_rating_id integer       not null,
+    rars_rating_id integer       not null
 );
 --rollback drop table filmorate.movie;
+
+--changeset v-lyutin:add-filmorate-movie-table-constraints
+--comment add constraints to filmorate.movie table
+alter table filmorate.movie
+    add constraint movie__mpaa_rating_id__fk
+        foreign key (mpaa_rating_id) references filmorate.mpaa_ratings (id);
+
+alter table filmorate.movie
+    add constraint movie__rars_rating_id__fk
+        foreign key (rars_rating_id) references filmorate.rars_ratings (id);
+--rollback alter table filmorate.movie drop constraint movie__mpaa_rating_id__fk;
+--rollback alter table filmorate.movie drop constraint movie__rars_rating_id__fk;
 
 --changeset v-lyutin:create-filmorate-movie_genres-table
 --comment create table filmorate.movie_genres
@@ -45,7 +59,7 @@ alter table filmorate.movie_genres
 --comment create table filmorate.movie_likes
 create table filmorate.movie_likes
 (
-    movie_id integer not null,
+    movie_id        integer not null,
     user_profile_id integer not null
 );
 --rollback drop table filmorate.movie_likes;

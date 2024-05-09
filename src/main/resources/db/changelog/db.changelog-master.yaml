@@ -24,6 +24,9 @@ databaseChangeLog:
       file: 0.0.1/changelog-create-filmorate-favorite_persons-table.sql
       relativeToChangelogFile: true
   - include:
+      file: 0.0.1/changelog-create-filmorate-ratings-table.sql
+      relativeToChangelogFile: true
+  - include:
       file: 0.0.1/changelog-create-filmorate-movie-table.sql
       relativeToChangelogFile: true
   - include:

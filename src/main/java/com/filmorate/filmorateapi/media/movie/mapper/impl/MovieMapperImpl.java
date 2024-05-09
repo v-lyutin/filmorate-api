@@ -10,6 +10,12 @@ import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResp
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviePreviewResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
+import com.filmorate.filmorateapi.media.rating.mapper.MPAARatingMapper;
+import com.filmorate.filmorateapi.media.rating.mapper.RARSRatingMapper;
+import com.filmorate.filmorateapi.media.rating.model.MPAARating;
+import com.filmorate.filmorateapi.media.rating.model.RARSRating;
+import com.filmorate.filmorateapi.media.rating.service.MPAARatingService;
+import com.filmorate.filmorateapi.media.rating.service.RARSRatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -22,6 +28,10 @@ import java.util.stream.Collectors;
 public class MovieMapperImpl implements MovieMapper {
     private final GenreFromStringMapper genreFromStringMapper;
     private final MovieService movieService;
+    private final MPAARatingMapper mpaaRatingMapper;
+    private final RARSRatingMapper rarsRatingMapper;
+    private final MPAARatingService mpaaRatingService;
+    private final RARSRatingService rarsRatingService;
 
     @Override
     public MovieCreationResponse map(Movie movie) {
@@ -34,12 +44,16 @@ public class MovieMapperImpl implements MovieMapper {
                 movie.getReleaseYear(),
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
-                movie.getDuration()
+                movie.getDuration(),
+                mpaaRatingMapper.map(movie.getMpaaRating()),
+                rarsRatingMapper.map(movie.getRarsRating())
         );
     }
 
     @Override
     public Movie map(MovieCreationRequest request) {
+        MPAARating mpaaRating = mpaaRatingService.getByName(request.mpaaRating());
+        RARSRating rarsRating = rarsRatingService.getByName(request.rarsRating());
         return Movie.builder()
                 .posterUrl(request.posterUrl())
                 .title(request.title())
@@ -49,6 +63,8 @@ public class MovieMapperImpl implements MovieMapper {
                 .country(request.country())
                 .duration(request.duration())
                 .genres(parseGenres(request.genres()))
+                .mpaaRating(mpaaRating)
+                .rarsRating(rarsRating)
                 .build();
     }
 
@@ -64,6 +80,8 @@ public class MovieMapperImpl implements MovieMapper {
                 movie.getCountry(),
                 genresToGenreResponses(movie.getGenres()),
                 movie.getDuration(),
+                mpaaRatingMapper.map(movie.getMpaaRating()),
+                rarsRatingMapper.map(movie.getRarsRating()),
                 movieService.getMovieLikeCount(movie.getId())
         );
     }
@@ -89,6 +107,9 @@ public class MovieMapperImpl implements MovieMapper {
                 movie.getTitle(),
                 movie.getOriginalTitle(),
                 genresToGenreResponses(movie.getGenres()),
+                movie.getDuration(),
+                movie.getMpaaRating().getName(),
+                movie.getRarsRating().getName(),
                 movieService.getMovieLikeCount(movie.getId())
         );
     }
