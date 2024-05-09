@@ -52,26 +52,26 @@ public class EpisodeMapperImpl implements EpisodeMapper {
         if (request == null) {
             return;
         }
+        if (jsonNullableMapper.isPresent(request.episodeNumber())) {
+            episode.setEpisodeNumber(jsonNullableMapper.unwrap(request.episodeNumber()));
+        }
+        if (jsonNullableMapper.isPresent(request.description())) {
+            episode.setDescription(jsonNullableMapper.unwrap(request.description()));
+        }
+        if (jsonNullableMapper.isPresent(request.duration())) {
+            episode.setDuration(jsonNullableMapper.unwrap(request.duration()));
+        }
+        if (jsonNullableMapper.isPresent(request.originalTitle())) {
+            episode.setOriginalTitle(jsonNullableMapper.unwrap(request.originalTitle()));
+        }
+        if (jsonNullableMapper.isPresent(request.releaseDate())) {
+            episode.setReleaseDate(jsonNullableMapper.unwrap(request.releaseDate()));
+        }
         if (jsonNullableMapper.isPresent(request.previewUrl())) {
             episode.setPreviewUrl(jsonNullableMapper.unwrap(request.previewUrl()));
         }
         if (jsonNullableMapper.isPresent(request.title())) {
             episode.setTitle(jsonNullableMapper.unwrap(request.title()));
-        }
-        if (jsonNullableMapper.isPresent(request.originalTitle())) {
-            episode.setOriginalTitle(jsonNullableMapper.unwrap(request.originalTitle()));
-        }
-        if (jsonNullableMapper.isPresent(request.description())) {
-            episode.setDescription(jsonNullableMapper.unwrap(request.description()));
-        }
-        if (jsonNullableMapper.isPresent(request.episodeNumber())) {
-            episode.setEpisodeNumber(jsonNullableMapper.unwrap(request.episodeNumber()));
-        }
-        if (jsonNullableMapper.isPresent(request.duration())) {
-            episode.setDuration(jsonNullableMapper.unwrap(request.duration()));
-        }
-        if (jsonNullableMapper.isPresent(request.releaseDate())) {
-            episode.setReleaseDate(jsonNullableMapper.unwrap(request.releaseDate()));
         }
     }
 

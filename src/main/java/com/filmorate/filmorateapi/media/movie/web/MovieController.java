@@ -4,12 +4,14 @@ import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
 import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
 import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
+import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -43,21 +45,30 @@ public class MovieController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public MovieCreationResponse createMovie(@Valid @RequestBody MovieCreationRequest request) {
         return movieCommonUseCase.createMovie(request);
     }
 
-    @GetMapping("{movieId:\\d+}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping(value = "{movieId:\\d+}")
+    public MovieCreationResponse updateMovie(@PathVariable(name = "movieId") Long movieId,
+                                             @Valid @RequestBody MovieUpdateRequest request) {
+        return movieCommonUseCase.updateMovie(movieId, request);
+    }
+
+    @GetMapping(value = "{movieId:\\d+}")
     public MovieResponse getMovieById(@PathVariable(name = "movieId") Long movieId) {
         return movieCommonUseCase.getMovieById(movieId);
     }
 
-    @DeleteMapping("{movieId:\\d+}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "{movieId:\\d+}")
     public void removeMovieById(@PathVariable(name = "movieId") Long movieId) {
         movieCommonUseCase.removeMovieById(movieId);
     }
 
-    @PostMapping("{movieId:\\d+}/like")
+    @PostMapping(value = "{movieId:\\d+}/like")
     public void toggleLike(@PathVariable(name = "movieId") Long movieId) {
         movieCommonUseCase.toggleLike(movieId);
     }

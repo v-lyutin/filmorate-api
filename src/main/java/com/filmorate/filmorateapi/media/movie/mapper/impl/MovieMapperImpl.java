@@ -1,11 +1,13 @@
 package com.filmorate.filmorateapi.media.movie.mapper.impl;
 
+import com.filmorate.filmorateapi.common.mapper.JsonNullableMapper;
 import com.filmorate.filmorateapi.media.genre.mapper.GenreFromStringMapper;
 import com.filmorate.filmorateapi.media.genre.model.Genre;
 import com.filmorate.filmorateapi.media.movie.mapper.MovieMapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.service.MovieService;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
+import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviePreviewResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
@@ -32,6 +34,7 @@ public class MovieMapperImpl implements MovieMapper {
     private final RARSRatingMapper rarsRatingMapper;
     private final MPAARatingService mpaaRatingService;
     private final RARSRatingService rarsRatingService;
+    private final JsonNullableMapper jsonNullableMapper;
 
     @Override
     public MovieCreationResponse map(Movie movie) {
@@ -98,6 +101,49 @@ public class MovieMapperImpl implements MovieMapper {
                 movies.getTotalElements(),
                 moviePreviews
         );
+    }
+
+    @Override
+    public void update(Movie movie, MovieUpdateRequest request) {
+        if (request != null) {
+            if (jsonNullableMapper.isPresent(request.genres())) {
+                Set<Genre> genres = parseGenres(jsonNullableMapper.unwrap(request.genres()));
+                movie.setGenres(genres);
+            }
+            if (jsonNullableMapper.isPresent(request.posterUrl())) {
+                movie.setPosterUrl(jsonNullableMapper.unwrap(request.posterUrl()));
+            }
+            if (jsonNullableMapper.isPresent(request.title())) {
+                movie.setTitle(jsonNullableMapper.unwrap(request.title()));
+            }
+            if (jsonNullableMapper.isPresent(request.originalTitle())) {
+                movie.setOriginalTitle(jsonNullableMapper.unwrap(request.originalTitle()));
+            }
+            if (jsonNullableMapper.isPresent(request.description())) {
+                movie.setDescription(jsonNullableMapper.unwrap(request.description()));
+            }
+            if (jsonNullableMapper.isPresent(request.releaseYear())) {
+                movie.setReleaseYear(jsonNullableMapper.unwrap(request.releaseYear()));
+            }
+            if (jsonNullableMapper.isPresent(request.country())) {
+                movie.setCountry(jsonNullableMapper.unwrap(request.country()));
+            }
+            if (jsonNullableMapper.isPresent(request.duration())) {
+                movie.setDuration(jsonNullableMapper.unwrap(request.duration()));
+            }
+            if (jsonNullableMapper.isPresent(request.duration())) {
+                RARSRating rarsRating = rarsRatingService.getByName(jsonNullableMapper.unwrap(request.rarsRating()));
+                movie.setRarsRating(rarsRating);
+            }
+            if (jsonNullableMapper.isPresent(request.mpaaRating())) {
+                MPAARating mpaaRating = mpaaRatingService.getByName(jsonNullableMapper.unwrap(request.mpaaRating()));
+                movie.setMpaaRating(mpaaRating);
+            }
+            if (jsonNullableMapper.isPresent(request.duration())) {
+                RARSRating rarsRating = rarsRatingService.getByName(jsonNullableMapper.unwrap(request.rarsRating()));
+                movie.setRarsRating(rarsRating);
+            }
+        }
     }
 
     private MoviePreviewResponse toMoviePreviewResponse(Movie movie) {

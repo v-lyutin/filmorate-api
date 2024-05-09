@@ -7,6 +7,7 @@ import com.filmorate.filmorateapi.media.movie.service.MovieService;
 import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
 import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
+import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
@@ -26,6 +27,13 @@ public class MovieCommonUseCaseImpl implements MovieCommonUseCase {
     public MovieCreationResponse createMovie(MovieCreationRequest request) {
         Movie movie = movieMapper.map(request);
         return movieMapper.map(movieService.createMovie(movie));
+    }
+
+    @Override
+    public MovieCreationResponse updateMovie(Long movieId, MovieUpdateRequest request) {
+        Movie movie = movieService.getMovieById(movieId);
+        movieMapper.update(movie, request);
+        return movieMapper.map(movieService.updateMovie(movie));
     }
 
     @Override

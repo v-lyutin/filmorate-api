@@ -3,6 +3,7 @@ package com.filmorate.filmorateapi.media.movie.usecase;
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
+import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
@@ -12,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface MovieCommonUseCase {
     MovieCreationResponse createMovie(MovieCreationRequest request);
+
+    MovieCreationResponse updateMovie(Long movieId, MovieUpdateRequest request);
 
     MovieResponse getMovieById(Long movieId);
 

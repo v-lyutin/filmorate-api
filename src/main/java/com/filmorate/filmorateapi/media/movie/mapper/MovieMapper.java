@@ -3,6 +3,7 @@ package com.filmorate.filmorateapi.media.movie.mapper;
 import com.filmorate.filmorateapi.common.mapper.Mapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
+import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
@@ -16,4 +17,6 @@ public interface MovieMapper extends Mapper<Movie, MovieCreationRequest> {
     MovieResponse toMovieResponse(Movie movie);
 
     MoviesPageResponse toMoviesPageResponse(Page<Movie> movies);
+
+    void update(Movie movie, MovieUpdateRequest request);
 }
