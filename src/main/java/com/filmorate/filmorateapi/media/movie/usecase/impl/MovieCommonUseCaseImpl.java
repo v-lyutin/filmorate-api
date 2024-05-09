@@ -1,12 +1,14 @@
 package com.filmorate.filmorateapi.media.movie.usecase.impl;
 
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
+import com.filmorate.filmorateapi.media.movie.mapper.MovieFilterMapper;
 import com.filmorate.filmorateapi.media.movie.mapper.MovieMapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.service.MovieService;
 import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
 import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
+import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieFindRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieCreationResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Component;
 public class MovieCommonUseCaseImpl implements MovieCommonUseCase {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
+    private final MovieFilterMapper movieFilterMapper;
 
     @Override
     public MovieCreationResponse createMovie(MovieCreationRequest request) {
@@ -47,8 +50,9 @@ public class MovieCommonUseCaseImpl implements MovieCommonUseCase {
     }
 
     @Override
-    public MoviesPageResponse getMoviesWithFilters(MovieFilter movieFilter, PageFindRequest request) {
-        Pageable pageable = PageRequest.of(request.page(), request.limit());
+    public MoviesPageResponse getMoviesWithFilters(MovieFindRequest movieFindRequest, PageFindRequest pageFindRequest) {
+        Pageable pageable = PageRequest.of(pageFindRequest.page(), pageFindRequest.limit());
+        MovieFilter movieFilter = movieFilterMapper.map(movieFindRequest);
         Page<Movie> movies = movieService.getMoviesWithFilters(movieFilter, pageable);
         return movieMapper.toMoviesPageResponse(movies);
     }

@@ -9,12 +9,15 @@ public record MovieCreationRequest(
         String posterUrl,
 
         @NotBlank(message = "The 'title' field should not be an empty")
+        @Size(max = 32, message = "The size of the 'title' field must not exceed 32 characters")
         String title,
 
         @NotBlank(message = "The 'originalTitle' field should not be an empty")
+        @Size(max = 32, message = "The size of the 'originalTitle' field must not exceed 32 characters")
         String originalTitle,
 
         @NotBlank(message = "The 'description' field should not be an empty")
+        @Size(max = 1000, message = "The size of the 'description' field must not exceed 32 characters")
         String description,
 
         @NotNull(message = "The 'releaseYear' field should not be an empty")
@@ -22,6 +25,7 @@ public record MovieCreationRequest(
         Integer releaseYear,
 
         @NotBlank(message = "The 'country' field should not be an empty")
+        @Size(max = 20, message = "The size of the 'country' field must not exceed 32 characters")
         String country,
 
         @NotEmpty(message = "The 'genres' field should not be an empty")
