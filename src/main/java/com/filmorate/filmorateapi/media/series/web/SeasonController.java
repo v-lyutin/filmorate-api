@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.media.series.web;
 
-import com.filmorate.filmorateapi.media.series.usecase.common.SeasonUseCase;
+import com.filmorate.filmorateapi.media.series.usecase.SeasonUseCase;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeasonCreationRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeasonUpdateRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeasonCreationResponse;

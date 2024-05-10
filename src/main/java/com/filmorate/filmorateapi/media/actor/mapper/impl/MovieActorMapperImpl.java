@@ -28,7 +28,7 @@ public class MovieActorMapperImpl implements MovieActorMapper {
         return new MovieActorResponse(
                 actor.getId(),
                 actor.getMovie().getId(),
-                personMapper.toPersonDemoResponse(actor.getPerson()),
+                personMapper.toPersonPreviewResponse(actor.getPerson()),
                 actor.getRole(),
                 actor.getIsMainRole()
         );

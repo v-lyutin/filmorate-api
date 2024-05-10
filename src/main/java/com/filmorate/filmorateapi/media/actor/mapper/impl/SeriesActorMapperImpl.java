@@ -28,7 +28,7 @@ public class SeriesActorMapperImpl implements SeriesActorMapper {
         return new SeriesActorResponse(
                 actor.getId(),
                 actor.getSeries().getId(),
-                personMapper.toPersonDemoResponse(actor.getPerson()),
+                personMapper.toPersonPreviewResponse(actor.getPerson()),
                 actor.getRole(),
                 actor.getIsMainRole()
         );

@@ -15,7 +15,7 @@ public interface PersonMapper {
 
     PersonsPageResponse toPersonsPageResponse(Page<Person> pageablePersons);
 
-    PersonPreviewResponse toPersonDemoResponse(Person person);
+    PersonPreviewResponse toPersonPreviewResponse(Person person);
 
     void update(PersonUpdateRequest request, Person person);
 }

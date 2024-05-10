@@ -1,6 +1,6 @@
 package com.filmorate.filmorateapi.user.web;
 
-import com.filmorate.filmorateapi.user.usecase.impl.UserProfileUseCase;
+import com.filmorate.filmorateapi.user.usecase.common.impl.UserProfileUseCase;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileCreationRequest;
 import com.filmorate.filmorateapi.user.web.dto.request.UserProfileUpdateRequest;
 import com.filmorate.filmorateapi.user.web.dto.response.CurrentUserProfileResponse;

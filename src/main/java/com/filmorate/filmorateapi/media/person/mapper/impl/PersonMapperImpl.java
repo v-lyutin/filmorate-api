@@ -54,7 +54,7 @@ public class PersonMapperImpl implements PersonMapper {
     @Override
     public PersonsPageResponse toPersonsPageResponse(Page<Person> pageablePersons) {
         List<PersonPreviewResponse> personPreviews = pageablePersons.getContent().stream()
-                .map(this::toPersonDemoResponse)
+                .map(this::toPersonPreviewResponse)
                 .toList();
         return new PersonsPageResponse(
                 pageablePersons.getTotalPages(),
@@ -66,7 +66,7 @@ public class PersonMapperImpl implements PersonMapper {
     }
 
     @Override
-    public PersonPreviewResponse toPersonDemoResponse(Person person) {
+    public PersonPreviewResponse toPersonPreviewResponse(Person person) {
         return new PersonPreviewResponse(
                 person.getId(),
                 person.getImageLink(),
