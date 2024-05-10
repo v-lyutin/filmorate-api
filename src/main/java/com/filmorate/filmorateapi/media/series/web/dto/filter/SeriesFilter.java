@@ -1,16 +1,17 @@
 package com.filmorate.filmorateapi.media.series.web.dto.filter;
 
 import com.filmorate.filmorateapi.media.genre.model.Genre_;
-import com.filmorate.filmorateapi.media.movie.model.Movie_;
+import com.filmorate.filmorateapi.media.rating.model.MPAARating;
+import com.filmorate.filmorateapi.media.rating.model.MPAARating_;
+import com.filmorate.filmorateapi.media.rating.model.RARSRating;
+import com.filmorate.filmorateapi.media.rating.model.RARSRating_;
 import com.filmorate.filmorateapi.media.series.model.Series;
 import com.filmorate.filmorateapi.media.series.model.Series_;
 import io.micrometer.common.util.StringUtils;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import lombok.Builder;
 import lombok.NonNull;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
@@ -18,12 +19,15 @@ import java.util.List;
 import java.util.Set;
 
 @Builder
+@Setter
 public class SeriesFilter implements Specification<Series> {
     private String title;
     private String originalTitle;
     private String releaseYear;
     private String country;
-    private String isFinished;
+    private Boolean isFinished;
+    private String mpaaRatingName;
+    private String rarsRatingName;
     private Set<String> genres;
 
     @Override
@@ -43,8 +47,16 @@ public class SeriesFilter implements Specification<Series> {
         if (StringUtils.isNotBlank(country)) {
             predicates.add(criteriaBuilder.like(root.get(Series_.COUNTRY), "%" + country + "%"));
         }
-        if (StringUtils.isNotBlank(isFinished)) {
+        if (isFinished != null) {
             predicates.add(criteriaBuilder.equal(root.get(Series_.IS_FINISHED), isFinished));
+        }
+        if (StringUtils.isNotBlank(mpaaRatingName)) {
+            Join<Series, MPAARating> mpaaRatingJoin = root.join(Series_.MPAA_RATING);
+            predicates.add(criteriaBuilder.equal(mpaaRatingJoin.get(MPAARating_.NAME), mpaaRatingName));
+        }
+        if (StringUtils.isNotBlank(rarsRatingName)) {
+            Join<Series, RARSRating> rarsRatingJoin = root.join(Series_.RARS_RATING);
+            predicates.add(criteriaBuilder.equal(rarsRatingJoin.get(RARSRating_.NAME), rarsRatingJoin));
         }
         if (genres != null && !genres.isEmpty()) {
             for (String genre : genres) {

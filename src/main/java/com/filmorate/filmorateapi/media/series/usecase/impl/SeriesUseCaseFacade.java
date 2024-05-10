@@ -1,12 +1,14 @@
 package com.filmorate.filmorateapi.media.series.usecase.impl;
 
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
+import com.filmorate.filmorateapi.media.series.mapper.SeriesFilterMapper;
 import com.filmorate.filmorateapi.media.series.mapper.SeriesMapper;
 import com.filmorate.filmorateapi.media.series.model.Series;
 import com.filmorate.filmorateapi.media.series.service.SeriesService;
 import com.filmorate.filmorateapi.media.series.usecase.SeriesUseCase;
 import com.filmorate.filmorateapi.media.series.web.dto.filter.SeriesFilter;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesCreationRequest;
+import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesFindRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesUpdateRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPageResponse;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesResponse;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 public class SeriesUseCaseFacade implements SeriesUseCase {
     private final SeriesService seriesService;
     private final SeriesMapper seriesMapper;
+    private final SeriesFilterMapper seriesFilterMapper;
 
     @Override
     public SeriesResponse createSeries(SeriesCreationRequest request) {
@@ -46,8 +49,9 @@ public class SeriesUseCaseFacade implements SeriesUseCase {
     }
 
     @Override
-    public SeriesPageResponse getSeriesWithFilters(SeriesFilter seriesFilter, PageFindRequest request) {
-        Pageable pageable = PageRequest.of(request.page(), request.limit());
+    public SeriesPageResponse getSeriesWithFilters(SeriesFindRequest seriesFindRequest, PageFindRequest pageFindRequest) {
+        Pageable pageable = PageRequest.of(pageFindRequest.page(), pageFindRequest.limit());
+        SeriesFilter seriesFilter = seriesFilterMapper.map(seriesFindRequest);
         Page<Series> series = seriesService.getSeriesWithFilters(seriesFilter, pageable);
         return seriesMapper.toSeriesPageResponse(series);
     }

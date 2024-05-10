@@ -3,6 +3,7 @@ package com.filmorate.filmorateapi.media.series.usecase;
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.filter.SeriesFilter;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesCreationRequest;
+import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesFindRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesUpdateRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPageResponse;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesResponse;
@@ -19,7 +20,7 @@ public interface SeriesUseCase {
 
     void removeSeriesById(Long seriesId);
 
-    SeriesPageResponse getSeriesWithFilters(SeriesFilter seriesFilter, @Valid PageFindRequest request);
+    SeriesPageResponse getSeriesWithFilters(SeriesFindRequest seriesFindRequest, @Valid PageFindRequest pageFindRequest);
 
     void toggleLike(Long seriesId);
 }
