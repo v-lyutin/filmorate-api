@@ -24,28 +24,12 @@ public class EpisodeCommentController {
         return episodeCommentUseCase.createComment(episodeId, request);
     }
 
-    @PutMapping(value = "comments/{commentId:\\d+}")
-    public CommentResponse updateComment(@PathVariable(name = "commentId") Long commentId,
-                                         @Valid @RequestBody CommentRequest request) {
-        return episodeCommentUseCase.updateComment(commentId, request);
-    }
-
-    @GetMapping(value = "comments/{commentId:\\d+}")
-    public CommentResponse getComment(@PathVariable(name = "commentId") Long commentId) {
-        return episodeCommentUseCase.getCommentById(commentId);
-    }
-
     @GetMapping(value = "{episodeId:\\d+}/comments")
-    public CommentPageResponse getCommentsByMovie(@PathVariable(name = "episodeId") Long episodeId,
-                                                  @RequestParam(name = "page", defaultValue = "0") int page,
-                                                  @RequestParam(name = "limit", defaultValue = "10") int limit) {
+    public CommentPageResponse getCommentsByEpisode(@PathVariable(name = "episodeId") Long episodeId,
+                                                    @RequestParam(name = "page", defaultValue = "0") int page,
+                                                    @RequestParam(name = "limit", defaultValue = "10") int limit) {
         CommentPageRequest request = new CommentPageRequest(page, limit);
         return episodeCommentUseCase.getCommentsByEpisode(episodeId, request);
-    }
-
-    @DeleteMapping(value = "comments/{commentId:\\d+}")
-    public void removeComment(@PathVariable(name = "commentId") Long commentId) {
-        episodeCommentUseCase.removeCommentById(commentId);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

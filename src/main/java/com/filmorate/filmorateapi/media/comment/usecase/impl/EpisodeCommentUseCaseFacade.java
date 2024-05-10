@@ -43,25 +43,10 @@ public class EpisodeCommentUseCaseFacade implements EpisodeCommentUseCase {
     }
 
     @Override
-    public CommentResponse updateComment(Long commentId, CommentRequest request) {
-        return commentCommonUseCaseFacade.updateComment(commentId, request);
-    }
-
-    @Override
     public CommentPageResponse getCommentsByEpisode(Long episodeId, CommentPageRequest request) {
         Episode episode = episodeService.getEpisodeById(episodeId);
         Pageable pageable = PageRequest.of(request.page(), request.limit());
         return commentMapper.commentPageFromEpisodeComments(episodeCommentService.getCommentsByEpisode(episode, pageable));
-    }
-
-    @Override
-    public CommentResponse getCommentById(Long commentId) {
-        return commentCommonUseCaseFacade.getCommentById(commentId);
-    }
-
-    @Override
-    public void removeCommentById(Long commentId) {
-        commentCommonUseCaseFacade.removeCommentById(commentId);
     }
 
     @Override

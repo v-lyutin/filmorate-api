@@ -19,5 +19,9 @@ public record CommentResponse(
         Instant createdAt,
 
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
-        Instant editedAt) {
+        Instant editedAt,
+
+        long likes,
+
+        long dislikes) {
 }

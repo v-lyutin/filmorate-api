@@ -5,6 +5,7 @@ import com.filmorate.filmorateapi.media.comment.model.Comment;
 import com.filmorate.filmorateapi.media.comment.model.EpisodeComment;
 import com.filmorate.filmorateapi.media.comment.model.MovieComment;
 import com.filmorate.filmorateapi.media.comment.model.SeriesComment;
+import com.filmorate.filmorateapi.media.comment.service.CommentService;
 import com.filmorate.filmorateapi.media.comment.web.dto.request.CommentRequest;
 import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentPageResponse;
 import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentResponse;
@@ -17,6 +18,8 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class CommentMapperImpl implements CommentMapper {
+    private final CommentService commentService;
+
     @Override
     public Comment map(UserProfile userProfile, CommentRequest commentRequest) {
         return Comment.builder()
@@ -35,7 +38,10 @@ public class CommentMapperImpl implements CommentMapper {
                 userProfile.getNickname(),
                 comment.getText(),
                 comment.getCreatedAt(),
-                comment.getEditedAt()
+                comment.getEditedAt(),
+                commentService.getCommentLikeCount(comment.getId()),
+                commentService.getCommentDislikeCount(comment.getId())
+
         );
     }
 

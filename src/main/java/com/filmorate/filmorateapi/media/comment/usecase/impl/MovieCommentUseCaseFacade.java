@@ -43,25 +43,10 @@ public class MovieCommentUseCaseFacade implements MovieCommentUseCase {
     }
 
     @Override
-    public CommentResponse updateComment(Long commentId, CommentRequest request) {
-        return commentCommonUseCaseFacade.updateComment(commentId, request);
-    }
-
-    @Override
     public CommentPageResponse getCommentsByMovie(Long movieId, CommentPageRequest request) {
         Movie movie = movieService.getMovieById(movieId);
         Pageable pageable = PageRequest.of(request.page(), request.limit());
         return commentMapper.commentPageFromMovieComments(movieCommentService.getCommentsByMovie(movie, pageable));
-    }
-
-    @Override
-    public CommentResponse getCommentById(Long commentId) {
-        return commentCommonUseCaseFacade.getCommentById(commentId);
-    }
-
-    @Override
-    public void removeCommentById(Long commentId) {
-        commentCommonUseCaseFacade.removeCommentById(commentId);
     }
 
     @Override

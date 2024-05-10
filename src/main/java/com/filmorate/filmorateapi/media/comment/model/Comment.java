@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,4 +35,24 @@ public class Comment {
 
     @ManyToOne(optional = false)
     private UserProfile userProfile;
+
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            schema = "filmorate",
+            name = "comment_likes",
+            joinColumns = { @JoinColumn(name = "comment_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_profile_id", referencedColumnName = "id") }
+    )
+    private Set<UserProfile> likedByUsers = new HashSet<>();
+
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            schema = "filmorate",
+            name = "comment_dislikes",
+            joinColumns = { @JoinColumn(name = "comment_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_profile_id", referencedColumnName = "id") }
+    )
+    private Set<UserProfile> dislikedByUsers = new HashSet<>();
 }

@@ -43,25 +43,10 @@ public class SeriesCommentUseCaseFacade implements SeriesCommentUseCase {
     }
 
     @Override
-    public CommentResponse updateComment(Long commentId, CommentRequest request) {
-        return commentCommonUseCaseFacade.updateComment(commentId, request);
-    }
-
-    @Override
     public CommentPageResponse getCommentsBySeries(Long seriesId, CommentPageRequest request) {
         Series series = seriesService.getSeriesById(seriesId);
         Pageable pageable = PageRequest.of(request.page(), request.limit());
         return commentMapper.commentPageFromSeriesComments(seriesCommentService.getCommentsBySeries(series, pageable));
-    }
-
-    @Override
-    public CommentResponse getCommentById(Long commentId) {
-        return commentCommonUseCaseFacade.getCommentById(commentId);
-    }
-
-    @Override
-    public void removeCommentById(Long commentId) {
-        commentCommonUseCaseFacade.removeCommentById(commentId);
     }
 
     @Override

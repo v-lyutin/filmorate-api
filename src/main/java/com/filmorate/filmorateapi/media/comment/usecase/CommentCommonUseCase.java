@@ -12,4 +12,8 @@ public interface CommentCommonUseCase {
     UserProfile getOwner();
 
     CommentResponse getCommentById(Long commentId);
+
+    void toggleLike(Long commentId);
+
+    void toggleDislike(Long commentId);
 }

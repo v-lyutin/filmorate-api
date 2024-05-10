@@ -9,6 +9,7 @@ import com.filmorate.filmorateapi.media.comment.web.dto.request.CommentRequest;
 import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentResponse;
 import com.filmorate.filmorateapi.user.api.CurrentUserProfileApiService;
 import com.filmorate.filmorateapi.user.model.UserProfile;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -56,5 +57,21 @@ public class CommentCommonUseCaseFacade implements CommentCommonUseCase {
     @Override
     public CommentResponse getCommentById(Long commentId) {
         return commentMapper.map(commentService.getCommentById(commentId));
+    }
+
+    @Override
+    @Transactional
+    public void toggleLike(Long commentId) {
+        Comment comment = commentService.getCommentById(commentId);
+        UserProfile userProfile = currentUserProfileApiService.currentUserProfile();
+        commentService.toggleLike(comment, userProfile);
+    }
+
+    @Override
+    @Transactional
+    public void toggleDislike(Long commentId) {
+        Comment comment = commentService.getCommentById(commentId);
+        UserProfile userProfile = currentUserProfileApiService.currentUserProfile();
+        commentService.toggleDislike(comment, userProfile);
     }
 }

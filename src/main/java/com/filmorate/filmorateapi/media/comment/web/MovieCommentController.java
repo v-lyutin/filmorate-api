@@ -24,28 +24,12 @@ public class MovieCommentController {
         return movieCommentUseCase.createComment(movieId, request);
     }
 
-    @PutMapping(value = "comments/{commentId:\\d+}")
-    public CommentResponse updateComment(@PathVariable(name = "commentId") Long commentId,
-                                         @Valid @RequestBody CommentRequest request) {
-        return movieCommentUseCase.updateComment(commentId, request);
-    }
-
-    @GetMapping(value = "comments/{commentId:\\d+}")
-    public CommentResponse getComment(@PathVariable(name = "commentId") Long commentId) {
-        return movieCommentUseCase.getCommentById(commentId);
-    }
-
     @GetMapping(value = "{movieId:\\d+}/comments")
     public CommentPageResponse getCommentsByMovie(@PathVariable(name = "movieId") Long movieId,
                                                   @RequestParam(name = "page", defaultValue = "0") int page,
                                                   @RequestParam(name = "limit", defaultValue = "10") int limit) {
         CommentPageRequest request = new CommentPageRequest(page, limit);
         return movieCommentUseCase.getCommentsByMovie(movieId, request);
-    }
-
-    @DeleteMapping(value = "comments/{commentId:\\d+}")
-    public void removeComment(@PathVariable(name = "commentId") Long commentId) {
-        movieCommentUseCase.removeCommentById(commentId);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

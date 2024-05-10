@@ -11,13 +11,7 @@ import org.springframework.validation.annotation.Validated;
 public interface MovieCommentUseCase {
     CommentResponse createComment(Long movieId, CommentRequest request);
 
-    CommentResponse updateComment(Long commentId, CommentRequest request);
-
     CommentPageResponse getCommentsByMovie(Long movieId, @Valid CommentPageRequest request);
-
-    CommentResponse getCommentById(Long commentId);
-
-    void removeCommentById(Long commentId);
 
     void removeAllCommentsByMovie(Long movieId);
 }
