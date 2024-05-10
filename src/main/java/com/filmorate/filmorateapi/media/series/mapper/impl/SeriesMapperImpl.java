@@ -125,7 +125,8 @@ public class SeriesMapperImpl implements SeriesMapper {
         );
     }
 
-    private SeriesPreviewResponse toSeriesPreviewResponse(Series series) {
+    @Override
+    public SeriesPreviewResponse toSeriesPreviewResponse(Series series) {
         return new SeriesPreviewResponse(
                 series.getId(),
                 series.getPosterUrl(),

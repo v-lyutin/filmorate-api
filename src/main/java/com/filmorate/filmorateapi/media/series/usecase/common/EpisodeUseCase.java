@@ -1,4 +1,4 @@
-package com.filmorate.filmorateapi.media.series.usecase;
+package com.filmorate.filmorateapi.media.series.usecase.common;
 
 import com.filmorate.filmorateapi.media.series.web.dto.request.EpisodeCreationRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.EpisodeUpdateRequest;

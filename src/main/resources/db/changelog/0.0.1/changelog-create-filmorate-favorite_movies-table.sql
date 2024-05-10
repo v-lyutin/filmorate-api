@@ -3,7 +3,7 @@
 create table filmorate.favorite_movies
 (
     user_profile_id integer not null,
-    movie_id    integer not null
+    movie_id        integer not null
 );
 --rollback drop table filmorate.favorite_movies;
 

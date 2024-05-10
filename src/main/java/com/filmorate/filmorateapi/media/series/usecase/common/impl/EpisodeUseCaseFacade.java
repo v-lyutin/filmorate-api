@@ -1,11 +1,11 @@
-package com.filmorate.filmorateapi.media.series.usecase.impl;
+package com.filmorate.filmorateapi.media.series.usecase.common.impl;
 
 import com.filmorate.filmorateapi.media.series.mapper.EpisodeMapper;
 import com.filmorate.filmorateapi.media.series.model.Episode;
 import com.filmorate.filmorateapi.media.series.model.Season;
 import com.filmorate.filmorateapi.media.series.service.EpisodeService;
 import com.filmorate.filmorateapi.media.series.service.SeasonService;
-import com.filmorate.filmorateapi.media.series.usecase.EpisodeUseCase;
+import com.filmorate.filmorateapi.media.series.usecase.common.EpisodeUseCase;
 import com.filmorate.filmorateapi.media.series.web.dto.request.EpisodeCreationRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.EpisodeUpdateRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.response.EpisodePreviewResponse;

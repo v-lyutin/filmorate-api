@@ -4,6 +4,7 @@ import com.filmorate.filmorateapi.media.series.model.Series;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesCreationRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.request.SeriesUpdateRequest;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPageResponse;
+import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPreviewResponse;
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesResponse;
 import org.springframework.data.domain.Page;
 
@@ -15,4 +16,6 @@ public interface SeriesMapper {
     void update(SeriesUpdateRequest request, Series series);
 
     SeriesPageResponse toSeriesPageResponse(Page<Series> series);
+
+    SeriesPreviewResponse toSeriesPreviewResponse(Series series);
 }
