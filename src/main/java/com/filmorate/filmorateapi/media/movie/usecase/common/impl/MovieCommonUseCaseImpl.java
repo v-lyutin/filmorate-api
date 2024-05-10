@@ -1,11 +1,11 @@
-package com.filmorate.filmorateapi.media.movie.usecase.impl;
+package com.filmorate.filmorateapi.media.movie.usecase.common.impl;
 
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
 import com.filmorate.filmorateapi.media.movie.mapper.MovieFilterMapper;
 import com.filmorate.filmorateapi.media.movie.mapper.MovieMapper;
 import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.movie.service.MovieService;
-import com.filmorate.filmorateapi.media.movie.usecase.MovieCommonUseCase;
+import com.filmorate.filmorateapi.media.movie.usecase.common.MovieCommonUseCase;
 import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieFindRequest;

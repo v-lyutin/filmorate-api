@@ -1,6 +1,8 @@
 package com.filmorate.filmorateapi.user.model;
 
+import com.filmorate.filmorateapi.media.movie.model.Movie;
 import com.filmorate.filmorateapi.media.person.model.Person;
+import com.filmorate.filmorateapi.media.series.model.Series;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,4 +42,30 @@ public class UserProfile {
             }
     )
     private Set<Person> favoritePersons = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            schema = "filmorate",
+            name = "favorite_movies",
+            joinColumns = {
+                    @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+            }
+    )
+    private Set<Movie> favoriteMovies = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            schema = "filmorate",
+            name = "favorite_series",
+            joinColumns = {
+                    @JoinColumn(name = "user_profile_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "series_id", referencedColumnName = "id")
+            }
+    )
+    private Set<Series> favoriteSeries = new HashSet<>();
 }

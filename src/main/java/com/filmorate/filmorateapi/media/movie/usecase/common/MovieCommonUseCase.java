@@ -1,7 +1,6 @@
-package com.filmorate.filmorateapi.media.movie.usecase;
+package com.filmorate.filmorateapi.media.movie.usecase.common;
 
 import com.filmorate.filmorateapi.common.web.dto.PageFindRequest;
-import com.filmorate.filmorateapi.media.movie.web.dto.filter.MovieFilter;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieCreationRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieFindRequest;
 import com.filmorate.filmorateapi.media.movie.web.dto.request.MovieUpdateRequest;

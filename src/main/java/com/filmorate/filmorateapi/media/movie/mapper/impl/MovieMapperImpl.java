@@ -142,7 +142,8 @@ public class MovieMapperImpl implements MovieMapper {
         }
     }
 
-    private MoviePreviewResponse toMoviePreviewResponse(Movie movie) {
+    @Override
+    public MoviePreviewResponse toMoviePreviewResponse(Movie movie) {
         return new MoviePreviewResponse(
                 movie.getId(),
                 movie.getPosterUrl(),
