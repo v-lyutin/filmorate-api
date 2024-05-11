@@ -1,17 +1,14 @@
 package com.filmorate.filmorateapi.media.comment.web.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.filmorate.filmorateapi.user.web.dto.response.UserProfilePreviewResponse;
 
 import java.time.Instant;
 
 public record CommentResponse(
         long commentId,
 
-        long authorId,
-
-        String authorAvatarUrl,
-
-        String authorNickname,
+        UserProfilePreviewResponse author,
 
         String commentText,
 

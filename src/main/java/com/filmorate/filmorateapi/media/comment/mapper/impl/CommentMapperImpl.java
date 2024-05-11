@@ -9,7 +9,9 @@ import com.filmorate.filmorateapi.media.comment.service.CommentService;
 import com.filmorate.filmorateapi.media.comment.web.dto.request.CommentRequest;
 import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentPageResponse;
 import com.filmorate.filmorateapi.media.comment.web.dto.response.CommentResponse;
+import com.filmorate.filmorateapi.user.mapper.UserProfileMapper;
 import com.filmorate.filmorateapi.user.model.UserProfile;
+import com.filmorate.filmorateapi.user.web.dto.response.UserProfilePreviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentMapperImpl implements CommentMapper {
     private final CommentService commentService;
+    private final UserProfileMapper userProfileMapper;
 
     @Override
     public Comment map(UserProfile userProfile, CommentRequest commentRequest) {
@@ -31,11 +34,10 @@ public class CommentMapperImpl implements CommentMapper {
     @Override
     public CommentResponse map(Comment comment) {
         UserProfile userProfile = comment.getUserProfile();
+        UserProfilePreviewResponse author = userProfileMapper.toUserProfilePreviewResponse(userProfile);
         return new CommentResponse(
                 comment.getId(),
-                userProfile.getId(),
-                userProfile.getImageLink(),
-                userProfile.getNickname(),
+                author,
                 comment.getText(),
                 comment.getCreatedAt(),
                 comment.getEditedAt(),
