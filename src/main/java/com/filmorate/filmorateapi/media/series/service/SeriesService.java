@@ -14,7 +14,9 @@ public interface SeriesService {
 
     void removeSeriesById(Long seriesId);
 
-    Page<Series> getSeriesWithFilters(SeriesFilter seriesFilter, Pageable pageable);
+    Page<Series> searchSeries(SeriesFilter seriesFilter, Pageable pageable);
+
+    Page<Series> getMostLikedSeries(Pageable pageable);
 
     Long getSeriesLikeCount(Long seriesId);
 

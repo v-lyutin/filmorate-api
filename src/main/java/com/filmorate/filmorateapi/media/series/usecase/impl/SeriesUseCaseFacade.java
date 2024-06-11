@@ -49,10 +49,17 @@ public class SeriesUseCaseFacade implements SeriesUseCase {
     }
 
     @Override
-    public SeriesPageResponse getSeriesWithFilters(SeriesFindRequest seriesFindRequest, PageFindRequest pageFindRequest) {
+    public SeriesPageResponse searchSeries(SeriesFindRequest seriesFindRequest, PageFindRequest pageFindRequest) {
         Pageable pageable = PageRequest.of(pageFindRequest.page(), pageFindRequest.limit());
         SeriesFilter seriesFilter = seriesFilterMapper.map(seriesFindRequest);
-        Page<Series> series = seriesService.getSeriesWithFilters(seriesFilter, pageable);
+        Page<Series> series = seriesService.searchSeries(seriesFilter, pageable);
+        return seriesMapper.toSeriesPageResponse(series);
+    }
+
+    @Override
+    public SeriesPageResponse getMostLikedSeries(PageFindRequest pageFindRequest) {
+        Pageable pageable = PageRequest.of(pageFindRequest.page(), pageFindRequest.limit());
+        Page<Series> series = seriesService.getMostLikedSeries(pageable);
         return seriesMapper.toSeriesPageResponse(series);
     }
 

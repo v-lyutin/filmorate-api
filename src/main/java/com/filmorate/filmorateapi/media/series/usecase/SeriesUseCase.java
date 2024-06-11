@@ -19,7 +19,9 @@ public interface SeriesUseCase {
 
     void removeSeriesById(Long seriesId);
 
-    SeriesPageResponse getSeriesWithFilters(SeriesFindRequest seriesFindRequest, @Valid PageFindRequest pageFindRequest);
+    SeriesPageResponse searchSeries(SeriesFindRequest seriesFindRequest, @Valid PageFindRequest pageFindRequest);
+
+    SeriesPageResponse getMostLikedSeries(PageFindRequest pageFindRequest);
 
     void toggleLike(Long seriesId);
 }

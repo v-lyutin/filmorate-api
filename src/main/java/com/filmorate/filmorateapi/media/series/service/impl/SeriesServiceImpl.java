@@ -45,8 +45,13 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
-    public Page<Series> getSeriesWithFilters(SeriesFilter seriesFilter, Pageable pageable) {
+    public Page<Series> searchSeries(SeriesFilter seriesFilter, Pageable pageable) {
         return seriesRepository.findAll(seriesFilter, pageable);
+    }
+
+    @Override
+    public Page<Series> getMostLikedSeries(Pageable pageable) {
+        return seriesRepository.findAllOrderByLikes(pageable);
     }
 
     @Override

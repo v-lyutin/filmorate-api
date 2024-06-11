@@ -34,11 +34,18 @@ public class SeriesController {
     }
 
     @GetMapping(value = "search")
-    public SeriesPageResponse getSeries(@RequestParam(name = "page", defaultValue = "0") int page,
-                                        @RequestParam(name = "limit", defaultValue = "10") int limit,
-                                        @Valid @RequestBody SeriesFindRequest request) {
+    public SeriesPageResponse searchSeries(@RequestParam(name = "page", defaultValue = "0") int page,
+                                           @RequestParam(name = "limit", defaultValue = "10") int limit,
+                                           @Valid @RequestBody SeriesFindRequest request) {
         PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
-        return seriesUseCase.getSeriesWithFilters(request, pageFindRequest);
+        return seriesUseCase.searchSeries(request, pageFindRequest);
+    }
+
+    @GetMapping(value = "most-liked")
+    public SeriesPageResponse searchSeries(@RequestParam(name = "page", defaultValue = "0") int page,
+                                           @RequestParam(name = "limit", defaultValue = "10") int limit) {
+        PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
+        return seriesUseCase.getMostLikedSeries(pageFindRequest);
     }
 
     @GetMapping(value = "{seriesId:\\d+}")

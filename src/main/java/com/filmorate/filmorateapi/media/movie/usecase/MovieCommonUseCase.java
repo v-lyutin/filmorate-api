@@ -22,5 +22,7 @@ public interface MovieCommonUseCase {
 
     MoviesPageResponse getMoviesWithFilters(MovieFindRequest movieFindRequest, @Valid PageFindRequest pageFindRequest);
 
+    MoviesPageResponse getMostLikedMovies(PageFindRequest pageFindRequest);
+
     void toggleLike(Long movieId);
 }

@@ -27,11 +27,11 @@ public class MovieContentController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value = "{movieId:\\d+}/content")
-    public MovieContentResponse addContent(
-            @RequestParam(name = "contentType") ContentType contentType,
-            @PathVariable(name = "movieId") Long movieId,
-            @Valid @RequestBody ContentRequest request) {
+    public MovieContentResponse addContent(@RequestParam(name = "contentType") ContentType contentType,
+                                           @PathVariable(name = "movieId") Long movieId,
+                                           @Valid @RequestBody ContentRequest request) {
         return contentUseCase.createContent(movieId, request, contentType);
     }
 

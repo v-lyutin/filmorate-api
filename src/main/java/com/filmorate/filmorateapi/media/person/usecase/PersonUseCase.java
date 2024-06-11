@@ -18,7 +18,7 @@ public interface PersonUseCase {
 
     PersonResponse getPersonById(Long personId);
 
-    PersonsPageResponse getPersonsWithFilters(PersonFilter personFilter, @Valid PersonFindRequest request);
+    PersonsPageResponse searchPersons(PersonFilter personFilter, @Valid PersonFindRequest request);
 
     void removePersonById(Long personId);
 }

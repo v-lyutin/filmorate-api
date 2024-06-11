@@ -21,11 +21,18 @@ public class MovieController {
     private final MovieCommonUseCase movieCommonUseCase;
 
     @GetMapping(value = "search")
-    public MoviesPageResponse getMovies(@RequestParam(name = "page", defaultValue = "0") int page,
-                                        @RequestParam(name = "limit", defaultValue = "10") int limit,
-                                        @Valid @RequestBody MovieFindRequest request) {
+    public MoviesPageResponse searchMovies(@RequestParam(name = "page", defaultValue = "0") int page,
+                                           @RequestParam(name = "limit", defaultValue = "10") int limit,
+                                           @Valid @RequestBody MovieFindRequest request) {
         PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
         return movieCommonUseCase.getMoviesWithFilters(request, pageFindRequest);
+    }
+
+    @GetMapping(value = "most-liked")
+    public MoviesPageResponse getMostLikedMovies(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                 @RequestParam(name = "limit", defaultValue = "10") int limit) {
+        PageFindRequest pageFindRequest = new PageFindRequest(page, limit);
+        return movieCommonUseCase.getMostLikedMovies(pageFindRequest);
     }
 
     @PostMapping

@@ -16,7 +16,9 @@ public interface MovieService {
 
     boolean existsById(Long movieId);
 
-    Page<Movie> getMoviesWithFilters(MovieFilter movieFilter, Pageable pageable);
+    Page<Movie> searchMovies(MovieFilter movieFilter, Pageable pageable);
+
+    Page<Movie> getMostLikedMovies(Pageable pageable);
 
     void toggleLike(Long movieId);
 

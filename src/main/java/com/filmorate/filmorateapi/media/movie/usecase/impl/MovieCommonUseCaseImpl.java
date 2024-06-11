@@ -53,7 +53,14 @@ public class MovieCommonUseCaseImpl implements MovieCommonUseCase {
     public MoviesPageResponse getMoviesWithFilters(MovieFindRequest movieFindRequest, PageFindRequest pageFindRequest) {
         Pageable pageable = PageRequest.of(pageFindRequest.page(), pageFindRequest.limit());
         MovieFilter movieFilter = movieFilterMapper.map(movieFindRequest);
-        Page<Movie> movies = movieService.getMoviesWithFilters(movieFilter, pageable);
+        Page<Movie> movies = movieService.searchMovies(movieFilter, pageable);
+        return movieMapper.toMoviesPageResponse(movies);
+    }
+
+    @Override
+    public MoviesPageResponse getMostLikedMovies(PageFindRequest pageFindRequest) {
+        Pageable pageable = PageRequest.of(pageFindRequest.page(), pageFindRequest.limit());
+        Page<Movie> movies = movieService.getMostLikedMovies(pageable);
         return movieMapper.toMoviesPageResponse(movies);
     }
 

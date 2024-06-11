@@ -45,7 +45,7 @@ public class PersonUseCaseFacade implements PersonUseCase {
     }
 
     @Override
-    public PersonsPageResponse getPersonsWithFilters(PersonFilter personFilter, PersonFindRequest request) {
+    public PersonsPageResponse searchPersons(PersonFilter personFilter, PersonFindRequest request) {
         Pageable pageable = PageRequest.of(request.page(), request.limit(), Sort.by(Sort.Order.by(Person_.NAME)));
         Page<Person> pageablePersons = personService.getPersons(personFilter, pageable);
         return personMapper.toPersonsPageResponse(pageablePersons);

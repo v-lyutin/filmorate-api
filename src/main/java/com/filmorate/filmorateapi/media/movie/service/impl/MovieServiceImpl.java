@@ -51,8 +51,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<Movie> getMoviesWithFilters(MovieFilter movieFilter, Pageable pageable) {
+    public Page<Movie> searchMovies(MovieFilter movieFilter, Pageable pageable) {
         return movieRepository.findAll(movieFilter, pageable);
+    }
+
+    @Override
+    public Page<Movie> getMostLikedMovies(Pageable pageable) {
+        return movieRepository.findAllOrderByLikes(pageable);
     }
 
     @Override

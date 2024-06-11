@@ -39,7 +39,7 @@ public class PersonController {
                 .careers(careers)
                 .build();
         PersonFindRequest personFindRequest = new PersonFindRequest(page, limit);
-        return personCommonUseCase.getPersonsWithFilters(personFilter, personFindRequest);
+        return personCommonUseCase.searchPersons(personFilter, personFindRequest);
     }
 
     @GetMapping(value = "{personId:\\d+}")

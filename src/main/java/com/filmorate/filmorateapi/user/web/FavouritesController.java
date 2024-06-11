@@ -14,17 +14,17 @@ import java.util.List;
 public class FavouritesController {
     private final FavouritesUseCase favouritesUseCase;
 
-    @GetMapping(value = "profiles/myProfile/favourites/persons")
+    @GetMapping(value = "profiles/me/favourites/persons")
     public List<PersonPreviewResponse> getFavoritePersons() {
         return favouritesUseCase.getFavoritePersons();
     }
 
-    @GetMapping(value = "profiles/myProfile/favourites/movies")
+    @GetMapping(value = "profiles/me/favourites/movies")
     public List<MoviePreviewResponse> getFavoriteMovies() {
         return favouritesUseCase.getFavoriteMovies();
     }
 
-    @GetMapping(value = "profiles/myProfile/favourites/series")
+    @GetMapping(value = "profiles/me/favourites/series")
     public List<SeriesPreviewResponse> getFavoriteSeries() {
         return favouritesUseCase.getFavoriteSeries();
     }
