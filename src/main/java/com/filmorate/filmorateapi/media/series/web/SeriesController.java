@@ -9,6 +9,7 @@ import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesPageRespon
 import com.filmorate.filmorateapi.media.series.web.dto.response.SeriesResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ public class SeriesController {
         return seriesUseCase.searchSeries(request, pageFindRequest);
     }
 
+    @Cacheable(value = "most-liked-series")
     @GetMapping(value = "most-liked")
     public SeriesPageResponse searchSeries(@RequestParam(name = "page", defaultValue = "0") int page,
                                            @RequestParam(name = "limit", defaultValue = "10") int limit) {

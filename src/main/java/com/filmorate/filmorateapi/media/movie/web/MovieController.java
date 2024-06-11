@@ -10,6 +10,7 @@ import com.filmorate.filmorateapi.media.movie.web.dto.response.MovieResponse;
 import com.filmorate.filmorateapi.media.movie.web.dto.response.MoviesPageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class MovieController {
         return movieCommonUseCase.getMoviesWithFilters(request, pageFindRequest);
     }
 
+    @Cacheable(value = "most-liked-movies")
     @GetMapping(value = "most-liked")
     public MoviesPageResponse getMostLikedMovies(@RequestParam(name = "page", defaultValue = "0") int page,
                                                  @RequestParam(name = "limit", defaultValue = "10") int limit) {
@@ -60,7 +62,7 @@ public class MovieController {
         movieCommonUseCase.removeMovieById(movieId);
     }
 
-    @PostMapping(value = "{movieId:\\d+}/like")
+    @PutMapping(value = "{movieId:\\d+}/like")
     public void toggleLike(@PathVariable(name = "movieId") Long movieId) {
         movieCommonUseCase.toggleLike(movieId);
     }
